@@ -30,7 +30,7 @@ namespace Messenger.Views.Pages
         {
             try
             {
-                auth.AutoLogin(tb_Login.Text, pb_Password.Password, ckb_Remember.IsChecked);
+                auth.AutoLogin();
             }
             catch (Exception ex)
             {
@@ -40,12 +40,14 @@ namespace Messenger.Views.Pages
 
         private void b_Enter_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        public void Test(UIElement value)
-        {
-            value.Visibility = Visibility.Collapsed;
+            try
+            {
+                auth.Login(tb_Login.Text, pb_Password.Password, ckb_Remember.IsChecked);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

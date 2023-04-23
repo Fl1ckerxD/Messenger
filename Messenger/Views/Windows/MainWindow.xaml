@@ -4,9 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Messenger.Views.Windows"
+        xmlns:vm="clr-namespace:Messenger.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+    
     <Grid>
-        <Image Source="https://imageup.ru/img259/4307031/sdw5ime2ztq.jpg"/>
+        <Frame Source="/Views/Pages/Authorization.xaml" Content="{Binding CurrentChildView}"/>
     </Grid>
 </Window>

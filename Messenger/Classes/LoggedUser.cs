@@ -9,8 +9,7 @@ namespace Messenger.Classes
 {
     internal static class LoggedUser
     {
-        public static string userName;
-        public static int userId;
+        public static User currentUser;
         public static LoggedUserType userType;
 
         public static void SetUserType(int userTypeId)
