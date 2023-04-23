@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <Image Source="https://imageup.ru/img259/4307031/sdw5ime2ztq.jpg"/>
     </Grid>
 </Window>

@@ -20,6 +20,7 @@ namespace Messenger.Views.Pages
     /// </summary>
     public partial class Authorization : Page
     {
+        Classes.Authorization auth = new Classes.Authorization();
         public Authorization()
         {
             InitializeComponent();
@@ -27,7 +28,24 @@ namespace Messenger.Views.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            try
+            {
+                auth.AutoLogin(tb_Login.Text, pb_Password.Password, ckb_Remember.IsChecked);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void b_Enter_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        public void Test(UIElement value)
+        {
+            value.Visibility = Visibility.Collapsed;
         }
     }
 }
