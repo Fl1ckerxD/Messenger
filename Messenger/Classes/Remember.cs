@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 
 namespace Messenger.Classes
 {
-    internal class Remember
+    internal class Settings
     {
+        /// <summary>
+        /// Сохранение логина и пароля для автоматической авторизации
+        /// </summary>
         public static void RememberMe(string userName, string password)
         {
             Properties.Settings.Default.UserName = userName;
             Properties.Settings.Default.Password = password;
             Properties.Settings.Default.Save();
         }
+
+        /// <summary>
+        /// Удаление логина и пароля
+        /// </summary>
         public static void NotRememberMe()
         {
             Properties.Settings.Default.UserName = "";

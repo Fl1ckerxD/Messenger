@@ -21,5 +21,25 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
+    <Style TargetType="Rectangle" x:Key="ImageUser">
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="RadiusX" Value="50"/>
+        <Setter Property="RadiusY" Value="50"/>
+        <Setter Property="Fill">
+            <Setter.Value>
+                <ImageBrush Stretch="UniformToFill">
+                    <ImageBrush.ImageSource>
+                        <Binding Path="CurrentUser.Image">
+                            <Binding.TargetNullValue>
+                                <ImageSource>/Resources/icons8-user-90.png</ImageSource>
+                            </Binding.TargetNullValue>
+                        </Binding>
+                    </ImageBrush.ImageSource>
+                </ImageBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

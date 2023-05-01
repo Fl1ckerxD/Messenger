@@ -5,7 +5,17 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\icons8-messenger-64.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\icons8-messenger-64.ico" />
+    <None Remove="Resources\icons8-user-90.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\icons8-messenger-64.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\" />
@@ -19,6 +29,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\icons8-messenger-64.ico" />
+    <Resource Include="Resources\icons8-user-90.png" />
   </ItemGroup>
 
   <ItemGroup>

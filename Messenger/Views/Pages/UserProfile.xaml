@@ -1,0 +1,80 @@
+﻿<Page x:Class="Messenger.Views.Pages.UserProfile"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Messenger.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UserProfile" Loaded="Page_Loaded">
+
+    <Grid Background="white">
+        <StackPanel Margin="0,35,0,-154">
+            <DockPanel>
+                <!--<Rectangle Height="120" Width="120" RadiusX="4" RadiusY="4" VerticalAlignment="Top" Margin="15,5,0,0" MouseDown="Image_MouseDown">
+                    <Rectangle.Fill>
+                        <ImageBrush x:Name="imageUser" Stretch="UniformToFill">
+                            <ImageBrush.ImageSource>
+                                <Binding Path="CurrentUser.Image">
+                                    <Binding.TargetNullValue>
+                                        <ImageSource>/Resources/icons8-user-90.png</ImageSource>
+                                    </Binding.TargetNullValue>
+                                </Binding>
+                            </ImageBrush.ImageSource>
+                        </ImageBrush>
+                    </Rectangle.Fill>
+                </Rectangle>-->
+                <Rectangle x:Name="imageUser" Style="{DynamicResource ImageUser}" Height="120" Width="120" RadiusX="4" RadiusY="4" VerticalAlignment="Top" Margin="15,5,0,0" MouseDown="Image_MouseDown"/>
+
+                <StackPanel Margin="10,0,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel>
+                            <TextBlock Margin="15,0,0,0">Фамилия</TextBlock>
+                            <TextBox Style="{DynamicResource MainTextBox}" Text="{Binding CurrentUser.LastName}" Margin="5,0,5,0"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Margin="15,0,0,0">Имя</TextBlock>
+                            <TextBox Style="{DynamicResource MainTextBox}" Text="{Binding CurrentUser.Name}" Margin="5,0,5,0"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Margin="15,0,0,0">Отчество</TextBlock>
+                            <TextBox Style="{DynamicResource MainTextBox}" Text="{Binding CurrentUser.Patronymic}" Margin="5,0,5,0"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <StackPanel Width="300">
+                            <TextBlock Margin="15,0,0,0" >Почта</TextBlock>
+                            <TextBox Style="{DynamicResource MainTextBox}" Text="{Binding CurrentUser.Email}" Margin="5,0,5,0"/>
+                        </StackPanel>
+
+                        <StackPanel Width="300">
+                            <TextBlock Margin="15,0,0,0" >Телефон</TextBlock>
+                            <TextBox Style="{DynamicResource MainTextBox}" Text="{Binding CurrentUser.Phone}" Margin="5,0,5,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </DockPanel>
+
+            <TextBlock Margin="15,10,0,0" >Логин</TextBlock>
+            <TextBox Style="{DynamicResource MainTextBox}" Text="{Binding CurrentUser.Login}" IsEnabled="False" Margin="5,0,5,0"/>
+            <TextBlock Margin="15,10,0,0">Пароль</TextBlock>
+            <PasswordBox x:Name="pb_Password" Margin="5,0,5,0"/>
+            <TextBox x:Name="tb_Password" Style="{DynamicResource MainTextBox}" Text="{Binding CurrentUser.Password}" Visibility="Collapsed" Margin="5,0,5,0"/>
+            <Grid>
+                <CheckBox x:Name="showPassword" Content="Показать пароль" Margin="10,5,0,0" Unchecked="showPassword_Unchecked" Checked="showPassword_Checked"/>
+                <ComboBox ItemsSource="{Binding Types}" DisplayMemberPath="Title" SelectedValuePath="Id" SelectedValue="{Binding SelectedLogin.UserTypeId}" SelectedIndex="0" Visibility="Collapsed" Width="140" HorizontalAlignment="Right" Margin="0,5,10,0"/>
+            </Grid>
+            <Button x:Name="b_SignUp" Style="{DynamicResource mainButton}" Command="{Binding SaveCommand}" IsDefault="True" Margin="5,15,5,0">Сохранить</Button>
+        </StackPanel>
+        <Button Style="{StaticResource backButton}" Click="PreviousPage_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8,5,0,0" BorderThickness="0"/>
+    </Grid>
+</Page>

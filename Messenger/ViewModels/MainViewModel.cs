@@ -27,7 +27,12 @@ namespace Messenger.ViewModels
 
         internal void OpenMainPage()
         {
-            //CurrentChildView = new MainPageViewModel();
+            CurrentChildView = new MainPageViewModel();
+        }
+
+        internal void OpenUserProfile()
+        {
+            CurrentChildView = new UserProfileViewModel();
         }
     }
 }

@@ -42,7 +42,8 @@ namespace Messenger.Views.Pages
         {
             try
             {
-                auth.Login(tb_Login.Text, pb_Password.Password, ckb_Remember.IsChecked);
+                if (auth.Login(tb_Login.Text, pb_Password.Password, ckb_Remember.IsChecked))
+                    ViewModelManager.mainViewModel.OpenMainPage();
             }
             catch (Exception ex)
             {
