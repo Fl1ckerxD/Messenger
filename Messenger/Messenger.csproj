@@ -5,21 +5,26 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>Resources\icons8-messenger-64.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Logo\icons8-messenger-64.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Backgrounds\emoji-background.png" />
+    <None Remove="Resources\icons8-department-64.png" />
+    <None Remove="Resources\icons8-email-50.png" />
     <None Remove="Resources\icons8-messenger-64.ico" />
+    <None Remove="Resources\icons8-permanent-job-50.png" />
+    <None Remove="Resources\icons8-phone-50.png" />
     <None Remove="Resources\icons8-user-90.png" />
+    <None Remove="Resources\Logo\icons8-messenger-64.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Resources\icons8-messenger-64.ico" />
+    <Content Include="Resources\Logo\icons8-messenger-64.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Views\UserControls\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,8 +37,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\icons8-messenger-64.ico" />
+    <Resource Include="Resources\Backgrounds\emoji-background.png" />
+    <Resource Include="Resources\icons8-department-64.png" />
+    <Resource Include="Resources\icons8-email-50.png" />
+    <Resource Include="Resources\Logo\icons8-messenger-64.ico" />
+    <Resource Include="Resources\icons8-permanent-job-50.png" />
+    <Resource Include="Resources\icons8-phone-50.png" />
     <Resource Include="Resources\icons8-user-90.png" />
+    <Resource Include="Resources\Logo\icons8-messenger-64.png" />
   </ItemGroup>
 
   <ItemGroup>

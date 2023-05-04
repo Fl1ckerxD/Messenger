@@ -24,5 +24,20 @@ namespace Messenger.Views.Windows
         {
             InitializeComponent();
         }
+
+        private void MinimizeClick(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void MaximizeRestoreClick(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState == WindowState.Normal ? WindowState.Maximized : WindowState.Normal;
+        }
+
+        private void CloseClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

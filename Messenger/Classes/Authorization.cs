@@ -79,6 +79,8 @@ namespace Messenger.Classes
         {
             return _context.Users.Where(x => (x.Login == login || x.Email == login) && x.Password == password)
                 .Include(x => x.Post)
+                .Include(x => x.Status)
+                .Include(x => x.Department)
                 .FirstOrDefault();
         }
     }

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Messenger.Views.Pages"
+      xmlns:popup="clr-namespace:Messenger.Views.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainPage">
@@ -38,6 +39,8 @@
                 </DockPanel>
                     <TextBox Style="{DynamicResource SearchBox}" Margin="15,5,15,0"/>
             </StackPanel>
+
         </Grid>
+            <popup:UserInfo Grid.ColumnSpan="2" Visibility="Visible"/>
     </Grid>
 </Page>

@@ -6,7 +6,9 @@
         xmlns:page="clr-namespace:Messenger.Views.Pages"
         xmlns:vm="clr-namespace:Messenger.ViewModels"
         mc:Ignorable="d"
-        Title="Мессенджер" Height="450" Width="800" MinHeight="450" MinWidth="800" WindowStartupLocation="CenterScreen">
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Title="Мессенджер" Height="450" Width="800" MinHeight="450" MinWidth="800" WindowStartupLocation="CenterScreen" Background="CadetBlue">
 
     <Window.DataContext>
         <vm:MainViewModel/>
@@ -22,7 +24,62 @@
         </DataTemplate>
     </Window.Resources>
 
+    <WindowChrome.WindowChrome>
+        <WindowChrome CornerRadius="10" GlassFrameThickness="0" ResizeBorderThickness="6" CaptionHeight="25" /> 
+    </WindowChrome.WindowChrome>
+
     <Grid>
-        <Frame Source="/Views/Pages/Authorization.xaml" Content="{Binding CurrentChildView}" NavigationUIVisibility="Hidden"/>
+        <Grid.Style>
+            <Style TargetType="{x:Type Panel}">
+                <Setter Property="Margin" Value="0" />
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Maximized">
+                        <Setter Property="Margin" Value="7" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+
+        <Border x:Name="WinBrdrs" Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Border Grid.Row="1">
+                    <Border.Background>
+                            <ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 400 700" ImageSource="/Resources/Backgrounds/emoji-background.png"/>
+                    </Border.Background>
+                <Frame Source="/Views/Pages/Authorization.xaml"  Content="{Binding CurrentChildView}" NavigationUIVisibility="Hidden"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <Grid Height="30" VerticalAlignment="Top" Background="LightGray"> 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Image Source="/Resources/Logo/icons8-messenger-64.png" Height="20" Margin="5"/>
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="13" Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Grid.Column="1"/>
+            <StackPanel Orientation="Horizontal" Grid.Column="2" Margin="4,2">
+                <Button x:Name="MinimizerBtn" Click="MinimizeClick" WindowChrome.IsHitTestVisibleInChrome="True" Content="&#xE949;" FontFamily="Segoe MDL2 Assets" Padding="15,15,15,5" Background="Transparent" BorderBrush="Transparent" />
+                <Button x:Name="MaximizeBtn"  Click="MaximizeRestoreClick" WindowChrome.IsHitTestVisibleInChrome="True" FontFamily="Segoe MDL2 Assets"  Padding="15,0" Background="Transparent" BorderBrush="Transparent">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Content" Value="&#xE739;" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Value="Maximized">
+                                    <Setter Property="Content" Value="&#xE923;" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button x:Name="CloseBtn" Click="CloseClick" WindowChrome.IsHitTestVisibleInChrome="True" Content="&#xE106;" FontFamily="Segoe MDL2 Assets" Padding="15,0" Background="Transparent" BorderBrush="Transparent"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

@@ -9,21 +9,8 @@
       Title="UserProfile" Loaded="Page_Loaded">
 
     <Grid Background="white">
-        <StackPanel Margin="0,35,0,-154">
+        <StackPanel Margin="0,35,0,0">
             <DockPanel>
-                <!--<Rectangle Height="120" Width="120" RadiusX="4" RadiusY="4" VerticalAlignment="Top" Margin="15,5,0,0" MouseDown="Image_MouseDown">
-                    <Rectangle.Fill>
-                        <ImageBrush x:Name="imageUser" Stretch="UniformToFill">
-                            <ImageBrush.ImageSource>
-                                <Binding Path="CurrentUser.Image">
-                                    <Binding.TargetNullValue>
-                                        <ImageSource>/Resources/icons8-user-90.png</ImageSource>
-                                    </Binding.TargetNullValue>
-                                </Binding>
-                            </ImageBrush.ImageSource>
-                        </ImageBrush>
-                    </Rectangle.Fill>
-                </Rectangle>-->
                 <Rectangle x:Name="imageUser" Style="{DynamicResource ImageUser}" Height="120" Width="120" RadiusX="4" RadiusY="4" VerticalAlignment="Top" Margin="15,5,0,0" MouseDown="Image_MouseDown"/>
 
                 <StackPanel Margin="10,0,0,0">

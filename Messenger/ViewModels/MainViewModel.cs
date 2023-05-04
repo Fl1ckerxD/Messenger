@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Messenger.ViewModels
@@ -10,6 +11,11 @@ namespace Messenger.ViewModels
     internal class MainViewModel : ViewModelBase
     {
         private ViewModelBase _currentChildView;
+
+        public MainViewModel()
+        {
+            ViewModelManager.mainViewModel = this;
+        }
         public ViewModelBase CurrentChildView
         {
             get => _currentChildView;
@@ -18,11 +24,6 @@ namespace Messenger.ViewModels
                 _currentChildView = value;
                 OnPropertyChanged();
             }
-        }
-
-        public MainViewModel()
-        {
-            ViewModelManager.mainViewModel = this;
         }
 
         internal void OpenMainPage()

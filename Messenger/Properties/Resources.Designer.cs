@@ -63,9 +63,59 @@ namespace Messenger.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
+        internal static byte[] emoji_background {
+            get {
+                object obj = ResourceManager.GetObject("emoji-background", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] icons8_department_64 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-department-64", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] icons8_email_50 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-email-50", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
         internal static byte[] icons8_messenger_64 {
             get {
                 object obj = ResourceManager.GetObject("icons8-messenger-64", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] icons8_permanent_job_50 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-permanent-job-50", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] icons8_phone_50 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-phone-50", resourceCulture);
                 return ((byte[])(obj));
             }
         }
