@@ -33,7 +33,6 @@
     </Style>
 
     <Style TargetType="TextBox" x:Key="MessageBox">
-        <Setter Property="Foreground" Value="red"/>
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="Margin" Value="8"/>
 
@@ -43,14 +42,14 @@
                     <Border CornerRadius="8" Background="White">
                         <Grid>
                             <TextBox VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                         x:Name="MessageBox" Background="blue" BorderThickness="0" IsEnabled="{Binding IsOpen}"
+                                         x:Name="MessageBox" Background="White" BorderThickness="0" IsEnabled="{Binding IsOpen}"
                                          Foreground="Gray" CaretBrush="Gray" Margin="8,0,8,0" Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <TextBox.InputBindings>
                                     <KeyBinding Command="{Binding SendCommand}" Key="Return"/>
                                 </TextBox.InputBindings>
                             </TextBox>
 
-                            <TextBlock IsHitTestVisible="False" Text="@Message" VerticalAlignment="Center" HorizontalAlignment="Left"
+                            <TextBlock IsHitTestVisible="False" Text="Написать сообщение..." VerticalAlignment="Center" HorizontalAlignment="Left"
                                            Margin="10,0,0,0" Foreground="DarkGray">
 
                                 <TextBlock.Style>

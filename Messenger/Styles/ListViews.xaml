@@ -5,18 +5,41 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Border Background="White" CornerRadius="7,10,10,7" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="gray" Margin="0,2,5,0" >
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel MaxWidth="{Binding ElementName=list_Messages, Path=ActualWidth}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="{Binding Sender}" FontWeight="SemiBold" Foreground="{DynamicResource MyBlue}"  VerticalAlignment="Center"/>
-                                    <TextBlock Text="{Binding Time}" Foreground="Gray" FontSize="12" VerticalAlignment="Center" Margin="0,0,5,2"/>
-                                </StackPanel>
+                    <DockPanel>
+                        <Rectangle Style="{DynamicResource ImageUser}" Height="40" Width="40">
+                            <Rectangle.Fill>
+                                <ImageBrush Stretch="UniformToFill">
+                                    <ImageBrush.ImageSource>
+                                        <Binding Path="User.Image">
+                                            <Binding.TargetNullValue>
+                                                <ImageSource>/Resources/icons8-user-90.png</ImageSource>
+                                            </Binding.TargetNullValue>
+                                        </Binding>
+                                    </ImageBrush.ImageSource>
+                                </ImageBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Border Background="White" CornerRadius="7,10,10,7" HorizontalAlignment="Left" BorderThickness="1" BorderBrush="gray" Margin="5,2,5,0" >
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel MaxWidth="{Binding ElementName=list_Messages, Path=ActualWidth}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock FontWeight="SemiBold" Foreground="{DynamicResource MyBlue}"  VerticalAlignment="Center" Margin="5,0,5,2">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} {1}">
+                                                    <Binding Path="User.Name"/>
+                                                    <Binding Path="User.LastName"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding Time}" Foreground="Gray" FontSize="12" VerticalAlignment="Center" Margin="0,0,5,2"/>
+                                    </StackPanel>
 
-                                <TextBlock Text="{Binding Content}" FontWeight="SemiBold" TextWrapping="Wrap" VerticalAlignment="Center" Margin="5,0,5,2"/>
+                                    <TextBox Text="{Binding Content}" FontWeight="SemiBold" TextWrapping="Wrap" VerticalAlignment="Center" Margin="5,0,5,2" 
+                                             IsReadOnly="True" FontSize="15" BorderThickness="0"/>
+                                </StackPanel>
                             </StackPanel>
-                        </StackPanel>
-                    </Border>
+                        </Border>
+                    </DockPanel>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

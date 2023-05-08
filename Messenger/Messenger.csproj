@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Resources\Logo\icons8-messenger-64.ico</ApplicationIcon>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
@@ -34,6 +35,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\YandexAPI\YandexAPI.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -72,6 +77,13 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Messenger.Classes" />
+    <Using Include="Messenger.Models" />
+    <Using Include="Messenger.ViewModels" />
+    <Using Include="YandexAPI" />
   </ItemGroup>
 
 </Project>
