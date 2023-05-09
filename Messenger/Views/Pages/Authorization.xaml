@@ -15,7 +15,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <RichTextBox  IsDocumentEnabled="True">
+        <!--<RichTextBox  IsDocumentEnabled="True">
             <FlowDocument>
                 <Paragraph>
                     This is a richTextBox. And this is a
@@ -24,7 +24,7 @@
                     </Hyperlink> оарыола
                 </Paragraph>
             </FlowDocument>
-        </RichTextBox>
+        </RichTextBox>-->
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>

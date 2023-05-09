@@ -1,5 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:cls="clr-namespace:Messenger.Classes">
+
+    <cls:BytesToStringConverter x:Key="BytesToStringConverter"/>
 
     <Style TargetType="ListViewItem" x:Key="ChatItem">
         <Setter Property="Template">
@@ -45,6 +48,26 @@
         </Setter>
     </Style>
 
+    <Style TargetType="ListViewItem" x:Key="FileItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border Background="{DynamicResource NotWhite}" CornerRadius="7" HorizontalAlignment="Left" BorderThickness="0" Width="140" Margin="3">
+                        <Grid>
+                            <Button Style="{DynamicResource DeleteButton}" Command="{Binding ElementName=list_files,Path=DataContext.DeleteFileCommand}" CommandParameter="{Binding}"
+                                    HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5"/>
+                            <StackPanel Margin="5">
+                                <Image Source="/Resources/icons8-file-100.png" Height="30" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{Binding Name}" TextTrimming="WordEllipsis"/>
+                                <TextBlock Text="{Binding Path=Length, Converter={StaticResource BytesToStringConverter}}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="Rectangle" x:Key="ImageUser">
         <Setter Property="Height" Value="50"/>
         <Setter Property="Width" Value="50"/>
@@ -63,6 +86,29 @@
                 </ImageBrush>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style TargetType="Button" x:Key="DeleteButton">
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}" CornerRadius="20">
+                        <TextBlock Text="❌" TextAlignment="Center" FontSize="12" Padding="0,0,0,2"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource DarkerTextButton}"/>
+                <Setter Property="Foreground" Value="{DynamicResource NotWhite}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

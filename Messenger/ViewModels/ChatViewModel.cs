@@ -7,16 +7,28 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace Messenger.ViewModels
 {
     class ChatViewModel : ViewModelBase
     {
+        #region Members
+
+        #region Private
         private MessengerContext _context;
-       // public ObservableCollection<ChatState> States { get; set; }
+        #endregion
+
+        #region Public
         public ICommand SendCommand { get; }
-        //public ICommand PreviousPageCommand { get; }
-        //private bool hasRespondent;
+        public ICommand AttachFileCommand { get; }
+        public ICommand DeleteFileCommand { get; }
+        #endregion
+
+        #endregion
+
+        #region Public properties
+
         private Chat _selectedChat;
         public Chat SelectedChat
         {
@@ -26,9 +38,6 @@ namespace Messenger.ViewModels
                 try
                 {
                     _selectedChat = value;
-                   // IsOpen = value.StateId == 1 ? true : false;
-                  //  hasRespondent = value.RespondentId is not null;
-                  //  SelectedId = value.StateId;
                     OnPropertyChanged();
                 }
                 catch
@@ -37,6 +46,14 @@ namespace Messenger.ViewModels
                 }
             }
         }
+
+        private ObservableCollection<FileInfo> _attachedFiles = new ObservableCollection<FileInfo>();
+        public ObservableCollection<FileInfo> AttachedFiles
+        {
+            get { return _attachedFiles; }
+            set { _attachedFiles = value; OnPropertyChanged(); }
+        }
+
         private string _message;
         public string Message
         {
@@ -44,47 +61,37 @@ namespace Messenger.ViewModels
             set { _message = value; OnPropertyChanged(); }
         }
 
-        //private bool _isOpen;
-
-        //public bool IsOpen
-        //{
-        //    get { return _isOpen; }
-        //    set { _isOpen = value; OnPropertyChanged(); }
-        //}
-
         private int _selectedId;
-
         public int SelectedId
         {
             get { return _selectedId; }
-            set { _selectedId = value; OnPropertyChanged(); }//ChangeState();
+            set { _selectedId = value; OnPropertyChanged(); }
         }
+
+        #endregion
 
         public ChatViewModel()
         {
-            using(var context = new MessengerContext())
+            using (var context = new MessengerContext())
             {
                 SelectedChat = context.Chats.Include(x => x.Messages).Include(x => x.Users).First();
             }
 
             ViewModelManager.chatViewModel = this;
             _context = new MessengerContext();
-            //try
-            //{
-            //   // States = new ObservableCollection<ChatState>(_context.ChatStates);
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Ошибка подключения", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
 
             SendCommand = new RelayCommand(ExecuteSendCommand);
-            //PreviousPageCommand = new RelayCommand(ExecutePreviousPageCommand);
+            AttachFileCommand = new RelayCommand(ExecuteAttachFileCommand);
+            DeleteFileCommand = new RelayCommand(obj => { AttachedFiles.Remove(obj as FileInfo); });
         }
-        //private void ExecutePreviousPageCommand(object obj)
-        //{
-        //    ViewModelManager.mainViewModel.ShowMainSupportView();
-        //}
+
+        private void ExecuteAttachFileCommand(object obj)
+        {
+            FileInfo? fileInfo = UploadDownloadFile.GetFileInfo();
+            if (fileInfo is null)
+                return;
+            AttachedFiles.Add(fileInfo);
+        }
 
         private void ExecuteSendCommand(object obj)
         {
@@ -95,48 +102,19 @@ namespace Messenger.ViewModels
 
                 _context.Chats.Where(x => x.Id == SelectedChat.Id).First().Messages.Add(new Message
                 {
-                    Content = Message.Trim(),  
+                    Content = Message.Trim(),
                     User = LoggedUser.currentUser,
                     Time = DateTime.Now
                 });
 
                 _context.SaveChanges();
                 Message = "";
-
-               // SetRespondent();
             }
             catch
             {
                 MessageBox.Show("Не удалось отправить сообщение", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        //private void SetRespondent()
-        //{
-        //    try
-        //    {
-        //        if (!hasRespondent && (LoggedUser.userType == LoggedUserType.Admin || LoggedUser.userType == LoggedUserType.Employee))
-        //        {
-        //            _context.Chats.Where(x => x.Id == SelectedChat.Id).First().RespondentId = LoggedUser.userId;
-        //            _context.SaveChanges();
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        MessageBox.Show("Не удалось назначить отвественного", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-        //    }
-        //}
-        //private void ChangeState()
-        //{
-        //    try
-        //    {
-        //        _context.Chats.Where(x => x.Id == SelectedChat.Id).First().StateId = SelectedId;
-        //        _context.SaveChanges();
-        //    }
-        //    catch
-        //    {
-        //        MessageBox.Show("Не удалось изменить статус чата", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-        //    }
-        //}
     }
 }
 

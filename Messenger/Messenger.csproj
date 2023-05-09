@@ -11,8 +11,10 @@
 
   <ItemGroup>
     <None Remove="Resources\Backgrounds\emoji-background.png" />
+    <None Remove="Resources\icons8-attach-100.png" />
     <None Remove="Resources\icons8-department-64.png" />
     <None Remove="Resources\icons8-email-50.png" />
+    <None Remove="Resources\icons8-file-100.png" />
     <None Remove="Resources\icons8-messenger-64.ico" />
     <None Remove="Resources\icons8-permanent-job-50.png" />
     <None Remove="Resources\icons8-phone-50.png" />
@@ -43,8 +45,10 @@
 
   <ItemGroup>
     <Resource Include="Resources\Backgrounds\emoji-background.png" />
+    <Resource Include="Resources\icons8-attach-100.png" />
     <Resource Include="Resources\icons8-department-64.png" />
     <Resource Include="Resources\icons8-email-50.png" />
+    <Resource Include="Resources\icons8-file-100.png" />
     <Resource Include="Resources\Logo\icons8-messenger-64.ico" />
     <Resource Include="Resources\icons8-permanent-job-50.png" />
     <Resource Include="Resources\icons8-phone-50.png" />

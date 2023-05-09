@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Messenger.Classes
 {
-    internal class UploadDownloadFile
+    internal static class UploadDownloadFile
     {
-        public async void UploadFileAsynce(YandexDisk yandexClient) => await yandexClient.UploadFileAsync(GetFileInfo());
-        public async void DownloadFileAsynce(YandexDisk yandexClient, string filename)
+        public static async void UploadFileAsynce(YandexDisk yandexClient) => await yandexClient.UploadFileAsync(GetFileInfo());
+        public static async void DownloadFileAsynce(YandexDisk yandexClient, string filename)
         {
             string file_URL = await yandexClient.DownloadFileAsync(filename);
             Process.Start(new ProcessStartInfo { FileName = file_URL, UseShellExecute = true });
@@ -23,7 +23,7 @@ namespace Messenger.Classes
             //        client.DownloadFileAsync(new Uri(file_URL), filename);
             //}
         }
-        private FileInfo? GetFileInfo()
+        public static FileInfo? GetFileInfo()
         {
             try
             {
@@ -40,7 +40,7 @@ namespace Messenger.Classes
             }
         }
 
-        //private string? GetFileName()
+        //private static string? GetFileName()
         //{
         //    SaveFileDialog sfd = new SaveFileDialog();
         //    sfd.Filter = "Все файлы (*.*)|*.*";
