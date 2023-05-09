@@ -26,8 +26,6 @@ namespace Messenger.Models
         public int DepartmentId { get; set; }
         public int UserTypeId { get; set; }
 
-        public string FIO => string.Format("{0} {1} {2}", LastName, Name, Patronymic);
-
         public virtual Department Department { get; set; } = null!;
         public virtual Post Post { get; set; } = null!;
         public virtual Status Status { get; set; } = null!;

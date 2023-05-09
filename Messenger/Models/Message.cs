@@ -7,6 +7,8 @@ namespace Messenger.Models
     {
         public Message()
         {
+            Files = new HashSet<File>();
+            Images = new HashSet<Image>();
             MessageUsers = new HashSet<MessageUser>();
         }
 
@@ -18,6 +20,8 @@ namespace Messenger.Models
 
         public virtual Chat Chat { get; set; } = null!;
         public virtual User User { get; set; } = null!;
+        public virtual ICollection<File> Files { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
         public virtual ICollection<MessageUser> MessageUsers { get; set; }
     }
 }

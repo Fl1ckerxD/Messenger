@@ -18,6 +18,8 @@ namespace Messenger.Models
 
         public virtual DbSet<Chat> Chats { get; set; } = null!;
         public virtual DbSet<Department> Departments { get; set; } = null!;
+        public virtual DbSet<File> Files { get; set; } = null!;
+        public virtual DbSet<Image> Images { get; set; } = null!;
         public virtual DbSet<Message> Messages { get; set; } = null!;
         public virtual DbSet<MessageUser> MessageUsers { get; set; } = null!;
         public virtual DbSet<Post> Posts { get; set; } = null!;
@@ -61,6 +63,40 @@ namespace Messenger.Models
                 entity.ToTable("Department");
 
                 entity.Property(e => e.Title).HasMaxLength(150);
+            });
+
+            modelBuilder.Entity<File>(entity =>
+            {
+                entity.Property(e => e.FileName)
+                    .HasMaxLength(100)
+                    .HasColumnName("File_name");
+
+                entity.Property(e => e.FileUrl).HasColumnName("File_URL");
+
+                entity.Property(e => e.MessageId).HasColumnName("Message_id");
+
+                entity.HasOne(d => d.Message)
+                    .WithMany(p => p.Files)
+                    .HasForeignKey(d => d.MessageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Files_Message");
+            });
+
+            modelBuilder.Entity<Image>(entity =>
+            {
+                entity.Property(e => e.ImageName)
+                    .HasMaxLength(100)
+                    .HasColumnName("Image_name");
+
+                entity.Property(e => e.ImageUrl).HasColumnName("Image_URL");
+
+                entity.Property(e => e.MessageId).HasColumnName("Message_id");
+
+                entity.HasOne(d => d.Message)
+                    .WithMany(p => p.Images)
+                    .HasForeignKey(d => d.MessageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Images_Message");
             });
 
             modelBuilder.Entity<Message>(entity =>
