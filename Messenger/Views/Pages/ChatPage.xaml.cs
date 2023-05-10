@@ -43,9 +43,12 @@ namespace Messenger.Views.Pages
             {
                 using (var context = new MessengerContext())
                 {
-                    //int id = ViewModelManager.chatViewModel.SelectedChat.Id;
-                    //Chat currentChat = context.Chats.Where(x => x.Id == id).Include(x => x.Messages).First();
-                    Chat currentChat = ViewModelManager.chatViewModel.SelectedChat; //context.Chats.Include(x => x.Messages).FirstOrDefault();
+                    int id = ViewModelManager.chatViewModel.SelectedChat.Id;
+                    Chat currentChat = context.Chats.Where(x => x.Id == id)
+                        .Include(x => x.Users)
+                        .Include(x => x.Messages).ThenInclude(x => x.Files)
+                        .First();
+                    //Chat currentChat = ViewModelManager.chatViewModel.SelectedChat; //context.Chats.Include(x => x.Messages).FirstOrDefault();
                     if (currentChat.Messages.Count != list_Messages.Items.Count)
                     {
                         ViewModelManager.chatViewModel.SelectedChat = currentChat;

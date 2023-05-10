@@ -23,6 +23,8 @@ namespace Messenger.ViewModels
         public ICommand SendCommand { get; }
         public ICommand AttachFileCommand { get; }
         public ICommand DeleteFileCommand { get; }
+        public ICommand DownloadFileCommand { get; }
+
         #endregion
 
         #endregion
@@ -74,7 +76,10 @@ namespace Messenger.ViewModels
         {
             using (var context = new MessengerContext())
             {
-                SelectedChat = context.Chats.Include(x => x.Messages).Include(x => x.Users).First();
+                SelectedChat = context.Chats
+                    .Include(x => x.Messages).ThenInclude(x => x.Files)
+                    .Include(x => x.Users)
+                    .First();
             }
 
             ViewModelManager.chatViewModel = this;
@@ -83,6 +88,12 @@ namespace Messenger.ViewModels
             SendCommand = new RelayCommand(ExecuteSendCommand);
             AttachFileCommand = new RelayCommand(ExecuteAttachFileCommand);
             DeleteFileCommand = new RelayCommand(obj => { AttachedFiles.Remove(obj as FileInfo); });
+            DownloadFileCommand = new RelayCommand(ExecuteDownloadFileCommand);
+        }
+
+        private void ExecuteDownloadFileCommand(object obj)
+        {
+            UploadDownloadFile.DownloadFileAsynce((obj as Models.File).FileName);
         }
 
         private void ExecuteAttachFileCommand(object obj)
@@ -93,27 +104,49 @@ namespace Messenger.ViewModels
             AttachedFiles.Add(fileInfo);
         }
 
-        private void ExecuteSendCommand(object obj)
+        private async void ExecuteSendCommand(object obj)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(Message))
+                if (string.IsNullOrWhiteSpace(Message) && AttachedFiles.Count == 0)
                     return;
 
                 _context.Chats.Where(x => x.Id == SelectedChat.Id).First().Messages.Add(new Message
                 {
                     Content = Message.Trim(),
-                    User = LoggedUser.currentUser,
+                    User = _context.Users.First(),//LoggedUser.currentUser
+                    Files = await GetFilesAsync(AttachedFiles),
                     Time = DateTime.Now
                 });
 
                 _context.SaveChanges();
                 Message = "";
+                AttachedFiles.Clear();
             }
             catch
             {
                 MessageBox.Show("Не удалось отправить сообщение", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private async Task<List<Models.File>> GetFilesAsync(IList<FileInfo> fileInfos)
+        {
+            List<Models.File> files = new List<Models.File>();
+            if (fileInfos.Count == 0)
+                return files;
+
+            YandexDisk yandexClient = new YandexDisk();
+
+            foreach (var file in fileInfos)
+            {
+                yandexClient.UploadFileAsync(file);
+                files.Add(new Models.File
+                {
+                    FileName = file.Name,
+                    FileUrl = await yandexClient.DownloadFileAsync(file.Name)
+                });
+            }
+            return files;
         }
     }
 }

@@ -36,9 +36,12 @@
                                         </TextBlock>
                                         <TextBlock Text="{Binding Time}" Foreground="Gray" FontSize="12" VerticalAlignment="Center" Margin="0,0,5,2"/>
                                     </StackPanel>
-
-                                    <TextBox Text="{Binding Content}" FontWeight="SemiBold" TextWrapping="Wrap" VerticalAlignment="Center" Margin="5,0,5,2" 
+                                    <StackPanel>
+                                        <TextBox Text="{Binding Content}" FontWeight="SemiBold" TextWrapping="Wrap" VerticalAlignment="Center" Margin="5,0,5,2" 
                                              IsReadOnly="True" FontSize="15" BorderThickness="0"/>
+                                        <ListView ItemsSource="{Binding Files}" ItemContainerStyle="{DynamicResource DownloadFile}"
+                                                  Background="Transparent" BorderThickness="0" Height="auto"/>
+                                    </StackPanel>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
@@ -88,27 +91,26 @@
         </Setter>
     </Style>
 
-    <Style TargetType="Button" x:Key="DeleteButton">
-        <Setter Property="Height" Value="20"/>
-        <Setter Property="Width" Value="20"/>
-        <Setter Property="FontSize" Value="30"/>
-        <Setter Property="Background" Value="White"/>
+    <Style TargetType="ListViewItem" x:Key="DownloadFile">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Border Background="{TemplateBinding Background}" CornerRadius="20">
-                        <TextBlock Text="❌" TextAlignment="Center" FontSize="12" Padding="0,0,0,2"/>
+                    <Border Background="{DynamicResource NotWhite}" CornerRadius="7" HorizontalAlignment="Left" 
+                            BorderThickness="0" Margin="3">
+                        <Grid>
+                            <StackPanel Margin="5">
+                                <Image Source="/Resources/icons8-file-100.png" Height="30" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{Binding FileName}" TextTrimming="WordEllipsis"/>
+                                <TextBlock Text="{Binding Path=FileLength, Converter={StaticResource BytesToStringConverter}}"/>
+                                <Separator Background="White"/>
+                                <Button Style="{DynamicResource DownloadButton}" Command="{Binding ElementName=list_Messages,Path=DataContext.DownloadFileCommand}"
+                                        CommandParameter="{Binding}"/>
+                            </StackPanel>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource DarkerTextButton}"/>
-                <Setter Property="Foreground" Value="{DynamicResource NotWhite}"/>
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

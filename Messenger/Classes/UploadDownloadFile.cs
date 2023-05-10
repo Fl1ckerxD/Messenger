@@ -11,9 +11,11 @@ namespace Messenger.Classes
 {
     internal static class UploadDownloadFile
     {
-        public static async void UploadFileAsynce(YandexDisk yandexClient) => await yandexClient.UploadFileAsync(GetFileInfo());
-        public static async void DownloadFileAsynce(YandexDisk yandexClient, string filename)
+        //private static YandexDisk yandexClient = new YandexDisk();
+        //public static async void UploadFileAsynce(FileInfo fileInfo) => await yandexClient.UploadFileAsync(fileInfo);
+        public static async void DownloadFileAsynce(string filename)
         {
+            YandexDisk yandexClient = new YandexDisk();
             string file_URL = await yandexClient.DownloadFileAsync(filename);
             Process.Start(new ProcessStartInfo { FileName = file_URL, UseShellExecute = true });
             //using (var client = new System.Net.WebClient())

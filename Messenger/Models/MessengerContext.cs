@@ -67,6 +67,8 @@ namespace Messenger.Models
 
             modelBuilder.Entity<File>(entity =>
             {
+                entity.Property(e => e.FileLength).HasColumnName("File_Length");
+
                 entity.Property(e => e.FileName)
                     .HasMaxLength(100)
                     .HasColumnName("File_name");

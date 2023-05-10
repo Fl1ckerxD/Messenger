@@ -6,14 +6,13 @@
       xmlns:local="clr-namespace:Messenger.Views.Pages"
       xmlns:cls="clr-namespace:Messenger.Classes"
       xmlns:vm="clr-namespace:Messenger.ViewModels"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Chat" Loaded="Page_Loaded">
+      mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800"
+      Title="Chat" Loaded="Page_Loaded" Background="CadetBlue">
 
     <Page.Resources>
         <cls:BytesToStringConverter x:Key="BytesToStringConverter"/>
     </Page.Resources>
-    
+
     <Page.DataContext>
         <vm:ChatViewModel/>
     </Page.DataContext>
@@ -33,12 +32,13 @@
             </Grid>
         </Border>-->
         <ListView x:Name="list_Messages" ItemsSource="{Binding SelectedChat.Messages, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" BorderThickness="0"
-                  ItemContainerStyle="{StaticResource ChatItem}" Margin="8,0,8,0" Grid.Row="0" /><!--ScrollViewer.HorizontalScrollBarVisibility="Disabled"-->
+                  ItemContainerStyle="{StaticResource ChatItem}" Margin="8,0,8,0" Grid.Row="0" />
+        <!--ScrollViewer.HorizontalScrollBarVisibility="Disabled"-->
 
         <StackPanel Grid.Row="2">
             <ListView x:Name="list_files" ItemsSource="{Binding AttachedFiles, UpdateSourceTrigger=PropertyChanged}"
                       ItemContainerStyle="{DynamicResource FileItem}" Height="auto">
-                
+
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel/>

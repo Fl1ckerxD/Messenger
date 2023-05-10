@@ -46,6 +46,49 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="DeleteButton" TargetType="Button">
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}" CornerRadius="20">
+                        <TextBlock Text="❌" TextAlignment="Center" FontSize="12" Padding="0,0,0,2"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource DarkerTextButton}"/>
+                <Setter Property="Foreground" Value="{DynamicResource NotWhite}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DownloadButton" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid>
+                        <TextBlock Text="Скачать" FontWeight="SemiBold" TextAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <!--<Style x:Key="sectionButton" TargetType="Button">
         <Setter Property="Background" Value="{StaticResource MyBlue}"/>
         <Setter Property="Foreground" Value="White"/>
