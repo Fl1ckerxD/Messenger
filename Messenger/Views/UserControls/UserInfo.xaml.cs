@@ -20,13 +20,17 @@ namespace Messenger.Views.UserControls
     /// </summary>
     public partial class UserInfo : UserControl
     {
+        //public User SelectedUser { get; set; }
         public UserInfo()
         {
             InitializeComponent();
+            DataContext = new UserInfoViewModel { userInfo = this };
+            //(DataContext as UserInfoViewModel).SelectedUser = SelectedUser;
         }
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
+            //(DataContext as UserInfoViewModel).SelectedUser = null;
             Visibility = Visibility.Collapsed;
         }
 
@@ -34,5 +38,11 @@ namespace Messenger.Views.UserControls
         {
             Close_Click(sender, e);
         }
+
+        //private void UserControl_LayoutUpdated(object sender, EventArgs e)
+        //{
+        //    if((DataContext as UserInfoViewModel).SelectedUser != null)
+        //        Visibility = Visibility.Visible;
+        //}
     }
 }

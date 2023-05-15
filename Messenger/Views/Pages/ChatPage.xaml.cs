@@ -58,6 +58,7 @@ namespace Messenger.Views.Pages
             }
             catch
             {
+                throw new Exception("Ошибка подключения");
                 MessageBox.Show("Ошибка подключения", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

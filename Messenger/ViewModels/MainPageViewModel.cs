@@ -10,6 +10,7 @@ namespace Messenger.ViewModels
     internal class MainPageViewModel : ViewModelBase
     {
         public User CurrentUser { get; set; }
+
         public MainPageViewModel()
         {
             CurrentUser = LoggedUser.currentUser;

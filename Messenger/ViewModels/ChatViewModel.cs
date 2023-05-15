@@ -20,10 +20,13 @@ namespace Messenger.ViewModels
         #endregion
 
         #region Public
+
         public ICommand SendCommand { get; }
         public ICommand AttachFileCommand { get; }
         public ICommand DeleteFileCommand { get; }
         public ICommand DownloadFileCommand { get; }
+        public ICommand ShowProfileCommand { get; }
+        public ICommand DeleteMessageCommand { get; }
 
         #endregion
 
@@ -70,6 +73,13 @@ namespace Messenger.ViewModels
             set { _selectedId = value; OnPropertyChanged(); }
         }
 
+        private bool _hasValidURI;
+        public bool HasValidURI
+        {
+            get { return _hasValidURI; }
+            set { _hasValidURI = value; OnPropertyChanged(); }
+        }
+
         #endregion
 
         public ChatViewModel()
@@ -77,6 +87,7 @@ namespace Messenger.ViewModels
             using (var context = new MessengerContext())
             {
                 SelectedChat = context.Chats
+                    .Where(x => x.Users.Contains(LoggedUser.currentUser))
                     .Include(x => x.Messages).ThenInclude(x => x.Files)
                     .Include(x => x.Users)
                     .First();
@@ -89,6 +100,19 @@ namespace Messenger.ViewModels
             AttachFileCommand = new RelayCommand(ExecuteAttachFileCommand);
             DeleteFileCommand = new RelayCommand(obj => { AttachedFiles.Remove(obj as FileInfo); });
             DownloadFileCommand = new RelayCommand(ExecuteDownloadFileCommand);
+            ShowProfileCommand = new RelayCommand(obj => { ViewModelManager.UserInfoControl.CurrentUser = (obj as User); });
+            DeleteMessageCommand = new RelayCommand(ExecuteDeleteMessageCommand);
+        }
+
+        private void ExecuteDeleteMessageCommand(object obj)
+        {
+            var Result = MessageBox.Show("Удалить?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (Result == MessageBoxResult.Yes)
+            {
+                Message message = obj as Message;
+                _context.Messages.Remove(message);
+                _context.SaveChanges();
+            }
         }
 
         private void ExecuteDownloadFileCommand(object obj)

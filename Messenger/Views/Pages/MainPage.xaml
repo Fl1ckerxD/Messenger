@@ -35,12 +35,12 @@
                         </TextBlock>
                         <TextBlock FontSize="12" Text="{Binding CurrentUser.Post.Title}" TextTrimming="WordEllipsis"/>
                     </StackPanel>
-                    <TextBlock Text="⚙" Width="35" FontSize="25" HorizontalAlignment="Right" VerticalAlignment="Top" MouseDown="Settings_MouseDown"/>
+                    <TextBlock Text="⚙" Width="35" FontSize="25" HorizontalAlignment="Right" VerticalAlignment="Top" MouseDown="Settings_MouseDown" Cursor="Hand"/>
                 </DockPanel>
-                    <TextBox Style="{DynamicResource SearchBox}" Margin="15,5,15,0"/>
+                <TextBox Style="{DynamicResource SearchBox}" Margin="15,5,15,0"/>
             </StackPanel>
-
         </Grid>
-            <popup:UserInfo Grid.ColumnSpan="2" Visibility="Visible"/>
+        <Frame Grid.Column="1" Source="/Views/Pages/ChatPage.xaml"/>
+        <popup:UserInfo x:Name="popup_UserInfo" Grid.ColumnSpan="2" Visibility="Collapsed"/>
     </Grid>
 </Page>

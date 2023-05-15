@@ -7,7 +7,7 @@
       xmlns:cls="clr-namespace:Messenger.Classes"
       xmlns:vm="clr-namespace:Messenger.ViewModels"
       mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800"
-      Title="Chat" Loaded="Page_Loaded" Background="CadetBlue">
+      Title="Chat" Loaded="Page_Loaded">
 
     <Page.Resources>
         <cls:BytesToStringConverter x:Key="BytesToStringConverter"/>
@@ -53,7 +53,7 @@
 
                 <TextBox Grid.Column="0" Text="Message @UserName" Style="{StaticResource MessageBox}"/>
                 <Button Grid.Column="1" Command="{Binding AttachFileCommand}">
-                    <Image Grid.Column="1" Source="/Resources/icons8-attach-100.png" />
+                    <Image Grid.Column="1" Source="/Resources/icons8-attach-100.png"/>
                 </Button>
             </Grid>
         </StackPanel>

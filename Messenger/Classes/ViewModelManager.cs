@@ -10,5 +10,6 @@ namespace Messenger.Classes
     {
         internal static MainViewModel mainViewModel;
         internal static ChatViewModel chatViewModel;
+        internal static UserInfoViewModel UserInfoControl;
     }
 }

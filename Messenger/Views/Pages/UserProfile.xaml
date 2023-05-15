@@ -11,7 +11,7 @@
     <Grid Background="white">
         <StackPanel Margin="0,35,0,0">
             <DockPanel>
-                <Rectangle x:Name="imageUser" Style="{DynamicResource ImageUser}" Height="120" Width="120" RadiusX="4" RadiusY="4" VerticalAlignment="Top" Margin="15,5,0,0" MouseDown="Image_MouseDown"/>
+                <Rectangle x:Name="imageUser" Style="{DynamicResource ImageUser}" Height="120" Width="120" RadiusX="4" RadiusY="4" VerticalAlignment="Top" Margin="15,5,0,0" MouseDown="Image_MouseDown" Cursor="Hand"/>
 
                 <StackPanel Margin="10,0,0,0">
                     <Grid>

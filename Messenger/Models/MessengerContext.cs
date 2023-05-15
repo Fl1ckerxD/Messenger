@@ -80,7 +80,6 @@ namespace Messenger.Models
                 entity.HasOne(d => d.Message)
                     .WithMany(p => p.Files)
                     .HasForeignKey(d => d.MessageId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Files_Message");
             });
 
@@ -97,7 +96,6 @@ namespace Messenger.Models
                 entity.HasOne(d => d.Message)
                     .WithMany(p => p.Images)
                     .HasForeignKey(d => d.MessageId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Images_Message");
             });
 
@@ -131,7 +129,6 @@ namespace Messenger.Models
                 entity.HasOne(d => d.Message)
                     .WithMany(p => p.MessageUsers)
                     .HasForeignKey(d => d.MessageId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MessageUser_Message");
 
                 entity.HasOne(d => d.User)

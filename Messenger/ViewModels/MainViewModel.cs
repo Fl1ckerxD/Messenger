@@ -11,11 +11,6 @@ namespace Messenger.ViewModels
     internal class MainViewModel : ViewModelBase
     {
         private ViewModelBase _currentChildView;
-
-        public MainViewModel()
-        {
-            ViewModelManager.mainViewModel = this;
-        }
         public ViewModelBase CurrentChildView
         {
             get => _currentChildView;
@@ -24,6 +19,11 @@ namespace Messenger.ViewModels
                 _currentChildView = value;
                 OnPropertyChanged();
             }
+        }
+
+        public MainViewModel()
+        {
+            ViewModelManager.mainViewModel = this;
         }
 
         internal void OpenMainPage()

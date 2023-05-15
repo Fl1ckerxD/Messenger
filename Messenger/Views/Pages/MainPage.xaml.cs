@@ -23,6 +23,7 @@ namespace Messenger.Views.Pages
         public MainPage()
         {
             InitializeComponent();
+            //PopupUserInfo.UserInfoControl = popup_UserInfo;
         }
 
         private void Settings_MouseDown(object sender, MouseButtonEventArgs e)

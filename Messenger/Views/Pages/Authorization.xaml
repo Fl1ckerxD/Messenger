@@ -15,17 +15,6 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <!--<RichTextBox  IsDocumentEnabled="True">
-            <FlowDocument>
-                <Paragraph>
-                    This is a richTextBox. And this is a
-                    <Hyperlink NavigateUri="http://www.google.com" RequestNavigate="Hyperlink_RequestNavigate">
-                        Click here
-                    </Hyperlink> оарыола
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>-->
-
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition />
