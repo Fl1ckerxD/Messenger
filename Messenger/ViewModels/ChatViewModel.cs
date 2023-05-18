@@ -117,7 +117,9 @@ namespace Messenger.ViewModels
 
         private void ExecuteDownloadFileCommand(object obj)
         {
-            UploadDownloadFile.DownloadFileAsynce((obj as Models.File).FileName);
+            //UploadDownloadFile.DownloadFileAsynce((obj as Models.File).FileName);
+            Models.File file = (obj as Models.File);
+            UploadDownloadFile.DownloadFile(file.FileData, file.FileName, file.FileExtension);
         }
 
         private void ExecuteAttachFileCommand(object obj)
@@ -138,8 +140,8 @@ namespace Messenger.ViewModels
                 _context.Chats.Where(x => x.Id == SelectedChat.Id).First().Messages.Add(new Message
                 {
                     Content = Message.Trim(),
-                    User = _context.Users.First(),//LoggedUser.currentUser
-                    Files = await GetFilesAsync(AttachedFiles),
+                    User = LoggedUser.currentUser,
+                    Files = GetFiles(AttachedFiles),
                     Time = DateTime.Now
                 });
 
@@ -153,21 +155,40 @@ namespace Messenger.ViewModels
             }
         }
 
-        private async Task<List<Models.File>> GetFilesAsync(IList<FileInfo> fileInfos)
+        //private async Task<List<Models.File>> GetFilesAsync(IList<FileInfo> fileInfos)
+        //{
+        //    List<Models.File> files = new List<Models.File>();
+        //    if (fileInfos.Count == 0)
+        //        return files;
+
+        //    YandexDisk yandexClient = new YandexDisk();
+
+        //    foreach (var file in fileInfos)
+        //    {
+        //        yandexClient.UploadFileAsync(file);
+        //        files.Add(new Models.File
+        //        {
+        //            FileName = file.Name,
+        //            FileUrl = await yandexClient.DownloadFileAsync(file.Name)
+        //        });
+        //    }
+        //    return files;
+        //}
+
+        private List<Models.File> GetFiles(IList<FileInfo> fileInfos)
         {
             List<Models.File> files = new List<Models.File>();
             if (fileInfos.Count == 0)
                 return files;
 
-            YandexDisk yandexClient = new YandexDisk();
-
             foreach (var file in fileInfos)
             {
-                yandexClient.UploadFileAsync(file);
                 files.Add(new Models.File
                 {
                     FileName = file.Name,
-                    FileUrl = await yandexClient.DownloadFileAsync(file.Name)
+                    FileExtension = file.Extension,
+                    FileData = System.IO.File.ReadAllBytes(file.FullName),
+                    FileLength = file.Length
                 });
             }
             return files;

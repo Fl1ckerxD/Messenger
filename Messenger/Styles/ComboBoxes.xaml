@@ -7,6 +7,11 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
+    <Style x:Key="BindCombo" TargetType="ComboBox">
+        <Setter Property="DisplayMemberPath" Value="Title"/>
+        <Setter Property="SelectedValuePath" Value="Id"/>
+    </Style>
+
     <Style TargetType="ComboBox">
         <Setter Property="MaxDropDownHeight" Value="150"/>
     </Style>

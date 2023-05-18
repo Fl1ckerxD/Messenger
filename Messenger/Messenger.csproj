@@ -37,10 +37,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\YandexAPI\YandexAPI.csproj" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
   </ItemGroup>
 
   <ItemGroup>
@@ -87,7 +84,6 @@
     <Using Include="Messenger.Classes" />
     <Using Include="Messenger.Models" />
     <Using Include="Messenger.ViewModels" />
-    <Using Include="YandexAPI" />
   </ItemGroup>
 
 </Project>

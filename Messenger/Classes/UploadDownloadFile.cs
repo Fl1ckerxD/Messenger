@@ -15,9 +15,10 @@ namespace Messenger.Classes
         //public static async void UploadFileAsynce(FileInfo fileInfo) => await yandexClient.UploadFileAsync(fileInfo);
         public static async void DownloadFileAsynce(string filename)
         {
-            YandexDisk yandexClient = new YandexDisk();
-            string file_URL = await yandexClient.DownloadFileAsync(filename);
-            Process.Start(new ProcessStartInfo { FileName = file_URL, UseShellExecute = true });
+            // //YandexDisk yandexClient = new YandexDisk();
+            // //string file_URL = await yandexClient.DownloadFileAsync(filename);
+            // //Process.Start(new ProcessStartInfo { FileName = file_URL, UseShellExecute = true });
+
             //using (var client = new System.Net.WebClient())
             //{
             //    string? filename = GetFileName();
@@ -40,6 +41,20 @@ namespace Messenger.Classes
             {
                 throw new Exception("Файл не читается");
             }
+        }
+        public static void DownloadFile(byte[] buffer, string fileName, string extension)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = string.Format("{0} файл|*{1}|Все файлы (*.*)|*.*", extension.Substring(1).ToUpper(), extension);
+            sfd.Title = "Сохранение";
+            sfd.FileName = fileName;
+            //sfd.AddExtension = true;
+            if (sfd.ShowDialog() == true)
+            {
+                using (FileStream fs = new FileStream(sfd.FileName, FileMode.Create))
+                    fs.Write(buffer);
+            }
+
         }
 
         //private static string? GetFileName()

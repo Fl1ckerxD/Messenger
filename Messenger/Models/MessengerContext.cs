@@ -67,13 +67,15 @@ namespace Messenger.Models
 
             modelBuilder.Entity<File>(entity =>
             {
-                entity.Property(e => e.FileLength).HasColumnName("File_Length");
+                entity.Property(e => e.FileData).HasColumnName("File_data");
+
+                entity.Property(e => e.FileExtension).HasColumnName("File_extension");
+
+                entity.Property(e => e.FileLength).HasColumnName("File_length");
 
                 entity.Property(e => e.FileName)
                     .HasMaxLength(100)
                     .HasColumnName("File_name");
-
-                entity.Property(e => e.FileUrl).HasColumnName("File_URL");
 
                 entity.Property(e => e.MessageId).HasColumnName("Message_id");
 
@@ -85,11 +87,13 @@ namespace Messenger.Models
 
             modelBuilder.Entity<Image>(entity =>
             {
+                entity.Property(e => e.ImageData)
+                    .HasColumnType("image")
+                    .HasColumnName("Image_data");
+
                 entity.Property(e => e.ImageName)
                     .HasMaxLength(100)
                     .HasColumnName("Image_name");
-
-                entity.Property(e => e.ImageUrl).HasColumnName("Image_URL");
 
                 entity.Property(e => e.MessageId).HasColumnName("Message_id");
 

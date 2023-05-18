@@ -7,8 +7,8 @@ namespace Messenger.Models
     {
         public int Id { get; set; }
         public int MessageId { get; set; }
-        public string? ImageName { get; set; }
-        public string ImageUrl { get; set; } = null!;
+        public string ImageName { get; set; } = null!;
+        public byte[] ImageData { get; set; } = null!;
 
         public virtual Message Message { get; set; } = null!;
     }

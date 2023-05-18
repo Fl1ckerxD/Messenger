@@ -8,7 +8,8 @@ namespace Messenger.Models
         public int Id { get; set; }
         public int MessageId { get; set; }
         public string FileName { get; set; } = null!;
-        public string? FileUrl { get; set; }
+        public string FileExtension { get; set; } = null!;
+        public byte[] FileData { get; set; } = null!;
         public long FileLength { get; set; }
 
         public virtual Message Message { get; set; } = null!;
