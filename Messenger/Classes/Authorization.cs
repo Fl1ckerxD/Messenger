@@ -12,7 +12,8 @@ namespace Messenger.Classes
         /// <summary>
         /// Автоматическая авторизация в приложении
         /// </summary>
-        internal void AutoLogin()
+        /// <returns>Возвращает true если авторизация прошла успешна, иначе false</returns>
+        internal bool AutoLogin()
         {
             string login, password;
             bool? remember;
@@ -23,8 +24,9 @@ namespace Messenger.Classes
                     login = Properties.Settings.Default.UserName;
                     password = Properties.Settings.Default.Password;
                     remember = true;
-                    Login(login, password, remember);
+                    return Login(login, password, remember);
                 }
+                return false;
             }
             catch
             {
@@ -53,7 +55,7 @@ namespace Messenger.Classes
                     if (remember == true)
                         Settings.RememberMe(login, password);
                     else
-                        Settings.NotRememberMe();
+                        Settings.ForgetMe();
 
                     LoggedUser.currentUser = user;
                     LoggedUser.SetUserType(user.UserTypeId);

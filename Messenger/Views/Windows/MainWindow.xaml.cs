@@ -23,6 +23,7 @@ namespace Messenger.Views.Windows
         public MainWindow()
         {
             InitializeComponent();
+            FrameManager.mainFrame = mainFrame;
         }
 
         private void MinimizeClick(object sender, RoutedEventArgs e)

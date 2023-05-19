@@ -15,9 +15,10 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Grid>
+        <Grid Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="105"/>
+                <!--<RowDefinition Height="30"/>-->
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
@@ -39,6 +40,49 @@
                 </DockPanel>
                 <TextBox Style="{DynamicResource SearchBox}" Margin="15,5,15,0"/>
             </StackPanel>
+
+            <!--<Grid Grid.Row="1" >
+                <RadioButton Content="Сотрудники" IsChecked="True" Style="{DynamicResource menuButton}" Command="{Binding OpenEmployeesListCommand}" Margin="0,0,100,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <RadioButton Content="Чаты" Style="{DynamicResource menuButton}" Command="{Binding OpenChatsListCommand}" Margin="100,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>-->
+
+            <ListView x:Name="list_Employees" Grid.Row="2" ItemsSource="{Binding Employees}" Background="Transparent" BorderThickness="0" SelectionMode="Single">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Cursor="Hand">
+                            <DockPanel>
+                                <Rectangle Style="{DynamicResource ImageUser}" Height="40" Width="40" >
+                                    <Rectangle.Fill>
+                                        <ImageBrush Stretch="UniformToFill">
+                                            <ImageBrush.ImageSource>
+                                                <Binding Path="Image">
+                                                    <Binding.TargetNullValue>
+                                                        <ImageSource>/Resources/icons8-user-90.png</ImageSource>
+                                                    </Binding.TargetNullValue>
+                                                </Binding>
+                                            </ImageBrush.ImageSource>
+                                        </ImageBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <StackPanel Margin="5,5,0,0" MaxWidth="220">
+                                    <TextBlock FontSize="16" TextTrimming="WordEllipsis" MaxHeight="37">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} {1}">
+                                                <Binding Path="Name"/>
+                                                <Binding Path="LastName"/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                    <TextBlock FontSize="12" Text="{Binding Post.Title}" Foreground="Gray" TextTrimming="WordEllipsis"/>
+                                </StackPanel>
+                            </DockPanel>
+                            <Grid.InputBindings>
+                                <MouseBinding MouseAction="LeftClick" Command="{Binding Path=DataContext.ShowProfileCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}"/>
+                            </Grid.InputBindings>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
         <Frame Grid.Column="1" Source="/Views/Pages/ChatPage.xaml"/>
         <popup:UserInfo x:Name="popup_UserInfo" Grid.ColumnSpan="2" Visibility="Collapsed"/>

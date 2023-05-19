@@ -31,7 +31,8 @@ namespace Messenger.Views.Pages
         {
             try
             {
-                auth.AutoLogin();
+                if (auth.AutoLogin())
+                    ViewModelManager.mainViewModel.OpenMainPage();
             }
             catch (Exception ex)
             {

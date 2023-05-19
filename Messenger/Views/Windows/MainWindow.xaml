@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
-        Title="Мессенджер" Height="450" Width="800" MinHeight="450" MinWidth="800" WindowStartupLocation="CenterScreen" Background="CadetBlue">
+        Title="Мессенджер" Height="450" Width="800" MinHeight="470" MinWidth="800" WindowStartupLocation="CenterScreen" Background="CadetBlue">
 
     <Window.DataContext>
         <vm:MainViewModel/>
@@ -50,7 +50,7 @@
                     <Border.Background>
                             <ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 400 700" ImageSource="/Resources/Backgrounds/emoji-background.png"/>
                     </Border.Background>
-                <Frame Source="/Views/Pages/Authorization.xaml"  Content="{Binding CurrentChildView}" NavigationUIVisibility="Hidden"/>
+                <Frame x:Name="mainFrame" Source="/Views/Pages/Authorization.xaml"  Content="{Binding CurrentChildView}" NavigationUIVisibility="Hidden"/>
                 </Border>
             </Grid>
         </Border>

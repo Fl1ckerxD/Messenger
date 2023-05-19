@@ -21,7 +21,7 @@ namespace Messenger.Classes
         /// <summary>
         /// Удаление логина и пароля
         /// </summary>
-        public static void NotRememberMe()
+        public static void ForgetMe()
         {
             Properties.Settings.Default.UserName = "";
             Properties.Settings.Default.Password = "";

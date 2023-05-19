@@ -107,8 +107,8 @@
                     <Border x:Name="border" CornerRadius="15" BorderThickness="1" Background="White">
                         <Grid>
                             <TextBox VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
-                                         x:Name="MessageBox" BorderThickness="0" Background="Transparent" Padding="10,3,10,0"
-                                         Foreground="Gray" CaretBrush="Gray" Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                         x:Name="SearchBox" BorderThickness="0" Background="Transparent" Padding="10,3,10,0"
+                                         Foreground="Gray" CaretBrush="Gray" Text="{Binding TextToFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <!--<TextBox.InputBindings>
                                     <KeyBinding Command="{Binding SendCommand}" Key="Return"/>
                                 </TextBox.InputBindings>-->
@@ -120,7 +120,7 @@
                                     <Style TargetType="TextBlock">
                                         <Setter Property="Visibility" Value="Collapsed"/>
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, ElementName=MessageBox}" Value="">
+                                            <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
                                                 <Setter Property="Visibility" Value="Visible"/>
                                             </DataTrigger>
                                         </Style.Triggers>

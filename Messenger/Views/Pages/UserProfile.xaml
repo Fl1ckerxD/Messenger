@@ -61,6 +61,7 @@
                 <ComboBox ItemsSource="{Binding Types}" DisplayMemberPath="Title" SelectedValuePath="Id" SelectedValue="{Binding SelectedLogin.UserTypeId}" SelectedIndex="0" Visibility="Collapsed" Width="140" HorizontalAlignment="Right" Margin="0,5,10,0"/>
             </Grid>
             <Button x:Name="b_SignUp" Style="{DynamicResource mainButton}" Command="{Binding SaveCommand}" IsDefault="True" Margin="5,15,5,0">Сохранить</Button>
+            <Button Style="{DynamicResource mainButton}" Background="red" Command="{Binding QuitCommand}" Margin="5,15,5,0">Выйти из учётной записи</Button>
         </StackPanel>
         <Button Style="{StaticResource backButton}" Click="PreviousPage_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8,5,0,0" BorderThickness="0"/>
     </Grid>
