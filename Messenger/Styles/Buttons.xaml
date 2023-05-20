@@ -58,7 +58,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Border Background="{TemplateBinding Background}" CornerRadius="20">
+                    <Border Background="{TemplateBinding Background}" CornerRadius="20" BorderBrush="{DynamicResource NotWhite}" BorderThickness="1">
                         <TextBlock Text="❌" TextAlignment="Center" FontSize="12" Padding="0,0,0,2"/>
                     </Border>
                 </ControlTemplate>
