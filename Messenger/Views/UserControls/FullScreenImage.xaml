@@ -13,7 +13,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Border Background="black" Opacity="0.6" Grid.ColumnSpan="3" MouseDown="Close_Click"/>
+        <Border Background="black" Opacity="0.8" Grid.ColumnSpan="3" MouseDown="Close_Click"/>
         <!--<Grid Grid.Column="1">-->
         <!--<Grid.RowDefinitions>
                 <RowDefinition/>
@@ -22,8 +22,8 @@
             </Grid.RowDefinitions>-->
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center">
-            <Image Source="{Binding Image.FileData}" RenderOptions.BitmapScalingMode="HighQuality"/>
-            <Button Foreground="LightGray" Style="{DynamicResource DownloadButton2}" Command="{Binding DownloadFileCommand}" CommandParameter="{Binding Image}" HorizontalAlignment="Center" VerticalAlignment="Top" Cursor="Hand"/>
+            <Image Source="{Binding Image.FileData}" MaxHeight="700" RenderOptions.BitmapScalingMode="HighQuality"/>
+            <Button Style="{DynamicResource DownloadButton2}" Command="{Binding DownloadFileCommand}" CommandParameter="{Binding Image}" HorizontalAlignment="Center" VerticalAlignment="Top" Cursor="Hand"/>
         </StackPanel>
         <!--</Grid>-->
     </Grid>

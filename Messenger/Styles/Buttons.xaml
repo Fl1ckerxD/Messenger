@@ -98,11 +98,12 @@
             <Setter.Value>
                 <ControlTemplate>
                     <Grid>
-                        <TextBlock x:Name="text" Text="Скачать" FontWeight="SemiBold" TextAlignment="Center"/>
+                        <TextBlock x:Name="text" Foreground="Gray" Text="Скачать" FontWeight="SemiBold" TextAlignment="Center"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="text" Property="TextBlock.TextDecorations" Value="Underline"/>
+                            <Setter TargetName="text" Property="TextBlock.Foreground" Value="White"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
