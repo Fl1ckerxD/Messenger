@@ -13,7 +13,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ListViewItem">
                     <DockPanel>
-                        <Rectangle Style="{DynamicResource ImageUser}" Height="40" Width="40" Cursor="Hand">
+                        <Rectangle Style="{DynamicResource ImageUser}" Height="40" Width="40" Cursor="Hand" VerticalAlignment="Top">
                             <Rectangle.Fill>
                                 <ImageBrush Stretch="UniformToFill">
                                     <ImageBrush.ImageSource>
@@ -63,7 +63,11 @@
                                                                     CommandParameter="{Binding}" Cursor="Hand"/>
                                                                 </StackPanel>
                                                                 <Grid Background="White" Visibility="{Binding FileData, Converter={StaticResource VisibilityConverter}}">
-                                                                    <Image Source="{Binding FileData}" MaxHeight="350"/>
+                                                                    <Image Source="{Binding FileData}" MaxHeight="350" Cursor="Hand" RenderOptions.BitmapScalingMode="NearestNeighbor">
+                                                                        <Image.InputBindings>
+                                                                            <MouseBinding MouseAction="LeftClick" Command="{Binding ElementName=list_Messages,Path=DataContext.OpenImageCommand}" CommandParameter="{Binding}"/>
+                                                                        </Image.InputBindings>
+                                                                    </Image>
                                                                 </Grid>
                                                             </Grid>
                                                         </Border>

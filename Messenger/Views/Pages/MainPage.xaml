@@ -86,5 +86,6 @@
         </Grid>
         <Frame Grid.Column="1" Source="/Views/Pages/ChatPage.xaml"/>
         <popup:UserInfo x:Name="popup_UserInfo" Grid.ColumnSpan="2" Visibility="Collapsed"/>
+        <popup:FullScreenImage Grid.ColumnSpan="2" Visibility="Collapsed"/>
     </Grid>
 </Page>

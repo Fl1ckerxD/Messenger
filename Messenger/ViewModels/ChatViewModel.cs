@@ -27,6 +27,7 @@ namespace Messenger.ViewModels
         public ICommand DownloadFileCommand { get; }
         public ICommand ShowProfileCommand { get; }
         public ICommand DeleteMessageCommand { get; }
+        public ICommand OpenImageCommand { get; }
 
         #endregion
 
@@ -101,6 +102,7 @@ namespace Messenger.ViewModels
             DeleteFileCommand = new RelayCommand(obj => { AttachedFiles.Remove(obj as FileInfo); });
             DownloadFileCommand = new RelayCommand(ExecuteDownloadFileCommand);
             ShowProfileCommand = new RelayCommand(obj => { ViewModelManager.UserInfoControl.CurrentUser = (obj as User); });
+            OpenImageCommand = new RelayCommand(obj => { ViewModelManager.FullScreenViewModel.Image = (obj as Models.File); });
             DeleteMessageCommand = new RelayCommand(ExecuteDeleteMessageCommand);
         }
 

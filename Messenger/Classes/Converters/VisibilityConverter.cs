@@ -11,8 +11,18 @@ namespace Messenger.Classes.Converters
         {
             try
             {
-                BitmapImage bitmap = ToImage((byte[])value);
-                return value is null ? Visibility.Hidden : Visibility.Visible;
+                if (value == null)
+                {
+                    return Visibility.Hidden;
+
+                }
+                else if (value.GetType().Name == "Byte[]")
+                {
+                    BitmapImage bitmap = ToImage((byte[])value);
+                    return Visibility.Visible;
+                }
+                else
+                    return Visibility.Visible;
             }
             catch
             {
@@ -30,7 +40,7 @@ namespace Messenger.Classes.Converters
             {
                 var image = new BitmapImage();
                 image.BeginInit();
-                image.CacheOption = BitmapCacheOption.OnLoad; // here
+                image.CacheOption = BitmapCacheOption.OnLoad;
                 image.StreamSource = ms;
                 image.EndInit();
                 return image;
