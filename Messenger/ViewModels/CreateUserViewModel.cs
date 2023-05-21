@@ -80,7 +80,7 @@ namespace Messenger.ViewModels
             if (string.IsNullOrWhiteSpace(user.Password))
                 throw new Exception("Пароль не введен");
             if (!string.IsNullOrWhiteSpace(user.Email))
-                if (!Email.IsValidEmail(user.Email))
+                if (!ValidProperty.IsValidEmail(user.Email))
                     throw new Exception("Не правильная почта");
             if (user.DepartmentId == 0)
                 throw new Exception("Не выбран отдел");

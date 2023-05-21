@@ -19,7 +19,6 @@ namespace Messenger.Models
         public virtual DbSet<Chat> Chats { get; set; } = null!;
         public virtual DbSet<Department> Departments { get; set; } = null!;
         public virtual DbSet<File> Files { get; set; } = null!;
-        public virtual DbSet<Image> Images { get; set; } = null!;
         public virtual DbSet<Message> Messages { get; set; } = null!;
         public virtual DbSet<MessageUser> MessageUsers { get; set; } = null!;
         public virtual DbSet<Post> Posts { get; set; } = null!;
@@ -83,24 +82,6 @@ namespace Messenger.Models
                     .WithMany(p => p.Files)
                     .HasForeignKey(d => d.MessageId)
                     .HasConstraintName("FK_Files_Message");
-            });
-
-            modelBuilder.Entity<Image>(entity =>
-            {
-                entity.Property(e => e.ImageData)
-                    .HasColumnType("image")
-                    .HasColumnName("Image_data");
-
-                entity.Property(e => e.ImageName)
-                    .HasMaxLength(100)
-                    .HasColumnName("Image_name");
-
-                entity.Property(e => e.MessageId).HasColumnName("Message_id");
-
-                entity.HasOne(d => d.Message)
-                    .WithMany(p => p.Images)
-                    .HasForeignKey(d => d.MessageId)
-                    .HasConstraintName("FK_Images_Message");
             });
 
             modelBuilder.Entity<Message>(entity =>

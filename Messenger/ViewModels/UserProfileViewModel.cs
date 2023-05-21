@@ -61,8 +61,11 @@ namespace Messenger.ViewModels
             if (string.IsNullOrWhiteSpace(CurrentUser.Login))
                 throw new Exception("Логин не введен");
             if (!string.IsNullOrWhiteSpace(CurrentUser.Email))
-                if (!Email.IsValidEmail(CurrentUser.Email))
+                if (!ValidProperty.IsValidEmail(CurrentUser.Email))
                     throw new Exception("Не правильная почта");
+            if (!string.IsNullOrWhiteSpace(CurrentUser.Phone))
+                if (!ValidProperty.IsValidPhone(CurrentUser.Phone))
+                    throw new Exception("Не правильный номер телефона");
         }
     }
 }
