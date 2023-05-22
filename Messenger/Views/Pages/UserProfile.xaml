@@ -3,10 +3,11 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:class="clr-namespace:Messenger.Classes"
       xmlns:local="clr-namespace:Messenger.Views.Pages"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="UserProfile" Loaded="Page_Loaded">
+      mc:Ignorable="d" d:DesignWidth="800"
+      Title="UserProfile">
 
     <Grid Background="white">
         <StackPanel Margin="0,35,0,0">
@@ -51,15 +52,30 @@
                 </StackPanel>
             </DockPanel>
 
-            <TextBlock Margin="15,10,0,0" >Логин</TextBlock>
-            <TextBox Style="{DynamicResource MainTextBox}" Text="{Binding CurrentUser.Login}" IsEnabled="False" Margin="5,0,5,0"/>
-            <TextBlock Margin="15,10,0,0">Пароль</TextBlock>
-            <PasswordBox x:Name="pb_Password" Margin="5,0,5,0"/>
-            <TextBox x:Name="tb_Password" Style="{DynamicResource MainTextBox}" Text="{Binding CurrentUser.Password}" Visibility="Collapsed" Margin="5,0,5,0"/>
-            <Grid>
-                <CheckBox x:Name="showPassword" Content="Показать пароль" Margin="10,5,0,0" Unchecked="showPassword_Unchecked" Checked="showPassword_Checked"/>
-                <ComboBox ItemsSource="{Binding Types}" DisplayMemberPath="Title" SelectedValuePath="Id" SelectedValue="{Binding SelectedLogin.UserTypeId}" SelectedIndex="0" Visibility="Collapsed" Width="140" HorizontalAlignment="Right" Margin="0,5,10,0"/>
-            </Grid>
+            <TextBlock Margin="15,10,0,0">Текущий пароль</TextBlock>
+            <PasswordBox Margin="5,0,5,0">
+                <Behaviors:Interaction.Behaviors>
+                    <class:PasswordBehavior Password="{Binding CurrentPassword, Mode=TwoWay}"/>
+                </Behaviors:Interaction.Behaviors>
+            </PasswordBox>
+            <!--<TextBox x:Name="tb_CurrentPassword" Style="{DynamicResource MainTextBox}" Text="{Binding CurrentUser.Password}" Visibility="Collapsed" Margin="5,0,5,0"/>-->
+
+            <TextBlock Margin="15,10,0,0">Новый пароль</TextBlock>
+            <PasswordBox Margin="5,0,5,0">
+                <Behaviors:Interaction.Behaviors>
+                    <class:PasswordBehavior Password="{Binding NewPassword, Mode=TwoWay}"/>
+                </Behaviors:Interaction.Behaviors>
+            </PasswordBox>
+            <!--<TextBox x:Name="tb_NewPassword" Style="{DynamicResource MainTextBox}" Text="{Binding CurrentUser.Password}" Visibility="Collapsed" Margin="5,0,5,0"/>-->
+
+            <TextBlock Margin="15,10,0,0">Повторите пароль</TextBlock>
+            <PasswordBox Margin="5,0,5,0">
+                <Behaviors:Interaction.Behaviors>
+                    <class:PasswordBehavior Password="{Binding ConfirmPassword, Mode=TwoWay}"/>
+                </Behaviors:Interaction.Behaviors>
+            </PasswordBox>
+            <!--<TextBox x:Name="tb_Password" Style="{DynamicResource MainTextBox}" Text="{Binding CurrentUser.Password}" Visibility="Collapsed" Margin="5,0,5,0"/>-->
+
             <Button x:Name="b_SignUp" Style="{DynamicResource mainButton}" Command="{Binding SaveCommand}" IsDefault="True" Margin="5,15,5,0">Сохранить</Button>
             <Button Style="{DynamicResource mainButton}" Background="red" Command="{Binding QuitCommand}" Margin="5,15,5,0">Выйти из учётной записи</Button>
         </StackPanel>

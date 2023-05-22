@@ -15,9 +15,12 @@ namespace Messenger.ViewModels
     class UserProfileViewModel : ViewModelBase
     {
         private MessengerContext _context;
+        public string imagePath;
+        public string CurrentPassword { get; set; }
+        public string NewPassword { get; set; }
+        public string ConfirmPassword { get; set; }
         public ICommand SaveCommand { get; }
         public ICommand QuitCommand { get; }
-        public string imagePath;
         public User CurrentUser { get; set; }
 
         public UserProfileViewModel()
@@ -30,9 +33,13 @@ namespace Messenger.ViewModels
 
         private void ExecuteQuitCommand(object obj)
         {
-            Settings.ForgetMe();
-            LoggedUser.currentUser = null;
-            FrameManager.mainFrame.Navigate(new Views.Pages.Authorization());
+            var Result = MessageBox.Show("Выйти из учётной записи?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (Result == MessageBoxResult.Yes)
+            {
+                Settings.ForgetMe();
+                LoggedUser.currentUser = null;
+                FrameManager.mainFrame.Navigate(new Views.Pages.Authorization());
+            }
         }
 
         private void ExecuteSaveCommand(object obj)
@@ -40,9 +47,12 @@ namespace Messenger.ViewModels
             try
             {
                 CheckDemands();
+                CurrentUser.Password = NewPassword;
                 _context.Users.Update(CurrentUser);
                 _context.SaveChanges();
                 LoggedUser.currentUser = CurrentUser;
+                if (Settings.HasUser())
+                    Settings.RememberMe(CurrentUser.Login, CurrentUser.Password);
             }
             catch (Exception ex)
             {
@@ -56,8 +66,12 @@ namespace Messenger.ViewModels
                 throw new Exception("Имя не введено");
             if (string.IsNullOrWhiteSpace(CurrentUser.LastName))
                 throw new Exception("Фамилия не введена");
-            if (string.IsNullOrWhiteSpace(CurrentUser.Password))
+            if (CurrentPassword != CurrentUser.Password)
+                throw new Exception("Не правильный текущий пароль");
+            else if (string.IsNullOrWhiteSpace(NewPassword) || string.IsNullOrWhiteSpace(ConfirmPassword))
                 throw new Exception("Пароль не введен");
+            else if (NewPassword != ConfirmPassword)
+                throw new Exception("Пароли не совпадают");
             if (string.IsNullOrWhiteSpace(CurrentUser.Login))
                 throw new Exception("Логин не введен");
             if (!string.IsNullOrWhiteSpace(CurrentUser.Email))

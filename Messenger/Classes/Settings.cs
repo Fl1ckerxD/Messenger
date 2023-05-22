@@ -27,5 +27,11 @@ namespace Messenger.Classes
             Properties.Settings.Default.Password = "";
             Properties.Settings.Default.Save();
         }
+        public static bool HasUser()
+        {
+            if(Properties.Settings.Default.UserName.Length > 0)
+                return true;
+            return false;
+        }
     }
 }

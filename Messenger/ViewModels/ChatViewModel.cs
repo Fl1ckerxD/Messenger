@@ -85,17 +85,14 @@ namespace Messenger.ViewModels
 
         public ChatViewModel()
         {
-            using (var context = new MessengerContext())
-            {
-                SelectedChat = context.Chats
-                    .Where(x => x.Users.Contains(LoggedUser.currentUser))
-                    .Include(x => x.Messages).ThenInclude(x => x.Files)
-                    .Include(x => x.Users)
-                    .First();
-            }
+            _context = new MessengerContext();
+            SelectedChat = _context.Chats
+                .Where(x => x.Users.Contains(LoggedUser.currentUser))
+                .Include(x => x.Messages).ThenInclude(x => x.Files)
+                .Include(x => x.Users)
+                .First();
 
             ViewModelManager.chatViewModel = this;
-            _context = new MessengerContext();
 
             SendCommand = new RelayCommand(ExecuteSendCommand);
             AttachFileCommand = new RelayCommand(ExecuteAttachFileCommand);

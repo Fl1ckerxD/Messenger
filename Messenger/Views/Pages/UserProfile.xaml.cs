@@ -27,29 +27,29 @@ namespace Messenger.Views.Pages
             InitializeComponent();
         }
 
-        private void showPassword_Checked(object sender, RoutedEventArgs e)
-        {
-            tb_Password.Text = pb_Password.Password;
-            tb_Password.Visibility = Visibility.Visible;
-            pb_Password.Visibility = Visibility.Collapsed;
-        }
+        //private void showPassword_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    tb_Password.Text = pb_Password.Password;
+        //    tb_Password.Visibility = Visibility.Visible;
+        //    pb_Password.Visibility = Visibility.Collapsed;
+        //}
 
-        private void showPassword_Unchecked(object sender, RoutedEventArgs e)
-        {
-            pb_Password.Password = tb_Password.Text;
-            tb_Password.Visibility = Visibility.Collapsed;
-            pb_Password.Visibility = Visibility.Visible;
-        }
+        //private void showPassword_Unchecked(object sender, RoutedEventArgs e)
+        //{
+        //    pb_Password.Password = tb_Password.Text;
+        //    tb_Password.Visibility = Visibility.Collapsed;
+        //    pb_Password.Visibility = Visibility.Visible;
+        //}
 
         private void PreviousPage_Click(object sender, RoutedEventArgs e)
         {
             ViewModelManager.mainViewModel.OpenMainPage();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            pb_Password.Password = tb_Password.Text;
-        }
+        //private void Page_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    pb_Password.Password = tb_Password.Text;
+        //}
 
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
