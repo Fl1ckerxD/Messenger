@@ -112,6 +112,7 @@ namespace Messenger.ViewModels
             if (Result == MessageBoxResult.Yes)
             {
                 Message message = obj as Message;
+                _context.Entry(message).State = EntityState.Deleted;
                 _context.Messages.Remove(message);
                 _context.SaveChanges();
             }
@@ -141,7 +142,7 @@ namespace Messenger.ViewModels
 
                 _context.Chats.Where(x => x.Id == SelectedChat.Id).First().Messages.Add(new Message
                 {
-                    Content = Message.Trim(),
+                    Content = Message != null ? Message.Trim() : "",
                     User = LoggedUser.currentUser,
                     Files = GetFiles(AttachedFiles),
                     Time = DateTime.Now

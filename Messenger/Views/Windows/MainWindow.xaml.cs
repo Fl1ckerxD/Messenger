@@ -22,6 +22,7 @@ namespace Messenger.Views.Windows
     {
         public MainWindow()
         {
+            AppDomain.CurrentDomain.SetData("DataDirectory", AppDomain.CurrentDomain.BaseDirectory);
             InitializeComponent();
             FrameManager.mainFrame = mainFrame;
         }
