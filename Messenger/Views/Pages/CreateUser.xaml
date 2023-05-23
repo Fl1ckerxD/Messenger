@@ -46,6 +46,7 @@
                             <TextBlock Margin="15,0,0,0">E-mail</TextBlock>
                             <TextBox Style="{DynamicResource MainTextBox}" Text="{Binding User.Email}" Margin="5,0,5,0"/>
                         </StackPanel>
+                        <ComboBox Width="150" Height="35" Style="{DynamicResource MyCombobox}" ItemsSource="{Binding UserTypes}" SelectedValue="{Binding User.UserTypeId}" VerticalAlignment="Bottom"/>
                     </StackPanel>
                 </StackPanel>
             </DockPanel>
@@ -59,16 +60,23 @@
                 <CheckBox x:Name="showPassword" Content="Показать пароль" Margin="10,5,0,0" Unchecked="showPassword_Unchecked" Checked="showPassword_Checked"/>
                 <ComboBox ItemsSource="{Binding Types}" DisplayMemberPath="Title" SelectedValuePath="Id" SelectedValue="{Binding SelectedLogin.UserTypeId}" SelectedIndex="0" Visibility="Collapsed" Width="140" HorizontalAlignment="Right" Margin="0,5,10,0"/>
             </Grid>
-            <ComboBox x:Name="cb_Depart"  Style="{DynamicResource BindCombo}" ItemsSource="{Binding Departments}" SelectedValue="{Binding User.DepartmentId}">
-                <Behaviors:Interaction.Triggers>
-                    <Behaviors:EventTrigger EventName="SelectionChanged">
-                        <Behaviors:InvokeCommandAction Command="{Binding SelectedItemChangedCommand}"  CommandParameter="{Binding ElementName=cb_Depart, Path=SelectedItem}"/>
-                    </Behaviors:EventTrigger>
-                </Behaviors:Interaction.Triggers>
-            </ComboBox>
-            <ComboBox Style="{DynamicResource BindCombo}" ItemsSource="{Binding Posts}" SelectedValue="{Binding User.PostId}"/>
-            <ComboBox ItemsSource="{Binding Chats}" DisplayMemberPath="Theme" SelectedValue="{Binding SelectedChat}"/>
-            <ComboBox Style="{DynamicResource BindCombo}" ItemsSource="{Binding UserTypes}" SelectedValue="{Binding User.UserTypeId}"/>
+
+            <StackPanel Margin="5,0,5,0">
+                <TextBlock Text="Отдел" Margin="15,10,0,0"/>
+                <ComboBox x:Name="cb_Depart"  Style="{DynamicResource MyCombobox}" ItemsSource="{Binding Departments}" SelectedValue="{Binding User.DepartmentId}">
+                    <Behaviors:Interaction.Triggers>
+                        <Behaviors:EventTrigger EventName="SelectionChanged">
+                            <Behaviors:InvokeCommandAction Command="{Binding SelectedItemChangedCommand}"  CommandParameter="{Binding ElementName=cb_Depart, Path=SelectedItem}"/>
+                        </Behaviors:EventTrigger>
+                    </Behaviors:Interaction.Triggers>
+                </ComboBox>
+
+                <TextBlock Text="Должность" Margin="15,10,0,0"/>
+                <ComboBox Style="{DynamicResource MyCombobox}" ItemsSource="{Binding Posts}" SelectedValue="{Binding User.PostId}"/>
+
+                <TextBlock Text="Группа" Margin="15,10,0,0"/>
+                <ComboBox Style="{DynamicResource MyCombobox}" ItemsSource="{Binding Chats}" SelectedValuePath="" DisplayMemberPath="Theme" SelectedValue="{Binding SelectedChat}"/>
+            </StackPanel>
             <Button x:Name="b_SignUp" Style="{DynamicResource mainButton}" Command="{Binding CreateUserCommand}" IsDefault="True" Margin="5,15,5,0">Зарегистрировать</Button>
         </StackPanel>
         <Button Style="{StaticResource backButton}" Click="PreviousPage_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8,5,0,0" BorderThickness="0"/>
