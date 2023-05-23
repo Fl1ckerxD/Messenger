@@ -123,7 +123,7 @@
                                 <TextBlock Text="{Binding Path=Length, Converter={StaticResource BytesToStringConverter}}"/>
                             </StackPanel>
 
-                            <Border CornerRadius="7" Background="{DynamicResource NotWhite}" Visibility="{Binding ElementName=image, Path=ImageSource, Converter={StaticResource VisibilityConverter}}">
+                            <Border CornerRadius="7" Background="{DynamicResource NotWhite}" BorderThickness="0.6" Visibility="{Binding ElementName=image, Path=ImageSource, Converter={StaticResource VisibilityConverter}}">
                                 <Rectangle RadiusX="7" RadiusY="7">
                                     <Rectangle.Fill>
                                         <ImageBrush x:Name="image" ImageSource="{Binding Path=FullName, Converter={StaticResource FullNameToBitmapImage}}" Stretch="UniformToFill"/>

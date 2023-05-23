@@ -136,6 +136,27 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="AttachFile" TargetType="Button">
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}" CornerRadius="20">
+                        <Image Height="40" Source="/Resources/icons8-attach-90.png"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <!--<Style.Triggers>
+            <Trigger Property="ClickMode" Value="Hover">
+                <Setter Property="Background" Value="{DynamicResource DarkerTextButton}"/>
+            </Trigger>
+        </Style.Triggers>-->
+    </Style>
+
     <!--<Style x:Key="sectionButton" TargetType="Button">
         <Setter Property="Background" Value="{StaticResource MyBlue}"/>
         <Setter Property="Foreground" Value="White"/>

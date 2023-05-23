@@ -43,14 +43,14 @@
                         <Grid>
                             <TextBox VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
                                          x:Name="MessageBox" Background="White" BorderThickness="0" IsEnabled="{Binding IsOpen}"
-                                         Foreground="Gray" CaretBrush="Gray" Margin="8,0,8,0" Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                         Foreground="Black" FontSize="16" CaretBrush="Gray" Margin="8,0,8,0" Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                 <TextBox.InputBindings>
                                     <KeyBinding Command="{Binding SendCommand}" Key="Return"/>
                                 </TextBox.InputBindings>
                             </TextBox>
 
                             <TextBlock IsHitTestVisible="False" Text="Написать сообщение..." VerticalAlignment="Center" HorizontalAlignment="Left"
-                                           Margin="10,0,0,0" Foreground="DarkGray">
+                                         FontSize="16" Margin="10,0,0,0" Foreground="DarkGray">
 
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
