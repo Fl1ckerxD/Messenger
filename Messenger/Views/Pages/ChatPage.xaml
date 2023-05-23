@@ -27,8 +27,16 @@
                 <ComboBox x:Name="cb_States" ItemsSource="{Binding States}" DisplayMemberPath="Title" SelectedValuePath="Id" SelectedValue="{Binding SelectedId}" SelectedIndex="0"  Width="110" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"/>
             </Grid>
         </Border>-->
+        <!--<ScrollViewer VerticalScrollBarVisibility="Auto">-->
         <ListView x:Name="list_Messages" ItemsSource="{Binding SelectedChat.Messages, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" BorderThickness="0"
-                  ItemContainerStyle="{StaticResource ChatItem}" Margin="8,0,8,0" Grid.Row="0" />
+                  ItemContainerStyle="{StaticResource ChatItem}" Margin="8,0,8,0" Grid.Row="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+        <!--</ScrollViewer>-->
         <!--ScrollViewer.HorizontalScrollBarVisibility="Disabled"-->
 
         <StackPanel Grid.Row="2">
