@@ -82,15 +82,22 @@ namespace Messenger.ViewModels
         }
 
         #endregion
-
+        static SimpleMemoryCache<Chat> _selectChatCache = new SimpleMemoryCache<Chat>();
         public ChatViewModel()
         {
             _context = new MessengerContext();
-            SelectedChat = _context.Chats
+
+            //SelectedChat = _context.Chats
+            //    .Where(x => x.Users.Contains(LoggedUser.currentUser))
+            //    .Include(x => x.Messages).ThenInclude(x => x.Files)
+            //    .Include(x => x.Users)
+            //    .First();
+            //var _selectChatCache = new SimpleMemoryCache<Chat>();
+            SelectedChat = _selectChatCache.GetOrCreate(LoggedUser.currentUser.Id, () => _context.Chats
                 .Where(x => x.Users.Contains(LoggedUser.currentUser))
                 .Include(x => x.Messages).ThenInclude(x => x.Files)
                 .Include(x => x.Users)
-                .First();
+                .First());
 
             ViewModelManager.chatViewModel = this;
 

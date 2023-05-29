@@ -49,13 +49,7 @@
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
             </ListView>
-            <!--<Grid Background="White">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="90"/>
-                </Grid.ColumnDefinitions>
 
-            </Grid>-->
             <DockPanel Background="White">
                 <Button Grid.Column="1" Style="{DynamicResource AttachFile}" Command="{Binding AttachFileCommand}" Cursor="Hand" Margin="0,0,-10,0"/>
                 <TextBox Grid.Column="0" Style="{StaticResource MessageBox}" TabIndex="0"/>

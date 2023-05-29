@@ -28,7 +28,7 @@ namespace Messenger.Views.Pages
 
         private void Settings_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            ViewModelManager.mainViewModel.OpenUserProfile();
+            ViewModelManager.mainViewModel.CurrentChildView = new UserProfileViewModel();
         }
     }
 }

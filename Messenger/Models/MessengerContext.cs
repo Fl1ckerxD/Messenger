@@ -43,6 +43,11 @@ namespace Messenger.Models
 
                 entity.Property(e => e.Theme).HasMaxLength(50);
 
+                entity.HasOne(d => d.Department)
+                    .WithMany(p => p.Chats)
+                    .HasForeignKey(d => d.DepartmentId)
+                    .HasConstraintName("FK_Chat_Department");
+
                 entity.HasMany(d => d.Users)
                     .WithMany(p => p.Chats)
                     .UsingEntity<Dictionary<string, object>>(

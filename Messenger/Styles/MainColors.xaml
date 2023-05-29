@@ -6,9 +6,10 @@
     <SolidColorBrush x:Key="NotWhite" Color="#FFD1D5D9"/>
     <SolidColorBrush x:Key="MyBlue" Color="#FF008CFF"/>
     <SolidColorBrush x:Key="TopMenu" Color="#FF202225"/>
-    <LinearGradientBrush x:Key="background" StartPoint="0, 1" EndPoint="1, 0">
-        <GradientStop Color="#FF008CFF" Offset="0.0"/>
-        <GradientStop Color="#FFA03DFF" Offset="0.85"/>
+    <LinearGradientBrush x:Key="background" StartPoint="0, 0" EndPoint="1, 1">
+        <GradientStop Color="#3124F0" Offset="0.0"/>
+        <GradientStop Color="#70A2FB" Offset="0.5"/>
+        <GradientStop Color="#AE6FDC" Offset="1"/>
     </LinearGradientBrush>
 
 </ResourceDictionary>

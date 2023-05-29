@@ -41,10 +41,10 @@ namespace Messenger.Views.Pages
         //    pb_Password.Visibility = Visibility.Visible;
         //}
 
-        private void PreviousPage_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModelManager.mainViewModel.OpenMainPage();
-        }
+        //private void PreviousPage_Click(object sender, RoutedEventArgs e)
+        //{
+        //    ViewModelManager.mainViewModel.OpenMainPage();
+        //}
 
         //private void Page_Loaded(object sender, RoutedEventArgs e)
         //{
@@ -56,6 +56,8 @@ namespace Messenger.Views.Pages
             try
             {
                 string imagePath = GetImagePath();
+                if (imagePath == string.Empty)
+                    return;
                 imageUser.Fill = new ImageBrush { ImageSource = new BitmapImage(new Uri(imagePath)), Stretch = Stretch.UniformToFill };
                 (this.DataContext as UserProfileViewModel).CurrentUser.Image = System.IO.File.ReadAllBytes(imagePath);
             }
@@ -72,7 +74,7 @@ namespace Messenger.Views.Pages
                 ofd.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg;*.jpg";
                 if (ofd.ShowDialog() == true)
                     return System.IO.Path.GetFullPath(ofd.FileName);
-                return imageUser.Fill.ToString();
+                return string.Empty; //imageUser.Fill.ToString();
             }
             catch
             {

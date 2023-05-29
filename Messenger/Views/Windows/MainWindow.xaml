@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
-        Title="Мессенджер" Height="600" Width="1000" MinHeight="510" MinWidth="800" WindowStartupLocation="CenterScreen" Background="CadetBlue">
+        Title="AdminChat" Height="600" Width="1000" MinHeight="510" MinWidth="800" WindowStartupLocation="CenterScreen" Background="{DynamicResource background}">
 
     <Window.DataContext>
         <vm:MainViewModel/>
@@ -22,6 +22,10 @@
         <DataTemplate DataType="{x:Type vm:UserProfileViewModel}">
             <page:UserProfile/>
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:AdminPageViewModel}">
+            <page:AdminPage/>
+        </DataTemplate>
     </Window.Resources>
 
     <WindowChrome.WindowChrome>
@@ -34,7 +38,7 @@
                 <Setter Property="Margin" Value="0" />
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}" Value="Maximized">
-                        <Setter Property="Margin" Value="7" />
+                        <Setter Property="Margin" Value="7,7,7,47" />
                     </DataTrigger>
                 </Style.Triggers>
             </Style>

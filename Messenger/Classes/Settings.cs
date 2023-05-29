@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Messenger.Classes
 {
-    internal class Settings
+    internal static class Settings
     {
         /// <summary>
         /// Сохранение логина и пароля для автоматической авторизации

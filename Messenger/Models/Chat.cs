@@ -15,6 +15,7 @@ namespace Messenger.Models
         public string Theme { get; set; } = null!;
         public int? DepartmentId { get; set; }
 
+        public virtual Department? Department { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
 
         public virtual ICollection<User> Users { get; set; }

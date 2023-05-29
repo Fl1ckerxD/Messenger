@@ -19,8 +19,11 @@ namespace Messenger.ViewModels
         public string CurrentPassword { get; set; }
         public string NewPassword { get; set; }
         public string ConfirmPassword { get; set; }
+        public Visibility AdminVisible { get; set; }
         public ICommand SaveCommand { get; }
         public ICommand QuitCommand { get; }
+        public ICommand BackCommand { get; }
+        public ICommand OpenAdminPageCommand { get; }
         public User CurrentUser { get; set; }
 
         public UserProfileViewModel()
@@ -29,6 +32,9 @@ namespace Messenger.ViewModels
             CurrentUser = _context.Users.Where(x => x.Id == LoggedUser.currentUser.Id).Include(x => x.Post).First();
             SaveCommand = new RelayCommand(ExecuteSaveCommand);
             QuitCommand = new RelayCommand(ExecuteQuitCommand);
+            BackCommand = new RelayCommand(obj => { FrameManager.mainFrame.GoBack(); });//ViewModelManager.mainViewModel.CurrentChildView = new MainPageViewModel();
+            OpenAdminPageCommand = new RelayCommand(obj => { ViewModelManager.mainViewModel.CurrentChildView = new AdminPageViewModel(); });
+            AdminVisible = LoggedUser.userType.GetHashCode() == 1 ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void ExecuteQuitCommand(object obj)

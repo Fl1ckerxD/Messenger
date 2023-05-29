@@ -40,7 +40,7 @@ namespace Messenger.Views.Pages
 
         private void PreviousPage_Click(object sender, RoutedEventArgs e)
         {
-            ViewModelManager.mainViewModel.OpenMainPage();
+            ViewModelManager.mainViewModel.CurrentChildView = new MainPageViewModel();
         }
 
         private void Password_PasswordChanged(object sender, RoutedEventArgs e)

@@ -32,7 +32,7 @@ namespace Messenger.Views.Pages
             try
             {
                 if (auth.AutoLogin())
-                    ViewModelManager.mainViewModel.OpenMainPage();
+                    ViewModelManager.mainViewModel.CurrentChildView = new MainPageViewModel();//.OpenMainPage()
             }
             catch (Exception ex)
             {
@@ -45,7 +45,7 @@ namespace Messenger.Views.Pages
             try
             {
                 if (auth.Login(tb_Login.Text, pb_Password.Password, ckb_Remember.IsChecked))
-                    ViewModelManager.mainViewModel.OpenMainPage();
+                    ViewModelManager.mainViewModel.CurrentChildView = new MainPageViewModel();
             }
             catch (Exception ex)
             {

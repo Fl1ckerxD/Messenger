@@ -79,6 +79,7 @@
             <Button x:Name="b_SignUp" Style="{DynamicResource mainButton}" Command="{Binding SaveCommand}" IsDefault="True" Margin="5,15,5,0">Сохранить</Button>
             <Button Style="{DynamicResource mainButton}" Background="red" Command="{Binding QuitCommand}" Margin="5,15,5,0">Выйти из учётной записи</Button>
         </StackPanel>
-        <Button Style="{StaticResource backButton}" Click="PreviousPage_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8,5,0,0" BorderThickness="0"/>
+        <Button Style="{StaticResource backButton}" Content="❮ Назад" Command="{Binding BackCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8,5,0,0" BorderThickness="0"/>
+        <Button Style="{StaticResource backButton}" Content="Окно администратора ❯" Command="{Binding OpenAdminPageCommand}" Visibility="{Binding AdminVisible}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,8,0" BorderThickness="0"/>
     </Grid>
 </Page>
