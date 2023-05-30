@@ -52,7 +52,7 @@ namespace Messenger.Models
                     .WithMany(p => p.Chats)
                     .UsingEntity<Dictionary<string, object>>(
                         "ChatUser",
-                        l => l.HasOne<User>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ChatUser_User"),
+                        l => l.HasOne<User>().WithMany().HasForeignKey("UserId").HasConstraintName("FK_ChatUser_User"),
                         r => r.HasOne<Chat>().WithMany().HasForeignKey("ChatId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_ChatUser_Chat"),
                         j =>
                         {
@@ -97,6 +97,8 @@ namespace Messenger.Models
 
                 entity.Property(e => e.Time).HasColumnType("datetime");
 
+                entity.Property(e => e.UserId).HasDefaultValueSql("((20))");
+
                 entity.HasOne(d => d.Chat)
                     .WithMany(p => p.Messages)
                     .HasForeignKey(d => d.ChatId)
@@ -124,7 +126,6 @@ namespace Messenger.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.MessageUsers)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MessageUser_User");
             });
 
@@ -178,25 +179,21 @@ namespace Messenger.Models
                 entity.HasOne(d => d.Department)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.DepartmentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_User_Department");
 
                 entity.HasOne(d => d.Post)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.PostId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_User_Post");
 
                 entity.HasOne(d => d.Status)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.StatusId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_User_Status");
 
                 entity.HasOne(d => d.UserType)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.UserTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_User_UserType");
             });
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -18,7 +19,11 @@ namespace Messenger.ViewModels
         public ObservableCollection<Department> Departments { get; set; }
         public ObservableCollection<UserType> UserTypes { get; set; }
         public ICommand CreateUserCommand { get; }
+        public ICommand SaveUserCommand { get; }
         public ICommand SelectedItemChangedCommand { get; }
+        public ICommand BackCommand { get; }
+        public Visibility SignUpVisibility { get; set; } = Visibility.Collapsed;
+        public Visibility EditVisibility { get; set; } = Visibility.Collapsed;
         #endregion
         #region Properties
         private ObservableCollection<Post> _posts;
@@ -35,20 +40,59 @@ namespace Messenger.ViewModels
             set { _chats = value; OnPropertyChanged(); }
         }
         #endregion
-        public CreateUserViewModel()
+        public CreateUserViewModel(User user, bool isSave = false)
         {
             _context = new MessengerContext();
-            User = new User();
+            if (user != null)
+            {
+                User = _context.Users.Where(x => x.Id == user.Id).Include(x => x.Department)
+                    .Include(x => x.Post)
+                    .Include(x => x.Status)
+                    .Include(x => x.Chats)
+                    .First();
+                SelectedChat = User.Chats.First();
+                ExecuteSelectedItemChangedCommand(User.Department);
+            }
+            else
+                User = new User();
+            if (isSave)
+                EditVisibility = Visibility.Visible;
+            else
+                SignUpVisibility = Visibility.Visible;
             Departments = new ObservableCollection<Department>(_context.Departments);
             UserTypes = new ObservableCollection<UserType>(_context.UserTypes);
+            BackCommand = new RelayCommand(obj => { FrameManager.mainFrame.GoBack(); });//ViewModelManager.mainViewModel.CurrentChildView = new MainPageViewModel();
             CreateUserCommand = new RelayCommand(ExecuteCreateUserCommand);
             SelectedItemChangedCommand = new RelayCommand(ExecuteSelectedItemChangedCommand);
+            SaveUserCommand = new RelayCommand(ExecuteSaveUserCommand);
+        }
+
+        private void ExecuteSaveUserCommand(object obj)
+        {
+            try
+            {
+                if (SelectedChat != null)
+                {
+                    var list = User.Chats.ToList();
+                    list.Remove(User.Chats.First());
+                    list.Add(SelectedChat);
+                    User.Chats = list;
+                }
+                    
+                CheckDemands(User);
+                _context.SaveChanges();
+                MessageBox.Show("Изменения сохранены");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void ExecuteSelectedItemChangedCommand(object obj)
         {
             Posts = new ObservableCollection<Post>(_context.Posts.Where(x => x.Departments.Contains((obj as Department))));
-            Chats = new ObservableCollection<Chat>(_context.Chats.Where(x => x.DepartmentId == (obj as Department).Id));
+            Chats = new ObservableCollection<Chat>(_context.Chats.Where(x => x.Department == (obj as Department)));
         }
 
         private void ExecuteCreateUserCommand(object obj)
@@ -61,7 +105,7 @@ namespace Messenger.ViewModels
                 CheckDemands(User);
                 _context.Users.Add(User);
                 _context.SaveChanges();
-                MessageBox.Show("Пользователь добавлен " + User.Name);
+                MessageBox.Show($"Пользователь {User.Login} добавлен");
             }
             catch (Exception ex)
             {

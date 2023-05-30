@@ -26,6 +26,10 @@
         <DataTemplate DataType="{x:Type vm:AdminPageViewModel}">
             <page:AdminPage/>
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:CreateUserViewModel}">
+            <page:CreateUser/>
+        </DataTemplate>
     </Window.Resources>
 
     <WindowChrome.WindowChrome>

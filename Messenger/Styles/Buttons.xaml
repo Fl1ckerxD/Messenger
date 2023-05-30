@@ -5,6 +5,7 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="Gray"/>
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="FontSize" Value="30"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Template">
@@ -31,6 +32,7 @@
     <Style x:Key="mainButton" TargetType="Button">
         <Setter Property="Background" Value="{DynamicResource MyBlue}"/>
         <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Height" Value="40"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -54,6 +56,7 @@
         <Setter Property="Height" Value="20"/>
         <Setter Property="Width" Value="20"/>
         <Setter Property="FontSize" Value="30"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Background" Value="White"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -76,6 +79,7 @@
     <Style x:Key="DownloadButton" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -94,6 +98,7 @@
     </Style>
 
     <Style x:Key="DownloadButton2" TargetType="Button" BasedOn="{StaticResource DownloadButton}">
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
@@ -116,6 +121,7 @@
         <Setter Property="Width" Value="25"/>
         <Setter Property="FontSize" Value="30"/>
         <Setter Property="Content" Value="🗑"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Background" Value="{DynamicResource NotWhite}"/>
         <Setter Property="Visibility" Value="Hidden"/>
         <Setter Property="Template">
@@ -139,6 +145,7 @@
     <Style x:Key="AttachFile" TargetType="Button">
         <Setter Property="Height" Value="50"/>
         <Setter Property="Width" Value="50"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Background" Value="White"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -183,6 +190,7 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <!--<Setter Property="Content" Value="❮ Назад"/>-->
         <Setter Property="Template">
             <Setter.Value>
@@ -202,6 +210,7 @@
     <Style x:Key="gridButtonEdit" TargetType="Button">
         <Setter Property="Width" Value="25"/>
         <Setter Property="Height" Value="25"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="ToolTip" Value="Редактировать"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -223,6 +232,7 @@
     <Style x:Key="gridButtonDelete" TargetType="Button">
         <Setter Property="Width" Value="25"/>
         <Setter Property="Height" Value="25"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="ToolTip" Value="Удалить"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -241,7 +251,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="gridButtonOpen" TargetType="Button">
+    <!--<Style x:Key="gridButtonOpen" TargetType="Button">
         <Setter Property="Width" Value="25"/>
         <Setter Property="Height" Value="25"/>
         <Setter Property="ToolTip" Value="Удалить"/>
@@ -260,7 +270,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
 
     <!--<Style x:Key="closeButton" TargetType="Button">
             <Setter Property="Width" Value="30"/>

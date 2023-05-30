@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Input;
 using Messenger.Views.Pages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace Messenger.ViewModels
 {
@@ -26,17 +27,19 @@ namespace Messenger.ViewModels
         public ICommand OpenAdminPageCommand { get; }
         public User CurrentUser { get; set; }
 
-        public UserProfileViewModel()
+        public UserProfileViewModel(User user)
         {
             _context = new MessengerContext();
-            CurrentUser = _context.Users.Where(x => x.Id == LoggedUser.currentUser.Id).Include(x => x.Post).First();
+            CurrentUser = user;//_context.Users.Where(x => x.Id == user.Id).First();//.Include(x => x.Post)
             SaveCommand = new RelayCommand(ExecuteSaveCommand);
             QuitCommand = new RelayCommand(ExecuteQuitCommand);
             BackCommand = new RelayCommand(obj => { FrameManager.mainFrame.GoBack(); });//ViewModelManager.mainViewModel.CurrentChildView = new MainPageViewModel();
             OpenAdminPageCommand = new RelayCommand(obj => { ViewModelManager.mainViewModel.CurrentChildView = new AdminPageViewModel(); });
             AdminVisible = LoggedUser.userType.GetHashCode() == 1 ? Visibility.Visible : Visibility.Collapsed;
         }
-
+        //public UserProfileViewModel() : this()
+        //{
+        //}
         private void ExecuteQuitCommand(object obj)
         {
             var Result = MessageBox.Show("Выйти из учётной записи?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Question);

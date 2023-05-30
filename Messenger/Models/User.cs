@@ -21,15 +21,15 @@ namespace Messenger.Models
         public string? Email { get; set; }
         public string? Phone { get; set; }
         public byte[]? Image { get; set; }
-        public int StatusId { get; set; }
-        public int PostId { get; set; }
-        public int DepartmentId { get; set; }
-        public int UserTypeId { get; set; }
+        public int? StatusId { get; set; }
+        public int? PostId { get; set; }
+        public int? DepartmentId { get; set; }
+        public int? UserTypeId { get; set; }
 
-        public virtual Department Department { get; set; } = null!;
-        public virtual Post Post { get; set; } = null!;
-        public virtual Status Status { get; set; } = null!;
-        public virtual UserType UserType { get; set; } = null!;
+        public virtual Department? Department { get; set; }
+        public virtual Post? Post { get; set; }
+        public virtual Status? Status { get; set; }
+        public virtual UserType? UserType { get; set; }
         public virtual ICollection<MessageUser> MessageUsers { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
 

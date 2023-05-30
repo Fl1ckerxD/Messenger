@@ -82,7 +82,7 @@ namespace Messenger.ViewModels
         }
 
         #endregion
-        static SimpleMemoryCache<Chat> _selectChatCache = new SimpleMemoryCache<Chat>();
+        //static SimpleMemoryCache<Chat> _selectChatCache = new SimpleMemoryCache<Chat>();
         public ChatViewModel()
         {
             _context = new MessengerContext();
@@ -93,11 +93,17 @@ namespace Messenger.ViewModels
             //    .Include(x => x.Users)
             //    .First();
             //var _selectChatCache = new SimpleMemoryCache<Chat>();
-            SelectedChat = _selectChatCache.GetOrCreate(LoggedUser.currentUser.Id, () => _context.Chats
+            SelectedChat = _context.Chats//_selectChatCache.GetOrCreate(LoggedUser.currentUser.Id, () =>
                 .Where(x => x.Users.Contains(LoggedUser.currentUser))
                 .Include(x => x.Messages).ThenInclude(x => x.Files)
-                .Include(x => x.Users)
-                .First());
+                .Include(x => x.Messages).ThenInclude(x => x.User)
+                .First();
+            //SelectedChat = _context.Chats
+            //    .Where(x => x.Users.Contains(LoggedUser.currentUser))
+            //    .Include(x => x.Messages).ThenInclude(x => x.Files)
+            //    .Include(x => x.Messages).ThenInclude(x => x.User)
+            //    .First();
+            //.Include(x => x.Users)
 
             ViewModelManager.chatViewModel = this;
 
@@ -115,10 +121,14 @@ namespace Messenger.ViewModels
             var Result = MessageBox.Show("Удалить?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (Result == MessageBoxResult.Yes)
             {
-                Message message = obj as Message;
-                _context.Entry(message).State = EntityState.Deleted;
-                _context.Messages.Remove(message);
-                _context.SaveChanges();
+                using (var context = new MessengerContext())
+                {
+                    Message message = obj as Message;
+                context.Entry(message).State = EntityState.Deleted;
+                context.Messages.Remove(message);
+                context.SaveChanges();
+
+                }
             }
         }
 
@@ -143,18 +153,20 @@ namespace Messenger.ViewModels
             {
                 if (string.IsNullOrWhiteSpace(Message) && AttachedFiles.Count == 0)
                     return;
-
-                _context.Chats.Where(x => x.Id == SelectedChat.Id).First().Messages.Add(new Message
+                using (var context = new MessengerContext())
                 {
-                    Content = Message != null ? Message.Trim() : "",
-                    User = LoggedUser.currentUser,
-                    Files = GetFiles(AttachedFiles),
-                    Time = DateTime.Now
-                });
-
-                _context.SaveChanges();
-                Message = "";
-                AttachedFiles.Clear();
+                    context.Chats.Where(x => x.Id == SelectedChat.Id).First().Messages.Add(new Message
+                    {
+                        Content = Message != null ? Message.Trim() : "",
+                        User = LoggedUser.currentUser,
+                        UserId = LoggedUser.currentUser.Id,
+                        Files = GetFiles(AttachedFiles),
+                        Time = DateTime.Now
+                    });
+                    context.SaveChanges();
+                    Message = "";
+                    AttachedFiles.Clear();
+                }
             }
             catch
             {

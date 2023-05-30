@@ -10,9 +10,9 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CreateUser">
 
-    <Page.DataContext>
+    <!--<Page.DataContext>
         <vm:CreateUserViewModel/>
-    </Page.DataContext>
+    </Page.DataContext>-->
 
     <Grid Background="white">
         <StackPanel Margin="0,35,0,0">
@@ -77,9 +77,10 @@
                 <TextBlock Text="Группа" Margin="15,10,0,0"/>
                 <ComboBox Style="{DynamicResource MyCombobox}" ItemsSource="{Binding Chats}" SelectedValuePath="" DisplayMemberPath="Theme" SelectedValue="{Binding SelectedChat}"/>
             </StackPanel>
-            <Button x:Name="b_SignUp" Style="{DynamicResource mainButton}" Command="{Binding CreateUserCommand}" IsDefault="True" Margin="5,15,5,0">Зарегистрировать</Button>
+            <Button x:Name="b_SignUp" Style="{DynamicResource mainButton}" Command="{Binding CreateUserCommand}" IsDefault="True" Margin="5,15,5,0" Visibility="{Binding SignUpVisibility}">Зарегистрировать</Button>
+            <Button x:Name="b_Save" Style="{DynamicResource mainButton}" Command="{Binding SaveUserCommand}" IsDefault="True" Margin="5,15,5,0" Visibility="{Binding EditVisibility}">Сохранить</Button>
         </StackPanel>
-        <Button Style="{StaticResource backButton}" Click="PreviousPage_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8,5,0,0" BorderThickness="0"/>
+        <Button Style="{StaticResource backButton}" Content="❮ Назад" Command="{Binding BackCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8,5,0,0" BorderThickness="0"/>
     </Grid>
 
 </Page>

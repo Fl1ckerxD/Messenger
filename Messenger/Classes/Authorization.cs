@@ -58,7 +58,7 @@ namespace Messenger.Classes
                         Settings.ForgetMe();
 
                     LoggedUser.currentUser = user;
-                    LoggedUser.SetUserType(user.UserTypeId);
+                    LoggedUser.SetUserType((int)user.UserTypeId);
                     return true;
                 }
                 else
