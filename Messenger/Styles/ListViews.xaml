@@ -83,8 +83,14 @@
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
-                                <Button Name="b_Delete" Style="{DynamicResource DeleteMessage}" Command="{Binding ElementName=list_Messages,Path=DataContext.DeleteMessageCommand}" 
-                                        CommandParameter="{Binding}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-5,-10,0"/>
+                                <Border Name="brd_buttons" Margin="0,-5,-10,0" Background="White" BorderBrush="gray" BorderThickness="1" CornerRadius="20" HorizontalAlignment="Right" VerticalAlignment="Top" Height="57" Width="29" Visibility="hidden">
+                                    <StackPanel VerticalAlignment="Center">
+                                        <Button Style="{DynamicResource DeleteMessage}" Command="{Binding ElementName=list_Messages,Path=DataContext.DeleteMessageCommand}" 
+                                        CommandParameter="{Binding}"/>
+                                        <Button Style="{DynamicResource EditMessage}" Command="{Binding ElementName=list_Messages,Path=DataContext.EditMessageCommand}" 
+                                        CommandParameter="{Binding}" Margin="0,5,0,0"/>
+                                    </StackPanel>
+                                </Border>
                             </Grid>
                         </Border>
                     </DockPanel>
@@ -103,7 +109,7 @@
                             <Setter Property="Visibility" Value="Visible" TargetName="b_Delete"/>
                         </DataTrigger>-->
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Visibility" Value="Visible" TargetName="b_Delete"/>
+                            <Setter Property="Visibility" Value="Visible" TargetName="brd_buttons"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -17,6 +17,8 @@ namespace Messenger.ViewModels
 
         #region Private
         private MessengerContext _context;
+        private bool _isEdit = false;
+        private Message _editMessage;
         #endregion
 
         #region Public
@@ -28,6 +30,7 @@ namespace Messenger.ViewModels
         public ICommand ShowProfileCommand { get; }
         public ICommand DeleteMessageCommand { get; }
         public ICommand OpenImageCommand { get; }
+        public ICommand EditMessageCommand { get; }
 
         #endregion
 
@@ -93,11 +96,7 @@ namespace Messenger.ViewModels
             //    .Include(x => x.Users)
             //    .First();
             //var _selectChatCache = new SimpleMemoryCache<Chat>();
-            SelectedChat = _context.Chats//_selectChatCache.GetOrCreate(LoggedUser.currentUser.Id, () =>
-                .Where(x => x.Users.Contains(LoggedUser.currentUser))
-                .Include(x => x.Messages).ThenInclude(x => x.Files)
-                .Include(x => x.Messages).ThenInclude(x => x.User)
-                .First();
+            RefreshDB();
             //SelectedChat = _context.Chats
             //    .Where(x => x.Users.Contains(LoggedUser.currentUser))
             //    .Include(x => x.Messages).ThenInclude(x => x.Files)
@@ -114,6 +113,23 @@ namespace Messenger.ViewModels
             ShowProfileCommand = new RelayCommand(obj => { ViewModelManager.UserInfoControl.CurrentUser = (obj as User); });
             OpenImageCommand = new RelayCommand(obj => { ViewModelManager.FullScreenViewModel.Image = (obj as Models.File); });
             DeleteMessageCommand = new RelayCommand(ExecuteDeleteMessageCommand);
+            EditMessageCommand = new RelayCommand(ExecuteEditMessageCommand);
+        }
+
+        private void RefreshDB()
+        {
+            SelectedChat = _context.Chats//_selectChatCache.GetOrCreate(LoggedUser.currentUser.Id, () =>
+                            .Where(x => x.Users.Contains(LoggedUser.currentUser))
+                            .Include(x => x.Messages).ThenInclude(x => x.Files)
+                            .Include(x => x.Messages).ThenInclude(x => x.User)
+                            .First();
+        }
+
+        private void ExecuteEditMessageCommand(object obj)
+        {
+            _editMessage = (obj as Message);
+            Message = _editMessage.Content;
+            _isEdit = true;
         }
 
         private void ExecuteDeleteMessageCommand(object obj)
@@ -124,9 +140,9 @@ namespace Messenger.ViewModels
                 using (var context = new MessengerContext())
                 {
                     Message message = obj as Message;
-                context.Entry(message).State = EntityState.Deleted;
-                context.Messages.Remove(message);
-                context.SaveChanges();
+                    context.Entry(message).State = EntityState.Deleted;
+                    context.Messages.Remove(message);
+                    context.SaveChanges();
 
                 }
             }
@@ -152,28 +168,74 @@ namespace Messenger.ViewModels
             try
             {
                 if (string.IsNullOrWhiteSpace(Message) && AttachedFiles.Count == 0)
+                {
+                    _isEdit = false;
                     return;
+                }
                 using (var context = new MessengerContext())
                 {
-                    context.Chats.Where(x => x.Id == SelectedChat.Id).First().Messages.Add(new Message
-                    {
-                        Content = Message != null ? Message.Trim() : "",
-                        User = LoggedUser.currentUser,
-                        UserId = LoggedUser.currentUser.Id,
-                        Files = GetFiles(AttachedFiles),
-                        Time = DateTime.Now
-                    });
-                    context.SaveChanges();
-                    Message = "";
-                    AttachedFiles.Clear();
+                    if (!_isEdit)
+                        SendMessage();
+                    else
+                        SaveEditMessage();
                 }
+
             }
             catch
             {
                 MessageBox.Show("Не удалось отправить сообщение", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
+        } 
 
+        private void SendMessage()
+        {
+            using (var context = new MessengerContext())
+            {
+                //SelectedChat.Messages.Add(new Message
+                _context.Chats.Where(x => x.Id == SelectedChat.Id).First().Messages.Add(new Message
+                {
+                    Content = Message != null ? Message.Trim() : "",
+                    //User = LoggedUser.currentUser,
+                     UserId = LoggedUser.currentUser.Id,
+                    Files = GetFiles(AttachedFiles),
+                    Time = DateTime.Now
+                });
+                _context.SaveChanges();
+                Message = "";
+                AttachedFiles.Clear();
+            }
+        }
+        private void SaveEditMessage()
+        {
+            //context.Chats.Where(x => x.Id == SelectedChat.Id).First().Messages.Add(new Message
+            //{
+            //    Content = Message != null ? Message.Trim() : "",
+            //    User = LoggedUser.currentUser,
+            //    UserId = LoggedUser.currentUser.Id,
+            //    Files = GetFiles(AttachedFiles),
+            //    Time = DateTime.Now
+            //});
+            //Message editedMessage = new Message
+            //{
+            //    Content = Message != null ? Message.Trim() : "",
+            //    User = _editMessage.User,
+            //    //UserId = LoggedUser.currentUser.Id,
+            //    Files = GetFiles(AttachedFiles),
+            //    Time = _editMessage.Time
+            //};
+            using (var context = new MessengerContext())
+            {
+                _editMessage.Content = Message != null ? Message.Trim() : "";
+                _editMessage.Files = GetFiles(AttachedFiles);
+                context.Messages.Update(_editMessage);
+                context.SaveChanges();
+                Message = "";
+                AttachedFiles.Clear();
+                _isEdit = false;
+            }
+            SelectedChat = new Chat();
+            RefreshDB();
+        }
         //private async Task<List<Models.File>> GetFilesAsync(IList<FileInfo> fileInfos)
         //{
         //    List<Models.File> files = new List<Models.File>();

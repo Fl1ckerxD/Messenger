@@ -38,7 +38,7 @@
 
             <StackPanel Background="White">
                 <RadioButton Style="{DynamicResource menuButton}" Command="{Binding OpenUsersCommand}" Content="Пользователи" IsChecked="True" Margin="15,5,15,0"/>
-                <RadioButton Style="{DynamicResource menuButton}" Command="{Binding OpenChatsCommand}" Content="Чаты" Margin="15,5,15,0"/>
+                <!--<RadioButton Style="{DynamicResource menuButton}" Command="{Binding OpenChatsCommand}" Content="Чаты" Margin="15,5,15,0"/>-->
             </StackPanel>
             <Border Grid.Column="1" Background="White">
                 <Border.Effect>
