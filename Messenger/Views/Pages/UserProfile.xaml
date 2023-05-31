@@ -5,7 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:class="clr-namespace:Messenger.Classes"
-      xmlns:local="clr-namespace:Messenger.Views.Pages"
       mc:Ignorable="d" d:DesignWidth="800"
       Title="UserProfile">
 
@@ -58,7 +57,6 @@
                     <class:PasswordBehavior Password="{Binding CurrentPassword, Mode=TwoWay}"/>
                 </Behaviors:Interaction.Behaviors>
             </PasswordBox>
-            <!--<TextBox x:Name="tb_CurrentPassword" Style="{DynamicResource MainTextBox}" Text="{Binding CurrentUser.Password}" Visibility="Collapsed" Margin="5,0,5,0"/>-->
 
             <TextBlock Margin="15,10,0,0">Новый пароль</TextBlock>
             <PasswordBox Margin="5,0,5,0">
@@ -66,7 +64,6 @@
                     <class:PasswordBehavior Password="{Binding NewPassword, Mode=TwoWay}"/>
                 </Behaviors:Interaction.Behaviors>
             </PasswordBox>
-            <!--<TextBox x:Name="tb_NewPassword" Style="{DynamicResource MainTextBox}" Text="{Binding CurrentUser.Password}" Visibility="Collapsed" Margin="5,0,5,0"/>-->
 
             <TextBlock Margin="15,10,0,0">Повторите пароль</TextBlock>
             <PasswordBox Margin="5,0,5,0">
@@ -74,7 +71,6 @@
                     <class:PasswordBehavior Password="{Binding ConfirmPassword, Mode=TwoWay}"/>
                 </Behaviors:Interaction.Behaviors>
             </PasswordBox>
-            <!--<TextBox x:Name="tb_Password" Style="{DynamicResource MainTextBox}" Text="{Binding CurrentUser.Password}" Visibility="Collapsed" Margin="5,0,5,0"/>-->
 
             <Button x:Name="b_SignUp" Style="{DynamicResource mainButton}" Command="{Binding SaveCommand}" IsDefault="True" Margin="5,15,5,0">Сохранить</Button>
             <Button Style="{DynamicResource mainButton}" Background="red" Command="{Binding QuitCommand}" Margin="5,15,5,0">Выйти из учётной записи</Button>

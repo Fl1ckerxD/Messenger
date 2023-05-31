@@ -6,6 +6,11 @@ namespace Messenger.Classes.Converters
 {
     internal class BytesToStringConverter : IValueConverter
     {
+        /// <summary>
+        /// Конвертирование размера файла из байтов в килобайты, мегабайты, гигабайты и т.д.
+        /// </summary>
+        /// <param name="byteCount">Количество байтов</param>
+        /// <returns>Возвращает размер файла в килобайты, мегабайты, гигабайты и т.д.</returns>
         public object Convert(object byteCount, Type targetType, object parameter, CultureInfo culture)
         {
             string[] suf = { "Byt", "KB", "MB", "GB", "TB", "PB", "EB" };
@@ -16,7 +21,6 @@ namespace Messenger.Classes.Converters
             double num = Math.Round(bytes / Math.Pow(1024, place), 1);
             return (Math.Sign((long)byteCount) * num).ToString() + suf[place];
         }
-
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return DependencyProperty.UnsetValue;

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-
-namespace Messenger.Classes
+﻿namespace Messenger.Classes
 {
     internal static class LoggedUser
     {
-        public static User currentUser;
-        public static LoggedUserType userType;
-
+        public static User currentUser; //Авторизованный пользователь
+        public static LoggedUserType userType; //Тип авторизованного пользователя
+        /// <summary>
+        /// Получение типа пользователя
+        /// </summary>
+        /// <param name="userTypeId">Id типа пользователя</param>
         public static void SetUserType(int userTypeId)
         {
             switch (userTypeId)

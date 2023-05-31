@@ -33,7 +33,7 @@
     </Window.Resources>
 
     <WindowChrome.WindowChrome>
-        <WindowChrome CornerRadius="10" GlassFrameThickness="0" ResizeBorderThickness="6" CaptionHeight="25" /> 
+        <WindowChrome CornerRadius="10" GlassFrameThickness="0" ResizeBorderThickness="6" CaptionHeight="25" />
     </WindowChrome.WindowChrome>
 
     <Grid>
@@ -56,14 +56,14 @@
                 </Grid.RowDefinitions>
                 <Border Grid.Row="1">
                     <Border.Background>
-                            <ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 400 700" ImageSource="/Resources/Backgrounds/emoji-background.png"/>
+                        <ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 400 700" ImageSource="/Resources/Backgrounds/emoji-background.png"/>
                     </Border.Background>
                     <Frame x:Name="mainFrame" Source="/Views/Pages/Authorization.xaml"  Content="{Binding CurrentChildView}" NavigationUIVisibility="Hidden" TabIndex="0"/>
                 </Border>
             </Grid>
         </Border>
 
-        <Grid Height="30" VerticalAlignment="Top" Background="LightGray"> 
+        <Grid Height="30" VerticalAlignment="Top" Background="LightGray">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>

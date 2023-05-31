@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
 using System.Windows;
 
 namespace Messenger.Classes
@@ -33,7 +31,6 @@ namespace Messenger.Classes
                 throw new Exception("Ошибка подключения");
             }
         }
-
         /// <summary>
         /// Авторизация в приложении
         /// </summary>
@@ -72,7 +69,6 @@ namespace Messenger.Classes
                 throw new Exception("Ошибка подключения");
             }
         }
-
         /// <summary>
         /// Обращается к базе данных для нахождения пользователя
         /// </summary>

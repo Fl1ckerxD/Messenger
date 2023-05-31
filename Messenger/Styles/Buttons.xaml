@@ -124,7 +124,6 @@
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="ToolTip" Value="Удалить"/>
         <Setter Property="Background" Value="{DynamicResource NotWhite}"/>
-        <!--<Setter Property="Visibility" Value="Hidden"/>-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
@@ -151,7 +150,6 @@
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="ToolTip" Value="Редактировать"/>
         <Setter Property="Background" Value="{DynamicResource NotWhite}"/>
-        <!--<Setter Property="Visibility" Value="Hidden"/>-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
@@ -184,42 +182,13 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
-        <!--<Style.Triggers>
-            <Trigger Property="ClickMode" Value="Hover">
-                <Setter Property="Background" Value="{DynamicResource DarkerTextButton}"/>
-            </Trigger>
-        </Style.Triggers>-->
     </Style>
-
-    <!--<Style x:Key="sectionButton" TargetType="Button">
-        <Setter Property="Background" Value="{StaticResource MyBlue}"/>
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" CornerRadius="7">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource NotWhite}"/>
-                <Setter Property="Foreground" Value="{StaticResource DarkerTextButton}"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>-->
 
     <Style x:Key="backButton" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="Gray"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <!--<Setter Property="Content" Value="❮ Назад"/>-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -278,193 +247,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <!--<Style x:Key="gridButtonOpen" TargetType="Button">
-        <Setter Property="Width" Value="25"/>
-        <Setter Property="Height" Value="25"/>
-        <Setter Property="ToolTip" Value="Удалить"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border x:Name="border" CornerRadius="5" BorderThickness="1.5" BorderBrush="White" Background="LimeGreen">
-                        <Image Source="/Resources/icons8-remove-30.png"/>
-                    </Border>
-
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="Green" TargetName="border"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>-->
-
-    <!--<Style x:Key="closeButton" TargetType="Button">
-            <Setter Property="Width" Value="30"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Name="border" CornerRadius="0 7 0 0" Background="Transparent">
-                            <Grid>
-                                <Image Source="/Resources/icons8-close-50.png" Height="20"/>
-                            </Grid>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="DarkRed" TargetName="border"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="minimazeButton" TargetType="Button">
-            <Setter Property="Width" Value="30"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}">
-                            <TextBlock HorizontalAlignment="Center" Text="_" Padding="0,-20,0,0" VerticalAlignment="Top" FontSize="32" Foreground="#d7d7d7"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="Gray"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="maximizeButton" TargetType="Button">
-            <Setter Property="Width" Value="30"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Name="border" Background="{TemplateBinding Background}">
-                            <Grid>
-                                <Image Source="/Resources/icons8-maximize-window1-50.png"/>
-                            </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="Gray"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>-->
-
-    <!--<Style x:Key="tabButton" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" BorderThickness="0 0 0 1" BorderBrush="{TemplateBinding BorderBrush}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="{StaticResource MyBlue}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>-->
-
-    <!--<Style x:Key="gridButtonEdit" TargetType="Button">
-        <Setter Property="Width" Value="25"/>
-        <Setter Property="Height" Value="25"/>
-        <Setter Property="ToolTip" Value="Редактировать"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border x:Name="border" CornerRadius="5" BorderThickness="1.5" BorderBrush="White" Background="{StaticResource MyBlue}">
-                        <Image Source="/Resources/icons8-pencil-30.png"/>
-                    </Border>
-
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="Blue" TargetName="border"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="gridButtonDelete" TargetType="Button">
-        <Setter Property="Width" Value="25"/>
-        <Setter Property="Height" Value="25"/>
-        <Setter Property="ToolTip" Value="Удалить"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border x:Name="border" CornerRadius="5" BorderThickness="1.5" BorderBrush="White" Background="Red">
-                        <Image Source="/Resources/icons8-remove-30.png"/>
-                    </Border>
-
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="DarkRed" TargetName="border"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>-->
-
-    <!--<Style x:Key="saveButton" TargetType="Button">
-            <Setter Property="Width" Value="25"/>
-            <Setter Property="Height" Value="25"/>
-            <Setter Property="ToolTip" Value="Сохранить"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border x:Name="border" CornerRadius="5" BorderThickness="1.5" BorderBrush="White" Background="{StaticResource MyBlue}">
-                            <Image Source="/Resources/icons8-save-as-50.png" Height="18"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="Blue" TargetName="border"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Opacity" Value="0.3"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="newButton" TargetType="Button">
-            <Setter Property="Width" Value="25"/>
-            <Setter Property="Height" Value="25"/>
-            <Setter Property="ToolTip" Value="Создать новую запись"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border x:Name="border" CornerRadius="5" BorderThickness="1.5" BorderBrush="White" Background="{StaticResource MyBlue}">
-                            <Image Source="/Resources/icons8-plus-math-30.png"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="Blue" TargetName="border"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>-->
 
 </ResourceDictionary>

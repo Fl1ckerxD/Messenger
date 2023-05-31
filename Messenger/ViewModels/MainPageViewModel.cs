@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,28 +6,22 @@ namespace Messenger.ViewModels
 {
     internal class MainPageViewModel : ViewModelBase
     {
-        private MessengerContext _context;
-        public User CurrentUser { get; set; }
-        public ICommand ShowProfileCommand { get; }
-        //public ICommand OpenEmployeesListCommand { get; }
-        //public ICommand OpenChatsListCommand { get; }
-        private ObservableCollection<User> _chachedEmployees;
-        //private ObservableCollection<User> _chachedChats;
-
+        private MessengerContext _context; //Контекст базы данных
+        public User CurrentUser { get; set; } //Текущий пользователь
+        public ICommand ShowProfileCommand { get; } //Команда открытия редактирования профиля
+        private ObservableCollection<User> _chachedEmployees; //Кэшированый список сотрудников
         private ObservableCollection<User> _employees;
-        public ObservableCollection<User> Employees
+        public ObservableCollection<User> Employees //Список сотрудников
         {
             get => _employees;
             set { _employees = value; OnPropertyChanged(); }
         }
-
         private string _textToFilter;
-        public string TextToFilter
+        public string TextToFilter //Текст введенный пользователем
         {
             get { return _textToFilter; }
             set { _textToFilter = value; OnPropertyChanged(); Search(value); }
         }
-
         public MainPageViewModel()
         {
             _context = new MessengerContext();
@@ -41,12 +29,11 @@ namespace Messenger.ViewModels
             ShowProfileCommand = new RelayCommand(obj => { ViewModelManager.UserInfoControl.CurrentUser = (obj as User); });
             Employees = new ObservableCollection<User>(_context.Users.Where(x => x.DepartmentId == CurrentUser.DepartmentId).Include(x => x.Post));
             _chachedEmployees = Employees;
-
-            //OpenEmployeesListCommand = new RelayCommand(ExecuteOpenEmployeesListCommand);
-            //OpenChatsListCommand = new RelayCommand(ExecuteOpenChatsListCommand);
-
         }
-
+        /// <summary>
+        /// Поиск сотрудников по названию
+        /// </summary>
+        /// <param name="search">Строка с текстов для поиска</param>
         private void Search(string search)
         {
             Employees = new ObservableCollection<User>(_chachedEmployees.Where(x => x.LastName.Contains(search, StringComparison.OrdinalIgnoreCase)

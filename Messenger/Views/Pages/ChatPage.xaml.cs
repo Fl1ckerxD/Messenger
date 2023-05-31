@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,7 +15,9 @@ namespace Messenger.Views.Pages
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Обработчик событий запускаемый после загрузки страницы
+        /// </summary>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             ScrollToBottom();
@@ -36,7 +26,9 @@ namespace Messenger.Views.Pages
             timer.Interval = new TimeSpan(0, 0, 1);
             timer.Start();
         }
-
+        /// <summary>
+        /// Обновление чата
+        /// </summary>
         private void RefreshChat(object sender, EventArgs e)
         {
             try
@@ -63,9 +55,11 @@ namespace Messenger.Views.Pages
             catch
             {
                 throw new Exception("Ошибка подключения");
-                MessageBox.Show("Ошибка подключения", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        /// <summary>
+        /// Пролистать чат вниз
+        /// </summary>
         private void ScrollToBottom()
         {
             if (list_Messages.Items.Count > 2)

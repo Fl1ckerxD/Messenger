@@ -6,6 +6,10 @@ namespace Messenger.Classes.Converters
 {
     internal class FullNameToBitmapImage : IValueConverter
     {
+        /// <summary>
+        /// Конвертирование из пути к файлу в изображение
+        /// </summary>
+        /// <returns>Возвращает изображение если это возможно</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             try
@@ -17,7 +21,6 @@ namespace Messenger.Classes.Converters
                 return null;
             }
         }
-
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();

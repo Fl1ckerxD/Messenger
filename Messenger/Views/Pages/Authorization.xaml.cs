@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Messenger.Views.Pages
 {
@@ -26,20 +14,24 @@ namespace Messenger.Views.Pages
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Обработчик событий запускаемый после загрузки страницы
+        /// </summary>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (auth.AutoLogin())
-                    ViewModelManager.mainViewModel.CurrentChildView = new MainPageViewModel();//.OpenMainPage()
+                    ViewModelManager.mainViewModel.CurrentChildView = new MainPageViewModel();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// Авторизация в программе
+        /// </summary>
         private void b_Enter_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -51,12 +43,6 @@ namespace Messenger.Views.Pages
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
-        {
-            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
-            e.Handled = true;
         }
     }
 }

@@ -77,9 +77,6 @@
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
                                             </ItemsControl>
-                                            <!--<ListView ItemsSource="{Binding Files}" ItemContainerStyle="{DynamicResource DownloadFile}"
-                                                  Background="Transparent" BorderThickness="0" Height="auto" 
-                                                  ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>-->
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
@@ -96,18 +93,6 @@
                     </DockPanel>
 
                     <ControlTemplate.Triggers>
-                        <!--<MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsMouseOver" Value="True"/>
-                                <Condition Binding="{Binding ElementName=list_Messages, Path=DataContext.IsCurrentUser}"/>
-                            </MultiTrigger.Conditions>
-                                    <MultiTrigger.Setters>
-                                        
-                                    </MultiTrigger.Setters>
-                        </MultiTrigger>-->
-                        <!--<DataTrigger Binding="{Binding el}" Value="True">
-                            <Setter Property="Visibility" Value="Visible" TargetName="b_Delete"/>
-                        </DataTrigger>-->
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Visibility" Value="Visible" TargetName="brd_buttons"/>
                         </Trigger>
@@ -145,28 +130,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <!--<Style TargetType="ListViewItem" x:Key="DownloadFile">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Border Background="{DynamicResource NotWhite}" CornerRadius="7" HorizontalAlignment="Left" 
-                            BorderThickness="0" Margin="3" MaxWidth="400">
-                        <Grid>
-                            <StackPanel Margin="5">
-                                <Image Source="/Resources/icons8-file-100.png" Height="30" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{Binding FileName}" TextTrimming="WordEllipsis"/>
-                                <TextBlock Text="{Binding Path=FileLength, Converter={StaticResource BytesToStringConverter}}"/>
-                                <Separator Background="White"/>
-                                <Button Style="{DynamicResource DownloadButton}" Command="{Binding ElementName=list_Messages,Path=DataContext.DownloadFileCommand}"
-                                        CommandParameter="{Binding}" Cursor="Hand"/>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>-->
 
     <Style TargetType="Rectangle" x:Key="ImageUser">
         <Setter Property="Height" Value="50"/>

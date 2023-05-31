@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace Messenger.Classes
 {
@@ -32,6 +27,10 @@ namespace Messenger.Classes
                 return false;
             }
         }
+        /// <summary>
+        /// Определяет, является ли получаемый текст телефоном
+        /// </summary>
+        /// <returns>Возвращает true если является телефоном, иначе false</returns>
         public static bool IsValidPhone(string phone)
         {
             return regex.IsMatch(phone);

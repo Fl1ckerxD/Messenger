@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -12,13 +7,13 @@ namespace Messenger.ViewModels
 {
     class ListUsersViewModel : ListViewModel
     {
-        private MessengerContext _context;
-        private ObservableCollection<User> _chachedEmployees;
+        private MessengerContext _context; //Контекст базы данных
+        private ObservableCollection<User> _chachedEmployees; //Кэшированый список сотрудников
         private ObservableCollection<User> _employees;
-        public ICommand Edit { get; }
-        public ICommand Delete { get; }
-        public ICommand CreateUserCommand { get; }
-        public ObservableCollection<User> Employees
+        public ICommand Edit { get; } //Команда редактирования
+        public ICommand Delete { get; } //Команда удаления
+        public ICommand CreateUserCommand { get; } //Команда создания пользователя
+        public ObservableCollection<User> Employees //Список сотрудников
         {
             get => _employees;
             set { _employees = value; OnPropertyChanged(); }
@@ -32,13 +27,18 @@ namespace Messenger.ViewModels
             Delete = new RelayCommand(ExecuteDelete);
             CreateUserCommand = new RelayCommand(obj => { ViewModelManager.mainViewModel.CurrentChildView = new CreateUserViewModel(null); });
         }
-
+        /// <summary>
+        /// Обновление списка сотрудников
+        /// </summary>
         private void RefreshDB()
         {
             Employees = new ObservableCollection<User>(_context.Users.Include(x => x.UserType));
             Employees.Remove(_context.Users.Where(x => x.Id == 20).FirstOrDefault());
         }
-
+        /// <summary>
+        /// Удаление пользователя
+        /// </summary>
+        /// <param name="obj">Объект типа Model.User</param>
         private void ExecuteDelete(object obj)
         {
             User user = obj as User;
@@ -51,6 +51,10 @@ namespace Messenger.ViewModels
                 RefreshDB();
             }
         }
+        /// <summary>
+        /// Поиск сотрудников по ФИО
+        /// </summary>
+        /// <param name="search">Строка с текстов для поиска</param>
         protected override void Search(string search)
         {
             Employees = new ObservableCollection<User>(_chachedEmployees.Where(x => x.LastName.Contains(search, StringComparison.OrdinalIgnoreCase)

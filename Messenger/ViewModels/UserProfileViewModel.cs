@@ -1,45 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
-using Messenger.Views.Pages;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace Messenger.ViewModels
 {
     class UserProfileViewModel : ViewModelBase
     {
-        private MessengerContext _context;
-        public string imagePath;
-        public string CurrentPassword { get; set; }
-        public string NewPassword { get; set; }
-        public string ConfirmPassword { get; set; }
-        public Visibility AdminVisible { get; set; }
-        public ICommand SaveCommand { get; }
-        public ICommand QuitCommand { get; }
-        public ICommand BackCommand { get; }
-        public ICommand OpenAdminPageCommand { get; }
-        public User CurrentUser { get; set; }
-
+        private MessengerContext _context; //Контекст базы данных
+        public string imagePath; //Путь к изображению
+        public string CurrentPassword { get; set; } //Текущий пароль
+        public string NewPassword { get; set; } //Новый пароль
+        public string ConfirmPassword { get; set; } //Повторный новый пароль
+        public Visibility AdminVisible { get; set; } //Видимость кнопки для администрации
+        public ICommand SaveCommand { get; } //Команда сохранения изменений
+        public ICommand QuitCommand { get; } //Команда выхода из учетной записи
+        public ICommand BackCommand { get; } //Команда возвращающая на предыдущую страницу
+        public ICommand OpenAdminPageCommand { get; } //Команда открытия окна администрации
+        public User CurrentUser { get; set; } //Текущий авторизованный пользователь
         public UserProfileViewModel(User user)
         {
             _context = new MessengerContext();
-            CurrentUser = user;//_context.Users.Where(x => x.Id == user.Id).First();//.Include(x => x.Post)
+            CurrentUser = user;
             SaveCommand = new RelayCommand(ExecuteSaveCommand);
             QuitCommand = new RelayCommand(ExecuteQuitCommand);
-            BackCommand = new RelayCommand(obj => { FrameManager.mainFrame.GoBack(); });//ViewModelManager.mainViewModel.CurrentChildView = new MainPageViewModel();
+            BackCommand = new RelayCommand(obj => { FrameManager.mainFrame.GoBack(); });
             OpenAdminPageCommand = new RelayCommand(obj => { ViewModelManager.mainViewModel.CurrentChildView = new AdminPageViewModel(); });
             AdminVisible = LoggedUser.userType.GetHashCode() == 1 ? Visibility.Visible : Visibility.Collapsed;
         }
-        //public UserProfileViewModel() : this()
-        //{
-        //}
+        /// <summary>
+        /// Выход из учетной записи
+        /// </summary>
         private void ExecuteQuitCommand(object obj)
         {
             var Result = MessageBox.Show("Выйти из учётной записи?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -50,7 +39,10 @@ namespace Messenger.ViewModels
                 FrameManager.mainFrame.Navigate(new Views.Pages.Authorization());
             }
         }
-
+        /// <summary>
+        /// Сохранение изменений
+        /// </summary>
+        /// <param name="obj"></param>
         private void ExecuteSaveCommand(object obj)
         {
             try
@@ -68,7 +60,9 @@ namespace Messenger.ViewModels
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// Проверка требований
+        /// </summary>
         private void CheckDemands()
         {
             if (string.IsNullOrWhiteSpace(CurrentUser.Name))
@@ -92,4 +86,3 @@ namespace Messenger.ViewModels
         }
     }
 }
-

@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace Messenger.ViewModels
 {
     class AdminPageViewModel : ViewModelBase
     {
         private ViewModelBase _currentChildView;
-        public ICommand OpenUsersCommand { get; }
-        public ICommand OpenChatsCommand { get; }
-        public ICommand BackCommand { get; }
-        public ViewModelBase CurrentChildView
+        public ICommand OpenUsersCommand { get; } //Команда открытия страницы с пользователями
+        public ICommand OpenChatsCommand { get; } //Команда открытия страницы с чатами
+        public ICommand BackCommand { get; } //Команда возвращающая на предыдущую страницу
+        public ViewModelBase CurrentChildView //Текущий выбранный ViewModel
         {
             get => _currentChildView;
             set
@@ -27,7 +22,7 @@ namespace Messenger.ViewModels
             CurrentChildView = new ListUsersViewModel();
             OpenUsersCommand = new RelayCommand(obj => { CurrentChildView = new ListUsersViewModel(); });
             OpenChatsCommand = new RelayCommand(obj => { CurrentChildView = new ListChatsViewModel(); });
-            BackCommand = new RelayCommand(obj => { FrameManager.mainFrame.GoBack(); });//ViewModelManager.mainViewModel.CurrentChildView = new MainPageViewModel();
+            BackCommand = new RelayCommand(obj => { FrameManager.mainFrame.GoBack(); });
         }
     }
 }

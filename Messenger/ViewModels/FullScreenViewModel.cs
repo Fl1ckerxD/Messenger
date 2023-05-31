@@ -1,22 +1,14 @@
 ﻿using Messenger.Views.UserControls;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace Messenger.ViewModels
 {
     class FullScreenViewModel : ViewModelBase
     {
-        public FullScreenImage fullScreenImage;
-        public ICommand DownloadFileCommand { get; set; }
-
-        private Models.File _image;
-        public Models.File Image
+        public FullScreenImage fullScreenImage; //Страница
+        public ICommand DownloadFileCommand { get; set; } //Команда скачивания изображения
+        private File _image;
+        public File Image //Открывшееся изображение
         {
             get { return _image; }
             set { _image = value; OnPropertyChanged(); fullScreenImage.Visibility = System.Windows.Visibility.Visible; }
@@ -26,10 +18,13 @@ namespace Messenger.ViewModels
             ViewModelManager.FullScreenViewModel = this;
             DownloadFileCommand = new RelayCommand(ExecuteDownloadFileCommand);
         }
+        /// <summary>
+        /// Скачивание изображения
+        /// </summary>
+        /// <param name="obj">Объект типа Model.File</param>
         private void ExecuteDownloadFileCommand(object obj)
         {
-            //UploadDownloadFile.DownloadFileAsynce((obj as Models.File).FileName);
-            Models.File file = (obj as Models.File);
+            File file = (obj as File);
             UploadDownloadFile.DownloadFile(file.FileData, file.FileName, file.FileExtension);
         }
     }

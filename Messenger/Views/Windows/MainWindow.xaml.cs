@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace Messenger.Views.Windows
 {
@@ -26,17 +13,23 @@ namespace Messenger.Views.Windows
             InitializeComponent();
             FrameManager.mainFrame = mainFrame;
         }
-
+        /// <summary>
+        /// Свернуть окно
+        /// </summary>
         private void MinimizeClick(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
-
+        /// <summary>
+        /// Открывает окно во весь экран монитора
+        /// </summary>
         private void MaximizeRestoreClick(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState == WindowState.Normal ? WindowState.Maximized : WindowState.Normal;
         }
-
+        /// <summary>
+        /// Закрытие окна
+        /// </summary>
         private void CloseClick(object sender, RoutedEventArgs e)
         {
             Close();

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Messenger.Classes
+﻿namespace Messenger.Classes
 {
     internal static class Settings
     {
@@ -17,7 +11,6 @@ namespace Messenger.Classes
             Properties.Settings.Default.Password = password;
             Properties.Settings.Default.Save();
         }
-
         /// <summary>
         /// Удаление логина и пароля
         /// </summary>
@@ -27,6 +20,10 @@ namespace Messenger.Classes
             Properties.Settings.Default.Password = "";
             Properties.Settings.Default.Save();
         }
+        /// <summary>
+        /// Проверяет существует ли сохраненный пользователь
+        /// </summary>
+        /// <returns>Возвращает true если существует, иначе false</returns>
         public static bool HasUser()
         {
             if(Properties.Settings.Default.UserName.Length > 0)

@@ -1,19 +1,10 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Messenger.Views.Pages
 {
@@ -26,31 +17,9 @@ namespace Messenger.Views.Pages
         {
             InitializeComponent();
         }
-
-        //private void showPassword_Checked(object sender, RoutedEventArgs e)
-        //{
-        //    tb_Password.Text = pb_Password.Password;
-        //    tb_Password.Visibility = Visibility.Visible;
-        //    pb_Password.Visibility = Visibility.Collapsed;
-        //}
-
-        //private void showPassword_Unchecked(object sender, RoutedEventArgs e)
-        //{
-        //    pb_Password.Password = tb_Password.Text;
-        //    tb_Password.Visibility = Visibility.Collapsed;
-        //    pb_Password.Visibility = Visibility.Visible;
-        //}
-
-        //private void PreviousPage_Click(object sender, RoutedEventArgs e)
-        //{
-        //    ViewModelManager.mainViewModel.OpenMainPage();
-        //}
-
-        //private void Page_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    pb_Password.Password = tb_Password.Text;
-        //}
-
+        /// <summary>
+        /// Обработчик событий запускаемый после нажатия на изображение
+        /// </summary>
         private void Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
             try
@@ -66,6 +35,10 @@ namespace Messenger.Views.Pages
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        /// <summary>
+        /// Получение пути к изображению
+        /// </summary>
+        /// <returns>Возвращает путь к изображению</returns>
         private string GetImagePath()
         {
             try
@@ -74,31 +47,18 @@ namespace Messenger.Views.Pages
                 ofd.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg;*.jpg";
                 if (ofd.ShowDialog() == true)
                     return System.IO.Path.GetFullPath(ofd.FileName);
-                return string.Empty; //imageUser.Fill.ToString();
+                return string.Empty;
             }
             catch
             {
                 throw new Exception("Файл не читается");
             }
         }
-        private readonly Regex regex = new Regex("^[0-9+]+$");
+        private readonly Regex regex = new Regex("^[0-9+]+$"); //Паттерн для ввода проделенных символов
         private void Phone_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (!regex.IsMatch(e.Text))
                 e.Handled = true;
-            //e.Handled = !IsTextAllowed(e.Text, @"[1]");
         }
-        //private static bool IsTextAllowed(string Text, string AllowedRegex)
-        //{
-        //    try
-        //    {
-        //        var regex = new Regex(AllowedRegex);
-        //        return !regex.IsMatch(Text);
-        //    }
-        //    catch
-        //    {
-        //        return true;
-        //    }
-        //}
     }
 }

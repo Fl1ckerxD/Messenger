@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
@@ -14,32 +9,25 @@ namespace Messenger.ViewModels
     class ChatViewModel : ViewModelBase
     {
         #region Members
-
         #region Private
-        private MessengerContext _context;
-        private bool _isEdit = false;
-        private Message _editMessage;
+        private MessengerContext _context; //Контекст базы данных
+        private bool _isEdit = false; //Является ли сообщение редактируемым
+        private Message _editMessage; //Редатируемое сообщение
         #endregion
-
         #region Public
-
-        public ICommand SendCommand { get; }
-        public ICommand AttachFileCommand { get; }
-        public ICommand DeleteFileCommand { get; }
-        public ICommand DownloadFileCommand { get; }
-        public ICommand ShowProfileCommand { get; }
-        public ICommand DeleteMessageCommand { get; }
-        public ICommand OpenImageCommand { get; }
-        public ICommand EditMessageCommand { get; }
-
+        public ICommand SendCommand { get; } //Команда отправления сообщения
+        public ICommand AttachFileCommand { get; } //Команда прикрепления файла к сообщения
+        public ICommand DeleteFileCommand { get; } //Команда удаления прикрепленного файла
+        public ICommand DownloadFileCommand { get; } //Команда скачевания файла из сообщения
+        public ICommand ShowProfileCommand { get; } //Команда открывающая информацию о пользователе
+        public ICommand DeleteMessageCommand { get; } //Команда удаления сообщения
+        public ICommand OpenImageCommand { get; } //Команда открытия изображения из сообщения
+        public ICommand EditMessageCommand { get; } //Команда редактирования сообщения
         #endregion
-
         #endregion
-
         #region Public properties
-
         private Chat _selectedChat;
-        public Chat SelectedChat
+        public Chat SelectedChat //Открытый чат
         {
             get => _selectedChat;
             set
@@ -55,55 +43,23 @@ namespace Messenger.ViewModels
                 }
             }
         }
-
         private ObservableCollection<FileInfo> _attachedFiles = new ObservableCollection<FileInfo>();
-        public ObservableCollection<FileInfo> AttachedFiles
+        public ObservableCollection<FileInfo> AttachedFiles //Список прикрепленных файлов
         {
             get { return _attachedFiles; }
             set { _attachedFiles = value; OnPropertyChanged(); }
         }
-
         private string _message;
         public string Message
         {
             get => _message;
             set { _message = value; OnPropertyChanged(); }
-        }
-
-        private int _selectedId;
-        public int SelectedId
-        {
-            get { return _selectedId; }
-            set { _selectedId = value; OnPropertyChanged(); }
-        }
-
-        private bool _hasValidURI;
-        public bool HasValidURI
-        {
-            get { return _hasValidURI; }
-            set { _hasValidURI = value; OnPropertyChanged(); }
-        }
-
+        } //Введенное сообщение
         #endregion
-        //static SimpleMemoryCache<Chat> _selectChatCache = new SimpleMemoryCache<Chat>();
         public ChatViewModel()
         {
             _context = new MessengerContext();
-
-            //SelectedChat = _context.Chats
-            //    .Where(x => x.Users.Contains(LoggedUser.currentUser))
-            //    .Include(x => x.Messages).ThenInclude(x => x.Files)
-            //    .Include(x => x.Users)
-            //    .First();
-            //var _selectChatCache = new SimpleMemoryCache<Chat>();
             RefreshDB();
-            //SelectedChat = _context.Chats
-            //    .Where(x => x.Users.Contains(LoggedUser.currentUser))
-            //    .Include(x => x.Messages).ThenInclude(x => x.Files)
-            //    .Include(x => x.Messages).ThenInclude(x => x.User)
-            //    .First();
-            //.Include(x => x.Users)
-
             ViewModelManager.chatViewModel = this;
 
             SendCommand = new RelayCommand(ExecuteSendCommand);
@@ -115,23 +71,31 @@ namespace Messenger.ViewModels
             DeleteMessageCommand = new RelayCommand(ExecuteDeleteMessageCommand);
             EditMessageCommand = new RelayCommand(ExecuteEditMessageCommand);
         }
-
+        /// <summary>
+        /// Обновление чата
+        /// </summary>
         private void RefreshDB()
         {
-            SelectedChat = _context.Chats//_selectChatCache.GetOrCreate(LoggedUser.currentUser.Id, () =>
+            SelectedChat = _context.Chats
                             .Where(x => x.Users.Contains(LoggedUser.currentUser))
                             .Include(x => x.Messages).ThenInclude(x => x.Files)
                             .Include(x => x.Messages).ThenInclude(x => x.User)
                             .First();
         }
-
+        /// <summary>
+        /// Редактирование сообщения
+        /// </summary>
+        /// <param name="obj">Объект типа Model.Message</param>
         private void ExecuteEditMessageCommand(object obj)
         {
             _editMessage = (obj as Message);
             Message = _editMessage.Content;
             _isEdit = true;
         }
-
+        /// <summary>
+        /// Удаление сообщения
+        /// </summary>
+        /// <param name="obj">Объект типа Model.Message</param>
         private void ExecuteDeleteMessageCommand(object obj)
         {
             var Result = MessageBox.Show("Удалить?", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -143,18 +107,21 @@ namespace Messenger.ViewModels
                     context.Entry(message).State = EntityState.Deleted;
                     context.Messages.Remove(message);
                     context.SaveChanges();
-
                 }
             }
         }
-
+        /// <summary>
+        /// Скачивание файла из сообщения
+        /// </summary>
+        /// <param name="obj">Объект типа Model.File</param>
         private void ExecuteDownloadFileCommand(object obj)
         {
-            //UploadDownloadFile.DownloadFileAsynce((obj as Models.File).FileName);
             Models.File file = (obj as Models.File);
             UploadDownloadFile.DownloadFile(file.FileData, file.FileName, file.FileExtension);
         }
-
+        /// <summary>
+        /// Прикрепление файла к сообщению
+        /// </summary>
         private void ExecuteAttachFileCommand(object obj)
         {
             FileInfo? fileInfo = UploadDownloadFile.GetFileInfo();
@@ -162,7 +129,9 @@ namespace Messenger.ViewModels
                 return;
             AttachedFiles.Add(fileInfo);
         }
-
+        /// <summary>
+        /// Сохранение сообщения
+        /// </summary>
         private async void ExecuteSendCommand(object obj)
         {
             try
@@ -179,14 +148,15 @@ namespace Messenger.ViewModels
                     else
                         SaveEditMessage();
                 }
-
             }
             catch
             {
                 MessageBox.Show("Не удалось отправить сообщение", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        } 
-
+        }
+        /// <summary>
+        /// Сохранение нового сообщения в базе данных
+        /// </summary>
         private void SendMessage()
         {
             using (var context = new MessengerContext())
@@ -196,7 +166,7 @@ namespace Messenger.ViewModels
                 {
                     Content = Message != null ? Message.Trim() : "",
                     //User = LoggedUser.currentUser,
-                     UserId = LoggedUser.currentUser.Id,
+                    UserId = LoggedUser.currentUser.Id,
                     Files = GetFiles(AttachedFiles),
                     Time = DateTime.Now
                 });
@@ -205,24 +175,11 @@ namespace Messenger.ViewModels
                 AttachedFiles.Clear();
             }
         }
+        /// <summary>
+        /// Сохранение измененного сообщения в базе данных
+        /// </summary>
         private void SaveEditMessage()
         {
-            //context.Chats.Where(x => x.Id == SelectedChat.Id).First().Messages.Add(new Message
-            //{
-            //    Content = Message != null ? Message.Trim() : "",
-            //    User = LoggedUser.currentUser,
-            //    UserId = LoggedUser.currentUser.Id,
-            //    Files = GetFiles(AttachedFiles),
-            //    Time = DateTime.Now
-            //});
-            //Message editedMessage = new Message
-            //{
-            //    Content = Message != null ? Message.Trim() : "",
-            //    User = _editMessage.User,
-            //    //UserId = LoggedUser.currentUser.Id,
-            //    Files = GetFiles(AttachedFiles),
-            //    Time = _editMessage.Time
-            //};
             using (var context = new MessengerContext())
             {
                 _editMessage.Content = Message != null ? Message.Trim() : "";
@@ -236,32 +193,14 @@ namespace Messenger.ViewModels
             SelectedChat = new Chat();
             RefreshDB();
         }
-        //private async Task<List<Models.File>> GetFilesAsync(IList<FileInfo> fileInfos)
-        //{
-        //    List<Models.File> files = new List<Models.File>();
-        //    if (fileInfos.Count == 0)
-        //        return files;
-
-        //    YandexDisk yandexClient = new YandexDisk();
-
-        //    foreach (var file in fileInfos)
-        //    {
-        //        yandexClient.UploadFileAsync(file);
-        //        files.Add(new Models.File
-        //        {
-        //            FileName = file.Name,
-        //            FileUrl = await yandexClient.DownloadFileAsync(file.Name)
-        //        });
-        //    }
-        //    return files;
-        //}
-
+        /// <summary>
+        /// Преобразование из IList<FileInfo> в List<Models.File>
+        /// </summary>
         private List<Models.File> GetFiles(IList<FileInfo> fileInfos)
         {
             List<Models.File> files = new List<Models.File>();
             if (fileInfos.Count == 0)
                 return files;
-
             foreach (var file in fileInfos)
             {
                 files.Add(new Models.File

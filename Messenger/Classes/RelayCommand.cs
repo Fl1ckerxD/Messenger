@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace Messenger.Classes
 {
@@ -21,11 +16,17 @@ namespace Messenger.Classes
             _execute = execute;
             _canExecute = canExecute;
         }
+        /// <summary>
+        /// Проверяет, можно ли выполнить команду в текущем состоянии объекта, используя заданный делегат canExecute
+        /// </summary>
+        /// <returns>Если делегат canExecute не задан, то метод CanExecute всегда возвращает true</returns>
         public bool CanExecute(object? parameter)
         {
             return _canExecute == null || _canExecute(parameter);
         }
-
+        /// <summary>
+        /// Выполняет заданный делегат execute
+        /// </summary>
         public void Execute(object? parameter)
         {
             _execute(parameter);

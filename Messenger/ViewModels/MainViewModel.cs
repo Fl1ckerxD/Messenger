@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-
-namespace Messenger.ViewModels
+﻿namespace Messenger.ViewModels
 {
     internal class MainViewModel : ViewModelBase
     {
         private ViewModelBase _currentChildView;
-        public ViewModelBase CurrentChildView
+        public ViewModelBase CurrentChildView //Текущий выбранный ViewModel
         {
             get => _currentChildView;
             set
@@ -20,20 +12,9 @@ namespace Messenger.ViewModels
                 OnPropertyChanged();
             }
         }
-
         public MainViewModel()
         {
             ViewModelManager.mainViewModel = this;
         }
-
-        //internal void OpenMainPage()
-        //{
-        //    CurrentChildView = new MainPageViewModel();
-        //}
-
-        //internal void OpenUserProfile()
-        //{
-        //    CurrentChildView = new UserProfileViewModel();
-        //}
     }
 }

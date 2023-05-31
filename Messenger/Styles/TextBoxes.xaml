@@ -109,9 +109,6 @@
                             <TextBox VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
                                          x:Name="SearchBox" BorderThickness="0" Background="Transparent" Padding="10,3,10,0"
                                          Foreground="Gray" CaretBrush="Gray" Text="{Binding TextToFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                <!--<TextBox.InputBindings>
-                                    <KeyBinding Command="{Binding SendCommand}" Key="Return"/>
-                                </TextBox.InputBindings>-->
                             </TextBox>
                             <TextBlock IsHitTestVisible="False" Text="🔍Сотрудники" VerticalAlignment="Center" HorizontalAlignment="Left"
                                            Margin="10,0,0,0" Foreground="DarkGray">
@@ -156,9 +153,6 @@
                             <TextBox VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
                                          x:Name="SearchBox" BorderThickness="0" Background="Transparent" Padding="10,3,10,0"
                                          Foreground="Gray" CaretBrush="Gray" Text="{Binding TextToFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                <!--<TextBox.InputBindings>
-                                    <KeyBinding Command="{Binding SendCommand}" Key="Return"/>
-                                </TextBox.InputBindings>-->
                             </TextBox>
                             <TextBlock IsHitTestVisible="False" Text="🔍Чаты" VerticalAlignment="Center" HorizontalAlignment="Left"
                                            Margin="10,0,0,0" Foreground="DarkGray">

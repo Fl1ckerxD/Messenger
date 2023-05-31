@@ -7,6 +7,10 @@ namespace Messenger.Classes.Converters
 {
     class VisibilityConverter : IValueConverter
     {
+        /// <summary>
+        /// Получение значения Visibility опираясь на типе данных конвертируемого объекта 
+        /// </summary>
+        /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             try
@@ -29,11 +33,15 @@ namespace Messenger.Classes.Converters
                 return Visibility.Hidden;
             }
         }
-
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
+        /// <summary>
+        /// Преобразование массива байтов, представляющих изображение, в объект типа BitmapImage
+        /// </summary>
+        /// <param name="array">Вес файла</param>
+        /// <returns>Возвращает объект типа BitmapImage с преобразованным изображением</returns>
         private BitmapImage ToImage(byte[] array)
         {
             using (var ms = new System.IO.MemoryStream(array))

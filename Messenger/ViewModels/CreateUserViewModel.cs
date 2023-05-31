@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -12,29 +7,29 @@ namespace Messenger.ViewModels
 {
     internal class CreateUserViewModel : ViewModelBase
     {
-        private MessengerContext _context;
+        private MessengerContext _context; //Контекст базы данных
         #region Public members
-        public User User { get; set; }
-        public Chat SelectedChat { get; set; }
-        public ObservableCollection<Department> Departments { get; set; }
-        public ObservableCollection<UserType> UserTypes { get; set; }
-        public ICommand CreateUserCommand { get; }
-        public ICommand SaveUserCommand { get; }
-        public ICommand SelectedItemChangedCommand { get; }
-        public ICommand BackCommand { get; }
-        public Visibility SignUpVisibility { get; set; } = Visibility.Collapsed;
-        public Visibility EditVisibility { get; set; } = Visibility.Collapsed;
+        public User User { get; set; } //Создаваемый пользователь
+        public Chat SelectedChat { get; set; } //Выбранный чат
+        public ObservableCollection<Department> Departments { get; set; } //Выбранный отдел
+        public ObservableCollection<UserType> UserTypes { get; set; } //Выбранный тип пользователя
+        public ICommand CreateUserCommand { get; } //Команда создания пользователя
+        public ICommand SaveUserCommand { get; } //Команда Сохранения изменений пользователя
+        public ICommand SelectedItemChangedCommand { get; } //Команда меняющий items в ComboBoxes
+        public ICommand BackCommand { get; } //Команда возвращающая на предыдущую страницу
+        public Visibility SignUpVisibility { get; set; } = Visibility.Collapsed; //Видемость кнопки регистрации
+        public Visibility EditVisibility { get; set; } = Visibility.Collapsed; //Видемость кнопки сохранения
         #endregion
         #region Properties
         private ObservableCollection<Post> _posts;
-        public ObservableCollection<Post> Posts
+        public ObservableCollection<Post> Posts //Список должностей
         {
             get => _posts;
             set { _posts = value; OnPropertyChanged(); }
-        }
+        } 
 
         private ObservableCollection<Chat> _chats;
-        public ObservableCollection<Chat> Chats
+        public ObservableCollection<Chat> Chats //Список чатов
         {
             get => _chats;
             set { _chats = value; OnPropertyChanged(); }
@@ -61,12 +56,14 @@ namespace Messenger.ViewModels
                 SignUpVisibility = Visibility.Visible;
             Departments = new ObservableCollection<Department>(_context.Departments);
             UserTypes = new ObservableCollection<UserType>(_context.UserTypes);
-            BackCommand = new RelayCommand(obj => { FrameManager.mainFrame.GoBack(); });//ViewModelManager.mainViewModel.CurrentChildView = new MainPageViewModel();
+            BackCommand = new RelayCommand(obj => { FrameManager.mainFrame.GoBack(); });
             CreateUserCommand = new RelayCommand(ExecuteCreateUserCommand);
             SelectedItemChangedCommand = new RelayCommand(ExecuteSelectedItemChangedCommand);
             SaveUserCommand = new RelayCommand(ExecuteSaveUserCommand);
         }
-
+        /// <summary>
+        /// Сохранение изменений пользователя
+        /// </summary>
         private void ExecuteSaveUserCommand(object obj)
         {
             try
@@ -88,13 +85,17 @@ namespace Messenger.ViewModels
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// Изменение items в ComboBoxes
+        /// </summary>
         private void ExecuteSelectedItemChangedCommand(object obj)
         {
             Posts = new ObservableCollection<Post>(_context.Posts.Where(x => x.Departments.Contains((obj as Department))));
             Chats = new ObservableCollection<Chat>(_context.Chats.Where(x => x.Department == (obj as Department)));
         }
-
+        /// <summary>
+        /// Создание нового пользователя
+        /// </summary>
         private void ExecuteCreateUserCommand(object obj)
         {
             try
@@ -112,7 +113,9 @@ namespace Messenger.ViewModels
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        /// <summary>
+        /// Проверка требований
+        /// </summary>
         private void CheckDemands(User user)
         {
             if (string.IsNullOrWhiteSpace(user.Name))
