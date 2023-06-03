@@ -12,7 +12,7 @@ namespace Messenger.Models
         }
 
         public int Id { get; set; }
-        public string Theme { get; set; } = null!;
+        public string? Theme { get; set; }
         public int? DepartmentId { get; set; }
 
         public virtual Department? Department { get; set; }

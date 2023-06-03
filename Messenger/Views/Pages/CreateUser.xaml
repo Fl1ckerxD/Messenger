@@ -4,9 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="CreateUser">
+      mc:Ignorable="d" d:DesignWidth="800"
+      Title="CreateUser" Height="626">
 
     <Grid Background="white">
         <StackPanel Margin="0,35,0,0">
@@ -67,9 +66,6 @@
 
                 <TextBlock Text="Должность" Margin="15,10,0,0"/>
                 <ComboBox Style="{DynamicResource MyCombobox}" ItemsSource="{Binding Posts}" SelectedValue="{Binding User.PostId}"/>
-
-                <TextBlock Text="Группа" Margin="15,10,0,0"/>
-                <ComboBox Style="{DynamicResource MyCombobox}" ItemsSource="{Binding Chats}" SelectedValuePath="" DisplayMemberPath="Theme" SelectedValue="{Binding SelectedChat}"/>
             </StackPanel>
             <Button x:Name="b_SignUp" Style="{DynamicResource mainButton}" Command="{Binding CreateUserCommand}" IsDefault="True" Margin="5,15,5,0" Visibility="{Binding SignUpVisibility}">Зарегистрировать</Button>
             <Button x:Name="b_Save" Style="{DynamicResource mainButton}" Command="{Binding SaveUserCommand}" IsDefault="True" Margin="5,15,5,0" Visibility="{Binding EditVisibility}">Сохранить</Button>

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using Microsoft.EntityFrameworkCore;
 
 namespace Messenger.ViewModels
 {
@@ -22,7 +23,7 @@ namespace Messenger.ViewModels
             CurrentUser = user;
             SaveCommand = new RelayCommand(ExecuteSaveCommand);
             QuitCommand = new RelayCommand(ExecuteQuitCommand);
-            BackCommand = new RelayCommand(obj => { FrameManager.mainFrame.GoBack(); });
+            BackCommand = new RelayCommand(obj => { ViewModelManager.mainViewModel.CurrentChildView = new MainPageViewModel(); });//FrameManager.mainFrame.GoBack();
             OpenAdminPageCommand = new RelayCommand(obj => { ViewModelManager.mainViewModel.CurrentChildView = new AdminPageViewModel(); });
             AdminVisible = LoggedUser.userType.GetHashCode() == 1 ? Visibility.Visible : Visibility.Collapsed;
         }
@@ -35,7 +36,6 @@ namespace Messenger.ViewModels
             if (Result == MessageBoxResult.Yes)
             {
                 Settings.ForgetMe();
-                LoggedUser.currentUser = null;
                 FrameManager.mainFrame.Navigate(new Views.Pages.Authorization());
             }
         }
@@ -48,12 +48,14 @@ namespace Messenger.ViewModels
             try
             {
                 CheckDemands();
-                CurrentUser.Password = NewPassword;
-                _context.Users.Update(CurrentUser);
+                if (!string.IsNullOrWhiteSpace(CurrentPassword))
+                    CurrentUser.Password = NewPassword;
+                _context.Entry(CurrentUser).State = EntityState.Modified;
                 _context.SaveChanges();
                 LoggedUser.currentUser = CurrentUser;
                 if (Settings.HasUser())
                     Settings.RememberMe(CurrentUser.Login, CurrentUser.Password);
+                MessageBox.Show("Изменения сохранены", "Сохранено", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -69,12 +71,13 @@ namespace Messenger.ViewModels
                 throw new Exception("Имя не введено");
             if (string.IsNullOrWhiteSpace(CurrentUser.LastName))
                 throw new Exception("Фамилия не введена");
-            if (CurrentPassword != CurrentUser.Password)
-                throw new Exception("Не правильный текущий пароль");
-            else if (string.IsNullOrWhiteSpace(NewPassword) || string.IsNullOrWhiteSpace(ConfirmPassword))
-                throw new Exception("Пароль не введен");
-            else if (NewPassword != ConfirmPassword)
-                throw new Exception("Пароли не совпадают");
+            if (!string.IsNullOrWhiteSpace(CurrentPassword))
+                if (CurrentPassword != CurrentUser.Password)
+                    throw new Exception("Не правильный текущий пароль");
+                else if (string.IsNullOrWhiteSpace(NewPassword) || string.IsNullOrWhiteSpace(ConfirmPassword))
+                    throw new Exception("Пароль не введен");
+                else if (NewPassword != ConfirmPassword)
+                    throw new Exception("Пароли не совпадают");
             if (string.IsNullOrWhiteSpace(CurrentUser.Login))
                 throw new Exception("Логин не введен");
             if (!string.IsNullOrWhiteSpace(CurrentUser.Email))

@@ -4,6 +4,7 @@
     {
         public static User currentUser; //Авторизованный пользователь
         public static LoggedUserType userType; //Тип авторизованного пользователя
+        public static int chatId;
         /// <summary>
         /// Получение типа пользователя
         /// </summary>

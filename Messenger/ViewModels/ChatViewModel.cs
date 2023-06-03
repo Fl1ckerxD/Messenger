@@ -26,22 +26,11 @@ namespace Messenger.ViewModels
         #endregion
         #endregion
         #region Public properties
-        private Chat _selectedChat;
-        public Chat SelectedChat //Открытый чат
+        private ObservableCollection<Message> _messages;
+        public ObservableCollection<Message> Messages //Список сообщений
         {
-            get => _selectedChat;
-            set
-            {
-                try
-                {
-                    _selectedChat = value;
-                    OnPropertyChanged();
-                }
-                catch
-                {
-                    MessageBox.Show("Ошибка подключения", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
+            get { return _messages; }
+            set { _messages = value; OnPropertyChanged(); }
         }
         private ObservableCollection<FileInfo> _attachedFiles = new ObservableCollection<FileInfo>();
         public ObservableCollection<FileInfo> AttachedFiles //Список прикрепленных файлов
@@ -50,17 +39,17 @@ namespace Messenger.ViewModels
             set { _attachedFiles = value; OnPropertyChanged(); }
         }
         private string _message;
-        public string Message
+        public string Message //Введенное сообщение
         {
             get => _message;
             set { _message = value; OnPropertyChanged(); }
-        } //Введенное сообщение
+        }
         #endregion
         public ChatViewModel()
         {
-            _context = new MessengerContext();
-            RefreshDB();
             ViewModelManager.chatViewModel = this;
+            _context = new MessengerContext();
+            RefreshDB(LoggedUser.chatId);
 
             SendCommand = new RelayCommand(ExecuteSendCommand);
             AttachFileCommand = new RelayCommand(ExecuteAttachFileCommand);
@@ -74,13 +63,11 @@ namespace Messenger.ViewModels
         /// <summary>
         /// Обновление чата
         /// </summary>
-        private void RefreshDB()
+        public void RefreshDB(int chatid)
         {
-            SelectedChat = _context.Chats
-                            .Where(x => x.Users.Contains(LoggedUser.currentUser))
-                            .Include(x => x.Messages).ThenInclude(x => x.Files)
-                            .Include(x => x.Messages).ThenInclude(x => x.User)
-                            .First();
+            Messages = new ObservableCollection<Message>(_context.Messages.Where(x => x.ChatId == chatid)
+            .Include(x => x.User)
+            .Include(x => x.Files));
         }
         /// <summary>
         /// Редактирование сообщения
@@ -159,21 +146,17 @@ namespace Messenger.ViewModels
         /// </summary>
         private void SendMessage()
         {
-            using (var context = new MessengerContext())
+            _context.Messages.Add(new Message
             {
-                //SelectedChat.Messages.Add(new Message
-                _context.Chats.Where(x => x.Id == SelectedChat.Id).First().Messages.Add(new Message
-                {
-                    Content = Message != null ? Message.Trim() : "",
-                    //User = LoggedUser.currentUser,
-                    UserId = LoggedUser.currentUser.Id,
-                    Files = GetFiles(AttachedFiles),
-                    Time = DateTime.Now
-                });
-                _context.SaveChanges();
-                Message = "";
-                AttachedFiles.Clear();
-            }
+                Content = Message != null ? Message.Trim() : "",
+                ChatId = LoggedUser.chatId,
+                UserId = LoggedUser.currentUser.Id,
+                Files = GetFiles(AttachedFiles),
+                Time = DateTime.Now
+            });
+            _context.SaveChanges();
+            Message = "";
+            AttachedFiles.Clear();
         }
         /// <summary>
         /// Сохранение измененного сообщения в базе данных
@@ -190,8 +173,7 @@ namespace Messenger.ViewModels
                 AttachedFiles.Clear();
                 _isEdit = false;
             }
-            SelectedChat = new Chat();
-            RefreshDB();
+            RefreshDB(LoggedUser.chatId);
         }
         /// <summary>
         /// Преобразование из IList<FileInfo> в List<Models.File>

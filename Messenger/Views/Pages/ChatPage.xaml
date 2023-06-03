@@ -17,7 +17,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <ListView x:Name="list_Messages" ItemsSource="{Binding SelectedChat.Messages, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" BorderThickness="0"
+        <ListView x:Name="list_Messages" ItemsSource="{Binding Messages, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" BorderThickness="0"
                   ItemContainerStyle="{StaticResource ChatItem}" Margin="8,0,8,0" Grid.Row="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -39,7 +39,7 @@
 
             <DockPanel Background="White">
                 <Button Grid.Column="1" Style="{DynamicResource AttachFile}" Command="{Binding AttachFileCommand}" Cursor="Hand" Margin="0,0,-10,0"/>
-                <TextBox Grid.Column="0" Style="{StaticResource MessageBox}" TabIndex="0"/>
+                <TextBox Grid.Column="0" Style="{StaticResource MessageBox}" TabIndex="0" MaxLength="200"/>
             </DockPanel>
         </StackPanel>
     </Grid>

@@ -10,7 +10,6 @@ namespace Messenger.ViewModels
         private MessengerContext _context; //Контекст базы данных
         #region Public members
         public User User { get; set; } //Создаваемый пользователь
-        public Chat SelectedChat { get; set; } //Выбранный чат
         public ObservableCollection<Department> Departments { get; set; } //Выбранный отдел
         public ObservableCollection<UserType> UserTypes { get; set; } //Выбранный тип пользователя
         public ICommand CreateUserCommand { get; } //Команда создания пользователя
@@ -26,13 +25,6 @@ namespace Messenger.ViewModels
         {
             get => _posts;
             set { _posts = value; OnPropertyChanged(); }
-        } 
-
-        private ObservableCollection<Chat> _chats;
-        public ObservableCollection<Chat> Chats //Список чатов
-        {
-            get => _chats;
-            set { _chats = value; OnPropertyChanged(); }
         }
         #endregion
         public CreateUserViewModel(User user, bool isSave = false)
@@ -45,7 +37,6 @@ namespace Messenger.ViewModels
                     .Include(x => x.Status)
                     .Include(x => x.Chats)
                     .First();
-                SelectedChat = User.Chats.First();
                 ExecuteSelectedItemChangedCommand(User.Department);
             }
             else
@@ -68,17 +59,12 @@ namespace Messenger.ViewModels
         {
             try
             {
-                if (SelectedChat != null)
-                {
-                    var list = User.Chats.ToList();
-                    list.Remove(User.Chats.First());
-                    list.Add(SelectedChat);
-                    User.Chats = list;
-                }
-                    
+                User.Chats.Clear();
+                User.Chats.Add(_context.Chats.Where(x => x.DepartmentId == User.DepartmentId).First());
+                User.Chats.Add(_context.Chats.Where(x => x.Id == 32).First());
                 CheckDemands(User);
                 _context.SaveChanges();
-                MessageBox.Show("Изменения сохранены");
+                MessageBox.Show("Изменения сохранены", "Сохранено", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -91,7 +77,6 @@ namespace Messenger.ViewModels
         private void ExecuteSelectedItemChangedCommand(object obj)
         {
             Posts = new ObservableCollection<Post>(_context.Posts.Where(x => x.Departments.Contains((obj as Department))));
-            Chats = new ObservableCollection<Chat>(_context.Chats.Where(x => x.Department == (obj as Department)));
         }
         /// <summary>
         /// Создание нового пользователя
@@ -101,12 +86,12 @@ namespace Messenger.ViewModels
             try
             {
                 User.StatusId = 2;
-                if (SelectedChat != null)
-                    User.Chats.Add(SelectedChat);
                 CheckDemands(User);
+                User.Chats.Add(_context.Chats.Where(x => x.DepartmentId == User.DepartmentId).First());
+                User.Chats.Add(_context.Chats.Where(x => x.Id == 32).First());
                 _context.Users.Add(User);
                 _context.SaveChanges();
-                MessageBox.Show($"Пользователь {User.Login} добавлен");
+                MessageBox.Show($"Пользователь {User.LastName} {User.Name} добавлен");
             }
             catch (Exception ex)
             {
@@ -134,7 +119,7 @@ namespace Messenger.ViewModels
             if (user.PostId == 0)
                 throw new Exception("Не выбрана должность");
             if (user.Chats.Any() == false)
-                throw new Exception("Не выбрана группа");
+                throw new Exception("Не выбран чат");
             if (user.UserTypeId == 0)
                 throw new Exception("Не выбран тип пользователя");
         }

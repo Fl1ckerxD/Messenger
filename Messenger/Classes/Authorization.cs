@@ -38,35 +38,29 @@ namespace Messenger.Classes
         /// <returns>Если пользователь был найден возвращает true, иначе false</returns>
         internal bool Login(string login, string password, bool? remember = false)
         {
-            try
+            if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password))
             {
-                if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password))
-                {
-                    MessageBox.Show("Введите логин или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return false;
-                }
-
-                User? user = GetUser(login, password);
-                if (user is not null)
-                {
-                    if (remember == true)
-                        Settings.RememberMe(login, password);
-                    else
-                        Settings.ForgetMe();
-
-                    LoggedUser.currentUser = user;
-                    LoggedUser.SetUserType((int)user.UserTypeId);
-                    return true;
-                }
-                else
-                {
-                    MessageBox.Show("Неправильный логин или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return false;
-                }
+                MessageBox.Show("Введите логин или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
-            catch
+
+            User? user = GetUser(login, password);
+            if (user is not null)
             {
-                throw new Exception("Ошибка подключения");
+                if (remember == true)
+                    Settings.RememberMe(login, password);
+                else
+                    Settings.ForgetMe();
+
+                LoggedUser.currentUser = user;
+                LoggedUser.SetUserType((int)user.UserTypeId);
+                LoggedUser.chatId = _context.Chats.Where(x => x.DepartmentId == user.DepartmentId).First().Id;
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Неправильный логин или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
         }
         /// <summary>

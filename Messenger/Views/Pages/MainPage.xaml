@@ -39,7 +39,7 @@
                 <TextBox Style="{DynamicResource SearchBox}" Margin="15,5,15,0"/>
             </StackPanel>
 
-            <ListView x:Name="list_Employees" Grid.Row="2" ItemsSource="{Binding Employees}" Background="Transparent" BorderThickness="0" SelectionMode="Single">
+            <ListView x:Name="list_Employees" Grid.Row="2" ItemsSource="{Binding Employees, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" BorderThickness="0" SelectionMode="Single">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid Cursor="Hand">
@@ -61,8 +61,8 @@
                                     <TextBlock FontSize="16" TextTrimming="WordEllipsis" MaxHeight="37">
                                         <TextBlock.Text>
                                             <MultiBinding StringFormat="{}{0} {1}">
-                                                <Binding Path="Name"/>
                                                 <Binding Path="LastName"/>
+                                                <Binding Path="Name"/>
                                             </MultiBinding>
                                         </TextBlock.Text>
                                     </TextBlock>
@@ -77,7 +77,21 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
-        <Frame Grid.Column="1" Source="/Views/Pages/ChatPage.xaml"/>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <RadioButton Content="{Binding CurrentUser.Department.Title}" Style="{DynamicResource chatButton}" IsChecked="True" Command="{Binding OpenMainChat}"/>
+                <RadioButton Grid.Column="1" Content="Общий чат" Style="{DynamicResource chatButton}" Command="{Binding OpenGeneralChat}"/>
+            </Grid>
+            <Frame Grid.Row="1" Source="/Views/Pages/ChatPage.xaml"/>
+        </Grid>
         <popup:UserInfo x:Name="popup_UserInfo" Grid.ColumnSpan="2" Visibility="Collapsed"/>
         <popup:FullScreenImage Grid.ColumnSpan="2" Visibility="Collapsed"/>
     </Grid>

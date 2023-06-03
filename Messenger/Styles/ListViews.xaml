@@ -38,8 +38,8 @@
                                             <TextBlock FontWeight="SemiBold" Foreground="{DynamicResource MyBlue}"  VerticalAlignment="Center" Margin="5,0,5,2" Cursor="Hand">
                                                 <TextBlock.Text>
                                                     <MultiBinding StringFormat="{}{0} {1}">
-                                                        <Binding Path="User.Name"/>
                                                         <Binding Path="User.LastName"/>
+                                                        <Binding Path="User.Name"/>
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                                 <TextBlock.InputBindings>
