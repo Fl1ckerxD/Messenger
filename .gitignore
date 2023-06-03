@@ -263,6 +263,8 @@ ServiceFabricBackup/
 
 # SQL Server files
 *.ndf
+*.mdf
+*.ldf
 
 # Business Intelligence projects
 *.rdl.data
@@ -359,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Messenger/Messenger_log.ldf
+/Messenger/Messenger.mdf
