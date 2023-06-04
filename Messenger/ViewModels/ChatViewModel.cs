@@ -23,6 +23,8 @@ namespace Messenger.ViewModels
         public ICommand DeleteMessageCommand { get; } //Команда удаления сообщения
         public ICommand OpenImageCommand { get; } //Команда открытия изображения из сообщения
         public ICommand EditMessageCommand { get; } //Команда редактирования сообщения
+        public ICommand CheckUserAccess { get; } //Команда проверки доступа к сообщению
+        public Visibility BorderVisibility { get; set; } = Visibility.Hidden;
         #endregion
         #endregion
         #region Public properties
@@ -59,6 +61,7 @@ namespace Messenger.ViewModels
             OpenImageCommand = new RelayCommand(obj => { ViewModelManager.FullScreenViewModel.Image = (obj as Models.File); });
             DeleteMessageCommand = new RelayCommand(ExecuteDeleteMessageCommand);
             EditMessageCommand = new RelayCommand(ExecuteEditMessageCommand);
+            CheckUserAccess = new RelayCommand(ExecuteCheckUserAccess);
         }
         /// <summary>
         /// Обновление чата
@@ -194,6 +197,17 @@ namespace Messenger.ViewModels
                 });
             }
             return files;
+        }
+        /// <summary>
+        /// Проверяет тип пользователя выбранного сообщения
+        /// </summary>
+        /// <param name="obj"></param>
+        public void ExecuteCheckUserAccess(object obj)
+        {
+            var message = obj as Message;
+            if (message.User.Id == LoggedUser.currentUser.Id || LoggedUser.userType.GetHashCode() != 0)
+                BorderVisibility = Visibility.Visible;
+            else BorderVisibility = Visibility.Hidden;
         }
     }
 }

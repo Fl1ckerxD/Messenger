@@ -28,7 +28,8 @@ namespace Messenger.ViewModels
         public MainPageViewModel()
         {
             _context = new MessengerContext();
-            CurrentUser = LoggedUser.currentUser; 
+            CurrentUser = LoggedUser.currentUser;
+            LoggedUser.chatId = _context.Chats.Where(x => x.DepartmentId == LoggedUser.currentUser.DepartmentId).First().Id;
             ShowProfileCommand = new RelayCommand(obj => { ViewModelManager.UserInfoControl.CurrentUser = (obj as User); });
             Employees = new ObservableCollection<User>(_context.Users.Where(x => x.DepartmentId == CurrentUser.DepartmentId).Include(x => x.Post).OrderBy(x => x.LastName));
             OpenGeneralChat = new RelayCommand(ExecuteOpenGeneralChat);

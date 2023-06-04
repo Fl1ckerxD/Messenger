@@ -23,7 +23,7 @@ namespace Messenger.ViewModels
             CurrentUser = user;
             SaveCommand = new RelayCommand(ExecuteSaveCommand);
             QuitCommand = new RelayCommand(ExecuteQuitCommand);
-            BackCommand = new RelayCommand(obj => { ViewModelManager.mainViewModel.CurrentChildView = new MainPageViewModel(); });//FrameManager.mainFrame.GoBack();
+            BackCommand = new RelayCommand(obj => { ViewModelManager.mainViewModel.CurrentChildView = new MainPageViewModel(); });
             OpenAdminPageCommand = new RelayCommand(obj => { ViewModelManager.mainViewModel.CurrentChildView = new AdminPageViewModel(); });
             AdminVisible = LoggedUser.userType.GetHashCode() == 1 ? Visibility.Visible : Visibility.Collapsed;
         }

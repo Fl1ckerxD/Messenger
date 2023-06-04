@@ -54,7 +54,6 @@ namespace Messenger.Classes
 
                 LoggedUser.currentUser = user;
                 LoggedUser.SetUserType((int)user.UserTypeId);
-                LoggedUser.chatId = _context.Chats.Where(x => x.DepartmentId == user.DepartmentId).First().Id;
                 return true;
             }
             else
