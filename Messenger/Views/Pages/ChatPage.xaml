@@ -28,7 +28,7 @@
 
         <StackPanel Grid.Row="2">
             <ListView x:Name="list_files" ItemsSource="{Binding AttachedFiles, UpdateSourceTrigger=PropertyChanged}"
-                      ItemContainerStyle="{DynamicResource FileItem}" Height="auto" BorderThickness="0">
+                      ItemContainerStyle="{DynamicResource FileItem}" Height="auto" BorderBrush="LightGray" BorderThickness="1,0,0,0">
 
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -37,10 +37,12 @@
                 </ListView.ItemsPanel>
             </ListView>
 
-            <DockPanel Background="White">
-                <Button Grid.Column="1" Style="{DynamicResource AttachFile}" Command="{Binding AttachFileCommand}" Cursor="Hand" Margin="0,0,-10,0"/>
-                <TextBox Grid.Column="0" Style="{StaticResource MessageBox}" TabIndex="0" MaxLength="200"/>
-            </DockPanel>
+            <Border Background="White" BorderBrush="LightGray" BorderThickness="1,0,0,0">
+                <DockPanel>
+                    <Button Grid.Column="1" Style="{DynamicResource AttachFile}" Command="{Binding AttachFileCommand}" Cursor="Hand" Margin="0,0,-10,0"/>
+                    <TextBox Grid.Column="0" Style="{StaticResource MessageBox}" TabIndex="0" MaxLength="200"/>
+                </DockPanel>
+            </Border>
         </StackPanel>
     </Grid>
 </Page>

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" d:DesignWidth="800"
-      Title="CreateUser" Height="567">
+      Title="CreateUser">
 
     <Grid Background="white">
         <StackPanel Margin="0,35,0,0">

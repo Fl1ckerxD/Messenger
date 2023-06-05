@@ -37,7 +37,7 @@
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
-                        <TextBlock FontSize="12" FontWeight="SemiBold" Foreground="Gray" Text="{Binding CurrentUser.Status.Title}"/>
+                        <!--<TextBlock FontSize="12" FontWeight="SemiBold" Foreground="Gray" Text="{Binding CurrentUser.Status.Title}"/>-->
                     </StackPanel>
                 </DockPanel>
 
