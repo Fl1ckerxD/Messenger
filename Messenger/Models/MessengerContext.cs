@@ -31,7 +31,7 @@ namespace Messenger.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["MDF"].ConnectionString);
+                optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["Main"].ConnectionString);
             }
         }
 

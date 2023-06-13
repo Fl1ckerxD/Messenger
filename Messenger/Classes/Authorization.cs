@@ -15,21 +15,14 @@ namespace Messenger.Classes
         {
             string login, password;
             bool? remember;
-            try
+            if (Properties.Settings.Default.UserName != string.Empty)
             {
-                if (Properties.Settings.Default.UserName != string.Empty)
-                {
-                    login = Properties.Settings.Default.UserName;
-                    password = Properties.Settings.Default.Password;
-                    remember = true;
-                    return Login(login, password, remember);
-                }
-                return false;
+                login = Properties.Settings.Default.UserName;
+                password = Properties.Settings.Default.Password;
+                remember = true;
+                return Login(login, password, remember);
             }
-            catch
-            {
-                throw new Exception("Ошибка подключения");
-            }
+            return false;
         }
         /// <summary>
         /// Авторизация в приложении

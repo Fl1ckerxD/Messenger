@@ -39,7 +39,10 @@
                             <TextBlock Margin="15,0,0,0">E-mail</TextBlock>
                             <TextBox Style="{DynamicResource MainTextBox}" Text="{Binding User.Email}" Margin="5,0,5,0"/>
                         </StackPanel>
-                        <ComboBox Width="150" Height="35" Style="{DynamicResource MyCombobox}" ItemsSource="{Binding UserTypes}" SelectedValue="{Binding User.UserTypeId}" VerticalAlignment="Bottom"/>
+                        <StackPanel>
+                            <TextBlock Margin="15,0,0,0">Тип пользователя</TextBlock>
+                            <ComboBox Width="160" Height="35" Style="{DynamicResource MyCombobox}" ItemsSource="{Binding UserTypes}" SelectedValue="{Binding User.UserTypeId}" VerticalAlignment="Bottom"/>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </DockPanel>
@@ -49,10 +52,7 @@
             <TextBlock Margin="15,10,0,0">Пароль</TextBlock>
             <PasswordBox x:Name="pb_Password" Margin="5,0,5,0" PasswordChanged="Password_PasswordChanged"/>
             <TextBox x:Name="tb_Password" Style="{DynamicResource MainTextBox}" Text="{Binding User.Password}" Visibility="Collapsed" Margin="5,0,5,0"/>
-            <Grid>
-                <CheckBox x:Name="showPassword" Content="Показать пароль" Margin="10,5,0,0" Unchecked="showPassword_Unchecked" Checked="showPassword_Checked"/>
-                <ComboBox ItemsSource="{Binding Types}" DisplayMemberPath="Title" SelectedValuePath="Id" SelectedValue="{Binding SelectedLogin.UserTypeId}" SelectedIndex="0" Visibility="Collapsed" Width="140" HorizontalAlignment="Right" Margin="0,5,10,0"/>
-            </Grid>
+            <CheckBox x:Name="showPassword" Content="Показать пароль" Margin="10,5,0,0" Unchecked="showPassword_Unchecked" Checked="showPassword_Checked"/>
 
             <StackPanel Margin="5,0,5,0">
                 <TextBlock Text="Отдел" Margin="15,10,0,0"/>

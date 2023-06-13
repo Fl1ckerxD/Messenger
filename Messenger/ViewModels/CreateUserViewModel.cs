@@ -91,7 +91,7 @@ namespace Messenger.ViewModels
                 User.Chats.Add(_context.Chats.Where(x => x.Id == 32).First());
                 _context.Users.Add(User);
                 _context.SaveChanges();
-                MessageBox.Show($"Пользователь {User.LastName} {User.Name} добавлен");
+                MessageBox.Show($"Пользователь {User.LastName} {User.Name} добавлен", "Добавлен", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -118,9 +118,11 @@ namespace Messenger.ViewModels
                 throw new Exception("Не выбран отдел");
             if (user.PostId == 0)
                 throw new Exception("Не выбрана должность");
-            if (user.Chats.Any() == false)
-                throw new Exception("Не выбран чат");
-            if (user.UserTypeId == 0)
+            if (user.Login == _context.Users.Where(x => x.Login == user.Login).FirstOrDefault().Login)
+                throw new Exception("Пользователь с таким логином уже зарегистрирован");
+            //if (user.Chats.Any() == false)
+            //    throw new Exception("Не выбран чат");
+            if (user.UserTypeId == null)
                 throw new Exception("Не выбран тип пользователя");
         }
     }
