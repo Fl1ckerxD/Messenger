@@ -73,7 +73,7 @@ namespace Messenger.ViewModels
                 throw new Exception("Фамилия не введена");
             if (!string.IsNullOrWhiteSpace(CurrentPassword))
                 if (CurrentPassword != CurrentUser.Password)
-                    throw new Exception("Не правильный текущий пароль");
+                    throw new Exception("Неправильный текущий пароль");
                 else if (string.IsNullOrWhiteSpace(NewPassword) || string.IsNullOrWhiteSpace(ConfirmPassword))
                     throw new Exception("Пароль не введен");
                 else if (NewPassword != ConfirmPassword)
@@ -82,10 +82,10 @@ namespace Messenger.ViewModels
                 throw new Exception("Логин не введен");
             if (!string.IsNullOrWhiteSpace(CurrentUser.Email))
                 if (!ValidProperty.IsValidEmail(CurrentUser.Email))
-                    throw new Exception("Не правильная почта");
+                    throw new Exception("Неправильная почта");
             if (!string.IsNullOrWhiteSpace(CurrentUser.Phone))
                 if (!ValidProperty.IsValidPhone(CurrentUser.Phone))
-                    throw new Exception("Не правильный номер телефона");
+                    throw new Exception("Неправильный номер телефона");
         }
     }
 }

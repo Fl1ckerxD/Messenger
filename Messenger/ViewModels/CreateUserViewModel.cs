@@ -113,15 +113,13 @@ namespace Messenger.ViewModels
                 throw new Exception("Пароль не введен");
             if (!string.IsNullOrWhiteSpace(user.Email))
                 if (!ValidProperty.IsValidEmail(user.Email))
-                    throw new Exception("Не правильная почта");
+                    throw new Exception("Неправильная почта");
             if (user.DepartmentId == 0)
                 throw new Exception("Не выбран отдел");
             if (user.PostId == 0)
                 throw new Exception("Не выбрана должность");
             if (user.Login == _context.Users.Where(x => x.Login == user.Login).FirstOrDefault().Login)
                 throw new Exception("Пользователь с таким логином уже зарегистрирован");
-            //if (user.Chats.Any() == false)
-            //    throw new Exception("Не выбран чат");
             if (user.UserTypeId == null)
                 throw new Exception("Не выбран тип пользователя");
         }
