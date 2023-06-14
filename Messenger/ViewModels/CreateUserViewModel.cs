@@ -8,6 +8,7 @@ namespace Messenger.ViewModels
     internal class CreateUserViewModel : ViewModelBase
     {
         private MessengerContext _context; //Контекст базы данных
+        private string oldUserLogin;
         #region Public members
         public User User { get; set; } //Создаваемый пользователь
         public ObservableCollection<Department> Departments { get; set; } //Выбранный отдел
@@ -37,6 +38,7 @@ namespace Messenger.ViewModels
                     .Include(x => x.Status)
                     .Include(x => x.Chats)
                     .First();
+                oldUserLogin = User.Login;
                 ExecuteSelectedItemChangedCommand(User.Department);
             }
             else
@@ -118,8 +120,9 @@ namespace Messenger.ViewModels
                 throw new Exception("Не выбран отдел");
             if (user.PostId == 0)
                 throw new Exception("Не выбрана должность");
-            if (user.Login == _context.Users.Where(x => x.Login == user.Login).FirstOrDefault().Login)
-                throw new Exception("Пользователь с таким логином уже зарегистрирован");
+            if (oldUserLogin != user.Login)
+                if (user.Login == _context.Users.Where(x => x.Login == user.Login).FirstOrDefault()?.Login)
+                    throw new Exception("Пользователь с таким логином уже зарегистрирован");
             if (user.UserTypeId == null)
                 throw new Exception("Не выбран тип пользователя");
         }
